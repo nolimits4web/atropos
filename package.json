@@ -1,0 +1,22 @@
+{
+  "name": "zoom-rotate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nolimits4web/zoom-rotate.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nolimits4web/zoom-rotate/issues"
+  },
+  "homepage": "https://github.com/nolimits4web/zoom-rotate#readme",
+  "devDependencies": {
+    "serve": "^11.3.2"
+  }
+}
