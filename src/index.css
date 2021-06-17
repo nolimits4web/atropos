@@ -3,22 +3,24 @@ body {
   position: relative;
   margin: 0;
   padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-.xyz {
+.mariko {
   position: relative;
   display: block;
   perspective: 1200px;
   transform: translate3d(0, 0, 0);
 }
-.xyz-scale,
-.xyz-rotate {
+.mariko-scale,
+.mariko-rotate {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
   transition-property: transform;
 }
-.xyz-shadow {
+.mariko-shadow {
   z-index: -1;
   background: #000;
   position: absolute;
@@ -29,7 +31,7 @@ body {
   filter: blur(30px);
   opacity: 0;
 }
-.xyz-highlight {
+.mariko-highlight {
   position: absolute;
   left: -50%;
   top: -50%;
@@ -43,16 +45,16 @@ body {
   opacity: 0;
   z-index: 0;
 }
-.xyz-rotate {
+.mariko-rotate {
   position: relative;
 }
-.xyz-state-active {
+.mariko-state-active {
   z-index: 1;
 }
-.xyz-state-active .xyz-shadow {
+.mariko-state-active .mariko-shadow {
   opacity: 1;
 }
-.xyz-inner {
+.mariko-inner {
   width: 100%;
   height: 100%;
   position: relative;
@@ -72,7 +74,7 @@ body {
 .project-banner {
   width: calc((100% - 64px) / 2);
 }
-.project-banner .xyz-inner {
+.project-banner .mariko-inner {
   background: #fff;
   border-radius: 10px;
 }
@@ -95,11 +97,11 @@ body {
   top: 0;
   visibility: hidden;
 }
-.project-banner-f7 .xyz-shadow {
+.project-banner-f7 .mariko-shadow {
   background-image: linear-gradient(90deg, #ff0000, #ff0099);
   filter: blur(20px);
 }
-.project-banner-f7 .xyz-highlight {
+.project-banner-f7 .mariko-highlight {
   background-image: radial-gradient(
     circle at 50%,
     rgba(255, 255, 255, 1),
@@ -107,11 +109,11 @@ body {
     rgba(125, 0, 0, 0.15)
   );
 }
-.project-banner-twm .xyz-shadow {
+.project-banner-twm .mariko-shadow {
   background: rgb(110, 40, 0);
   filter: blur(20px);
 }
-.project-banner-twm .xyz-highlight {
+.project-banner-twm .mariko-highlight {
   background-image: radial-gradient(
     circle at 50%,
     rgba(255, 255, 255, 1),
@@ -119,15 +121,49 @@ body {
     rgba(125, 50, 0, 0.15)
   );
 }
-.project-banner-se .xyz-shadow {
+.project-banner-se .mariko-shadow {
   background: rgb(65, 17, 104);
   filter: blur(20px);
 }
-.project-banner-se .xyz-highlight {
+.project-banner-se .mariko-highlight {
   background-image: radial-gradient(
     circle at 50%,
     rgba(255, 255, 255, 1),
     rgba(255, 255, 255, 1) 25%,
     rgba(66, 1, 119, 0.15)
+  );
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: #557;
+  padding: 40px;
+}
+li {
+  cursor: pointer;
+}
+li .mariko-inner {
+  background: #fff;
+  border-radius: 16px;
+  width: 220px;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+li + li {
+  margin-top: 16px;
+}
+li .mariko-shadow {
+  filter: blur(10px);
+}
+li .mariko-highlight {
+  background-image: radial-gradient(
+    circle at 50%,
+    rgba(255, 255, 255, 0.25),
+    rgba(0, 0, 0, 0.3) 50%
   );
 }

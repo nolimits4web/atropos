@@ -7,8 +7,11 @@ const makeCard = (params = {}) => {
     shadowOffset = 50,
     enterDuration = 300,
     leaveDuration = 600,
+    lockRotate = true,
     maxRotateX = 15,
     maxRotateY = 15,
+    invertRotateX = false,
+    invertRotateY = false,
     shadow = true,
     highlight = true,
   } = params;
@@ -34,9 +37,9 @@ const makeCard = (params = {}) => {
     destroyed: false,
     isActive: false,
   };
-  const rotateEl = el.querySelector(".xyz-rotate");
-  const scaleEl = el.querySelector(".xyz-scale");
-  const innerEl = el.querySelector(".xyz-inner");
+  const rotateEl = el.querySelector(".mariko-rotate");
+  const scaleEl = el.querySelector(".mariko-scale");
+  const innerEl = el.querySelector(".mariko-inner");
 
   let enterRotateX;
   let enterRotateY;
@@ -47,18 +50,18 @@ const makeCard = (params = {}) => {
   let shadowEl;
   let highlightEl;
   const createShadow = () => {
-    shadowEl = rotateEl.querySelector(".xyz-shadow");
+    shadowEl = rotateEl.querySelector(".mariko-shadow");
     if (shadowEl) return;
     shadowEl = document.createElement("span");
-    shadowEl.classList.add("xyz-shadow");
+    shadowEl.classList.add("mariko-shadow");
     shadowEl.style.transform = `translate3d(0,0,-${shadowOffset}px)`;
     rotateEl.appendChild(shadowEl);
   };
   const createHighlight = () => {
-    highlightEl = innerEl.querySelector(".xyz-highlight");
+    highlightEl = innerEl.querySelector(".mariko-highlight");
     if (highlightEl) return;
     highlightEl = document.createElement("span");
-    highlightEl.classList.add("xyz-highlight");
+    highlightEl.classList.add("mariko-highlight");
     highlightEl.style.transform = `translate3d(0,0,0)`;
     innerEl.appendChild(highlightEl);
   };
@@ -71,7 +74,7 @@ const makeCard = (params = {}) => {
   }
 
   const onMouseEnter = (e) => {
-    el.classList.add("xyz-state-active");
+    el.classList.add("mariko-state-active");
     rotateEl.style.transitionDuration = "0ms";
     enterRotateX = undefined;
     enterRotateY = undefined;
@@ -96,36 +99,41 @@ const makeCard = (params = {}) => {
 
     let rotateY = ((maxRotateY * (coordX - centerX)) / (width / 2)) * -1;
     let rotateX = (maxRotateX * (coordY - centerY)) / (height / 2);
-    if (typeof enterRotateY === "undefined") {
-      enterRotateY = rotateY;
-      rotateYLock = true;
-    }
-    if (typeof enterRotateX === "undefined") {
-      enterRotateX = rotateX;
-      rotateXLock = true;
-    }
-    if (rotateYLock) {
-      if (enterRotateY < 0) {
-        if (rotateY < 0) rotateY = 0;
-        if (rotateY > 0) rotateYLock = false;
+    if (lockRotate) {
+      if (typeof enterRotateY === "undefined") {
+        enterRotateY = rotateY;
+        rotateYLock = true;
       }
-      if (enterRotateY > 0) {
-        if (rotateY > 0) rotateY = 0;
-        if (rotateY < 0) rotateYLock = false;
+      if (typeof enterRotateX === "undefined") {
+        enterRotateX = rotateX;
+        rotateXLock = true;
+      }
+      if (rotateYLock) {
+        if (enterRotateY < 0) {
+          if (rotateY < 0) rotateY = 0;
+          if (rotateY > 0) rotateYLock = false;
+        }
+        if (enterRotateY > 0) {
+          if (rotateY > 0) rotateY = 0;
+          if (rotateY < 0) rotateYLock = false;
+        }
+      }
+      if (rotateXLock) {
+        if (enterRotateX < 0) {
+          if (rotateX < 0) rotateX = 0;
+          if (rotateX > 0) rotateXLock = false;
+        }
+        if (enterRotateX > 0) {
+          if (rotateX > 0) rotateX = 0;
+          if (rotateX < 0) rotateXLock = false;
+        }
       }
     }
-    if (rotateXLock) {
-      if (enterRotateX < 0) {
-        if (rotateX < 0) rotateX = 0;
-        if (rotateX > 0) rotateXLock = false;
-      }
-      if (enterRotateX > 0) {
-        if (rotateX > 0) rotateX = 0;
-        if (rotateX < 0) rotateXLock = false;
-      }
-    }
+
     rotateX = Math.min(Math.max(-rotateX, -maxRotateX), maxRotateX);
+    if (invertRotateX) rotateX = -rotateX;
     rotateY = Math.min(Math.max(-rotateY, -maxRotateY), maxRotateY);
+    if (invertRotateY) rotateY = -rotateY;
     rotateEl.style.transform = `translate3d(0,0,0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
     const rotateXPercentage = (rotateX / maxRotateX) * 100;
@@ -141,8 +149,8 @@ const makeCard = (params = {}) => {
         100;
     }
 
-    el.querySelectorAll("[data-xyz-offset]").forEach((childEl) => {
-      const childElOffset = parseFloat(childEl.dataset.xyzOffset) / 100;
+    el.querySelectorAll("[data-mariko-offset]").forEach((childEl) => {
+      const childElOffset = parseFloat(childEl.dataset.marikoOffset) / 100;
       if (Number.isNaN(childElOffset)) return;
       childEl.style.transitionDuration = "0ms";
       childEl.style.transform = `translate3d(${
@@ -152,7 +160,7 @@ const makeCard = (params = {}) => {
   };
 
   const onMouseLeave = (e) => {
-    el.classList.remove("xyz-state-active");
+    el.classList.remove("mariko-state-active");
     scaleEl.style.transform = `translate3d(0,0, ${0}px)`;
     scaleEl.style.transitionDuration = `${leaveDuration}ms`;
     if (shadowEl) {
@@ -165,7 +173,7 @@ const makeCard = (params = {}) => {
     }
     rotateEl.style.transitionDuration = `${leaveDuration}ms`;
     rotateEl.style.transform = `translate3d(0,0,0) rotateX(0deg) rotateY(0deg)`;
-    el.querySelectorAll("[data-xyz-offset]").forEach((childEl) => {
+    el.querySelectorAll("[data-mariko-offset]").forEach((childEl) => {
       childEl.style.transform = `translate3d(0,0,0)`;
       childEl.style.transitionDuration = `${leaveDuration}ms`;
     });
@@ -188,11 +196,20 @@ const makeCard = (params = {}) => {
   return self;
 };
 makeCard({
-  el: document.querySelectorAll(".xyz")[0],
+  el: document.querySelectorAll(".mariko")[0],
 });
 makeCard({
-  el: document.querySelectorAll(".xyz")[1],
+  el: document.querySelectorAll(".mariko")[1],
 });
 makeCard({
-  el: document.querySelectorAll(".xyz")[2],
+  el: document.querySelectorAll(".mariko")[2],
+});
+
+document.querySelectorAll("li").forEach((el) => {
+  makeCard({
+    el,
+    activeOffset: 100,
+    maxRotateX: 20,
+    maxRotateY: 20,
+  });
 });
