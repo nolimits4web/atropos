@@ -1,17 +1,42 @@
-const makeCard = (el) => {
-  const rotateEl = el.querySelector(".rotate-wrap");
+import { getDocument } from "../node_modules/ssr-window/ssr-window.esm.js";
 
-  const onTransitionEnd = (el, handler) => {
-    const proxy = (e) => {
-      if (e.target !== el) return;
-      handler();
-      el.removeEventListener("transitionend", proxy);
-    };
-    el.addEventListener("transitionend", proxy);
+const makeCard = (params = {}) => {
+  const document = getDocument();
+  const {
+    activeOffset = 50,
+    shadowOffset = 50,
+    enterDuration = 300,
+    leaveDuration = 600,
+    maxRotateX = 15,
+    maxRotateY = 15,
+    shadow = true,
+    highlight = true,
+  } = params;
+
+  let { el, eventsEl } = params;
+
+  if (typeof el === "string") {
+    el = document.querySelector(el);
+  }
+  if (!el) return;
+
+  if (typeof eventsEl !== "undefined") {
+    if (typeof eventsEl === "string") {
+      eventsEl = document.querySelector(eventsEl);
+    }
+  } else {
+    eventsEl = el;
+  }
+
+  const self = {
+    el,
+    params,
+    destroyed: false,
+    isActive: false,
   };
-
-  let startX;
-  let startY;
+  const rotateEl = el.querySelector(".xyz-rotate");
+  const scaleEl = el.querySelector(".xyz-scale");
+  const innerEl = el.querySelector(".xyz-inner");
 
   let enterRotateX;
   let enterRotateY;
@@ -19,14 +44,45 @@ const makeCard = (el) => {
   let rotateXLock = true;
   let rotateYLock = true;
 
+  let shadowEl;
+  let highlightEl;
+  const createShadow = () => {
+    shadowEl = rotateEl.querySelector(".xyz-shadow");
+    if (shadowEl) return;
+    shadowEl = document.createElement("span");
+    shadowEl.classList.add("xyz-shadow");
+    shadowEl.style.transform = `translate3d(0,0,-${shadowOffset}px)`;
+    rotateEl.appendChild(shadowEl);
+  };
+  const createHighlight = () => {
+    highlightEl = innerEl.querySelector(".xyz-highlight");
+    if (highlightEl) return;
+    highlightEl = document.createElement("span");
+    highlightEl.classList.add("xyz-highlight");
+    highlightEl.style.transform = `translate3d(0,0,0)`;
+    innerEl.appendChild(highlightEl);
+  };
+
+  if (shadow) {
+    createShadow();
+  }
+  if (highlight) {
+    createHighlight();
+  }
+
   const onMouseEnter = (e) => {
-    rotateEl.style.transition = "0ms";
-    startX = e.pageX;
-    startY = e.pageY;
+    el.classList.add("xyz-state-active");
+    rotateEl.style.transitionDuration = "0ms";
     enterRotateX = undefined;
     enterRotateY = undefined;
     rotateXLock = true;
     rotateYLock = true;
+    scaleEl.style.transform = `translate3d(0,0, ${activeOffset}px)`;
+    scaleEl.style.transitionDuration = `${enterDuration}ms`;
+    if (shadowEl) {
+      shadowEl.style.transitionDuration = `${enterDuration}ms`;
+    }
+    self.isActive = true;
   };
 
   const onMouseMove = (e) => {
@@ -38,10 +94,8 @@ const makeCard = (el) => {
     const coordX = pageX - left;
     const coordY = pageY - top;
 
-    const rY = 15;
-    const rX = 15;
-    let rotateY = ((rY * (coordX - centerX)) / (width / 2)) * -1;
-    let rotateX = (rX * (coordY - centerY)) / (height / 2);
+    let rotateY = ((maxRotateY * (coordX - centerX)) / (width / 2)) * -1;
+    let rotateX = (maxRotateX * (coordY - centerY)) / (height / 2);
     if (typeof enterRotateY === "undefined") {
       enterRotateY = rotateY;
       rotateYLock = true;
@@ -70,27 +124,75 @@ const makeCard = (el) => {
         if (rotateX < 0) rotateXLock = false;
       }
     }
-    rotateX = -rotateX;
-    rotateY = -rotateY;
+    rotateX = Math.min(Math.max(-rotateX, -maxRotateX), maxRotateX);
+    rotateY = Math.min(Math.max(-rotateY, -maxRotateY), maxRotateY);
+    rotateEl.style.transform = `translate3d(0,0,0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
-    rotateEl.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    rotateEl.querySelector("img").style.transform = `translateX(${
-      -rotateY / 2
-    }px) translateY(${rotateX / 2}px) translateZ(0px)`;
-    rotateEl.querySelector("span").style.transform = `translateX(${
-      rotateY / 1.5
-    }px) translateY(${-rotateX / 1.5}px) translateZ(0px)`;
+    const rotateXPercentage = (rotateX / maxRotateX) * 100;
+    const rotateYPercentage = (rotateY / maxRotateY) * 100;
+
+    if (highlightEl) {
+      highlightEl.style.transitionDuration = "0ms";
+      highlightEl.style.transform = `translate3d(${
+        -rotateYPercentage * 0.25
+      }%, ${rotateXPercentage * 0.25}%, 0)`;
+      highlightEl.style.opacity =
+        Math.max(Math.abs(rotateXPercentage), Math.abs(rotateYPercentage)) /
+        100;
+    }
+
+    el.querySelectorAll("[data-xyz-offset]").forEach((childEl) => {
+      const childElOffset = parseFloat(childEl.dataset.xyzOffset) / 100;
+      if (Number.isNaN(childElOffset)) return;
+      childEl.style.transitionDuration = "0ms";
+      childEl.style.transform = `translate3d(${
+        -rotateYPercentage * -childElOffset
+      }%, ${rotateXPercentage * -childElOffset}%, 0)`;
+    });
   };
 
   const onMouseLeave = (e) => {
-    rotateEl.style.transition = "600ms";
-    rotateEl.style.transform = `rotateX(0deg) rotateY(0deg)`;
+    el.classList.remove("xyz-state-active");
+    scaleEl.style.transform = `translate3d(0,0, ${0}px)`;
+    scaleEl.style.transitionDuration = `${leaveDuration}ms`;
+    if (shadowEl) {
+      shadowEl.style.transitionDuration = `${leaveDuration}ms`;
+    }
+    if (highlightEl) {
+      highlightEl.style.transitionDuration = `${leaveDuration}ms`;
+      highlightEl.style.transform = `translate3d(0, 0, 0)`;
+      highlightEl.style.opacity = 0;
+    }
+    rotateEl.style.transitionDuration = `${leaveDuration}ms`;
+    rotateEl.style.transform = `translate3d(0,0,0) rotateX(0deg) rotateY(0deg)`;
+    el.querySelectorAll("[data-xyz-offset]").forEach((childEl) => {
+      childEl.style.transform = `translate3d(0,0,0)`;
+      childEl.style.transitionDuration = `${leaveDuration}ms`;
+    });
+    self.isActive = false;
   };
 
-  el.addEventListener("mouseenter", onMouseEnter);
-  el.addEventListener("mousemove", onMouseMove);
-  el.addEventListener("mouseleave", onMouseLeave);
+  const destroy = () => {
+    self.destroyed = true;
+    eventsEl.removeEventListener("mouseenter", onMouseEnter);
+    eventsEl.removeEventListener("mousemove", onMouseMove);
+    eventsEl.removeEventListener("mouseleave", onMouseLeave);
+  };
+
+  self.destroy = destroy;
+
+  eventsEl.addEventListener("mouseenter", onMouseEnter);
+  eventsEl.addEventListener("mousemove", onMouseMove);
+  eventsEl.addEventListener("mouseleave", onMouseLeave);
+
+  return self;
 };
-makeCard(document.querySelectorAll(".item")[0]);
-makeCard(document.querySelectorAll(".item")[1]);
-makeCard(document.querySelectorAll(".item")[2]);
+makeCard({
+  el: document.querySelectorAll(".xyz")[0],
+});
+makeCard({
+  el: document.querySelectorAll(".xyz")[1],
+});
+makeCard({
+  el: document.querySelectorAll(".xyz")[2],
+});

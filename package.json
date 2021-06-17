@@ -18,5 +18,8 @@
   "homepage": "https://github.com/nolimits4web/zoom-rotate#readme",
   "devDependencies": {
     "serve": "^11.3.2"
+  },
+  "dependencies": {
+    "ssr-window": "^3.0.0"
   }
 }
