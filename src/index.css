@@ -12,6 +12,9 @@ body {
   display: block;
   perspective: 1200px;
   transform: translate3d(0, 0, 0);
+  touch-action: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
 }
 .mariko-scale,
 .mariko-rotate {
@@ -48,10 +51,10 @@ body {
 .mariko-rotate {
   position: relative;
 }
-.mariko-state-active {
+.mariko-active {
   z-index: 1;
 }
-.mariko-state-active .mariko-shadow {
+.mariko-active .mariko-shadow {
   opacity: 1;
 }
 .mariko-inner {

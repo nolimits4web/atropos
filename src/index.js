@@ -73,8 +73,13 @@ const makeCard = (params = {}) => {
     createHighlight();
   }
 
-  const onMouseEnter = (e) => {
-    el.classList.add("mariko-state-active");
+  const onPointerEnter = (e) => {
+    if (e.type === "pointerdown" && e.pointerType === "mouse") return;
+    if (e.type === "pointerenter" && e.pointerType !== "mouse") return;
+    if (e.type === "pointerdown") {
+      e.preventDefault();
+    }
+    el.classList.add("mariko-active");
     rotateEl.style.transitionDuration = "0ms";
     enterRotateX = undefined;
     enterRotateY = undefined;
@@ -88,7 +93,10 @@ const makeCard = (params = {}) => {
     self.isActive = true;
   };
 
-  const onMouseMove = (e) => {
+  const onPointerMove = (e) => {
+    if (e.pointerType !== "mouse") {
+      e.preventDefault();
+    }
     const { pageX, pageY } = e;
     const { top, left, width, height } = el.getBoundingClientRect();
     const centerX = width / 2;
@@ -159,8 +167,11 @@ const makeCard = (params = {}) => {
     });
   };
 
-  const onMouseLeave = (e) => {
-    el.classList.remove("mariko-state-active");
+  const onPointerLeave = (e) => {
+    if (!self.isActive) return;
+    if (e && e.type === "pointerup" && e.pointerType === "mouse") return;
+    if (e && e.type === "pointerleave" && e.pointerType !== "mouse") return;
+    el.classList.remove("mariko-active");
     scaleEl.style.transform = `translate3d(0,0, ${0}px)`;
     scaleEl.style.transitionDuration = `${leaveDuration}ms`;
     if (shadowEl) {
@@ -180,18 +191,33 @@ const makeCard = (params = {}) => {
     self.isActive = false;
   };
 
+  const onDocumentClick = (e) => {
+    const clickTarget = e.target;
+    if (!el.contains(clickTarget) && clickTarget !== el && self.isActive) {
+      onPointerLeave();
+    }
+  };
+
   const destroy = () => {
     self.destroyed = true;
-    eventsEl.removeEventListener("mouseenter", onMouseEnter);
-    eventsEl.removeEventListener("mousemove", onMouseMove);
-    eventsEl.removeEventListener("mouseleave", onMouseLeave);
+    document.removeEventListener("click", onDocumentClick);
+    eventsEl.removeEventListener("pointerdown", onPointerEnter);
+    eventsEl.removeEventListener("pointerenter", onPointerEnter);
+    eventsEl.removeEventListener("pointermove", onPointerMove);
+    eventsEl.removeEventListener("pointerleave", onPointerLeave);
+    eventsEl.removeEventListener("pointerup", onPointerLeave);
+    eventsEl.removeEventListener("lostpointercapture", onPointerLeave);
   };
 
   self.destroy = destroy;
 
-  eventsEl.addEventListener("mouseenter", onMouseEnter);
-  eventsEl.addEventListener("mousemove", onMouseMove);
-  eventsEl.addEventListener("mouseleave", onMouseLeave);
+  document.addEventListener("click", onDocumentClick);
+  eventsEl.addEventListener("pointerdown", onPointerEnter);
+  eventsEl.addEventListener("pointerenter", onPointerEnter);
+  eventsEl.addEventListener("pointermove", onPointerMove, { passive: false });
+  eventsEl.addEventListener("pointerleave", onPointerLeave);
+  eventsEl.addEventListener("pointerup", onPointerLeave);
+  eventsEl.addEventListener("lostpointercapture", onPointerLeave);
 
   return self;
 };
