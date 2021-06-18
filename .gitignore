@@ -1,3 +1,4 @@
+.DS_Store
 # Logs
 logs
 *.log
@@ -102,3 +103,14 @@ dist
 
 # TernJS port file
 .tern-port
+
+build/*.css
+build/*.less
+build/*.scss
+build/*.js
+build/*.map
+package/*.css
+package/*.less
+package/*.scss
+package/*.js
+package/*.map
