@@ -23,6 +23,7 @@ function Mariko(params = {}) {
   const {
     activeOffset = 50,
     shadowOffset = 50,
+    shadowScale = 1,
     durationEnter = 300,
     durationLeave = 600,
     rotateLock = true,
@@ -62,8 +63,10 @@ function Mariko(params = {}) {
   Object.assign(self, {
     el,
   });
+
   // eslint-disable-next-line
   el.__mariko__ = self;
+
   const rotateEl = $(el, '.mariko-rotate');
   const scaleEl = $(el, '.mariko-scale');
   const innerEl = $(el, '.mariko-inner');
@@ -76,12 +79,13 @@ function Mariko(params = {}) {
 
   let shadowEl;
   let highlightEl;
+
   const createShadow = () => {
     shadowEl = $(rotateEl, '.mariko-shadow');
     if (shadowEl) return;
     shadowEl = document.createElement('span');
     shadowEl.classList.add('mariko-shadow');
-    $setTransform(shadowEl, `translate3d(0,0,-${shadowOffset}px)`);
+    $setTransform(shadowEl, `translate3d(0,0,-${shadowOffset}px) scale(${shadowScale})`);
     rotateEl.appendChild(shadowEl);
   };
   const createHighlight = () => {
@@ -92,13 +96,6 @@ function Mariko(params = {}) {
     $setTransform(highlightEl, `translate3d(0,0,0)`);
     innerEl.appendChild(highlightEl);
   };
-
-  if (shadow) {
-    createShadow();
-  }
-  if (highlight) {
-    createHighlight();
-  }
 
   const onPointerEnter = (e) => {
     if (e.type === 'pointerdown' && e.pointerType === 'mouse') return;
@@ -243,15 +240,28 @@ function Mariko(params = {}) {
     delete el.__mariko__;
   };
 
+  const init = () => {
+    if (shadow) {
+      createShadow();
+    }
+    if (highlight) {
+      createHighlight();
+    }
+    if (rotateTouch) {
+      el.classList.add('mariko-rotate-touch');
+    }
+    $on(document, 'click', onDocumentClick);
+    $on(eventsEl, 'pointerdown', onPointerEnter);
+    $on(eventsEl, 'pointerenter', onPointerEnter);
+    $on(eventsEl, 'pointermove', onPointerMove);
+    $on(eventsEl, 'pointerleave', onPointerLeave);
+    $on(eventsEl, 'pointerup', onPointerLeave);
+    $on(eventsEl, 'lostpointercapture', onPointerLeave);
+  };
+
   self.destroy = destroy;
 
-  $on(document, 'click', onDocumentClick);
-  $on(eventsEl, 'pointerdown', onPointerEnter);
-  $on(eventsEl, 'pointerenter', onPointerEnter);
-  $on(eventsEl, 'pointermove', onPointerMove);
-  $on(eventsEl, 'pointerleave', onPointerLeave);
-  $on(eventsEl, 'pointerup', onPointerLeave);
-  $on(eventsEl, 'lostpointercapture', onPointerLeave);
+  init();
 
   // eslint-disable-next-line
   return self;
