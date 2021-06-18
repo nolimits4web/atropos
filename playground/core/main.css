@@ -5,6 +5,14 @@ body {
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
     'Open Sans', 'Helvetica Neue', sans-serif;
+  min-height: 100vh;
+}
+body {
+  background-image: linear-gradient(to bottom, #ad3ef5, #5814a2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .container {
   padding: 0px 40px;
@@ -12,27 +20,28 @@ body {
   margin: 32px auto;
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
 }
-
-.project-banner {
-  width: calc((100% - 64px) / 2);
+.mariko-banner {
+  width: 100%;
 }
-.project-banner .mariko-inner {
-  background: #fff;
+.mariko-banner .mariko-inner {
   border-radius: 10px;
 }
-.project-banner img {
+.mariko-banner img {
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  left: -5%;
+  top: -5%;
+  width: 110%;
+  height: 110%;
   object-fit: contain;
   display: block;
   z-index: 1;
   transform-style: preserve-3d;
+  pointer-events: none;
 }
-.project-banner img.project-banner-spacer {
+.mariko-banner img.mariko-banner-spacer {
   position: relative;
   width: 100%;
   height: auto;
@@ -40,73 +49,20 @@ body {
   top: 0;
   visibility: hidden;
 }
-.project-banner-f7 .mariko-shadow {
-  background-image: linear-gradient(90deg, #ff0000, #ff0099);
-  filter: blur(20px);
+.mariko-banner .mariko-shadow {
+  filter: blur(50px);
+  opacity: 0.5;
 }
-.project-banner-f7 .mariko-highlight {
-  background-image: radial-gradient(
-    circle at 50%,
-    rgba(255, 255, 255, 1),
-    rgba(255, 255, 255, 1) 25%,
-    rgba(125, 0, 0, 0.15)
-  );
-}
-.project-banner-twm .mariko-shadow {
-  background: rgb(110, 40, 0);
-  filter: blur(20px);
-}
-.project-banner-twm .mariko-highlight {
-  background-image: radial-gradient(
-    circle at 50%,
-    rgba(255, 255, 255, 1),
-    rgba(255, 255, 255, 1) 25%,
-    rgba(125, 50, 0, 0.15)
-  );
-}
-.project-banner-se .mariko-shadow {
-  background: rgb(65, 17, 104);
-  filter: blur(20px);
-}
-.project-banner-se .mariko-highlight {
-  background-image: radial-gradient(
-    circle at 50%,
-    rgba(255, 255, 255, 1),
-    rgba(255, 255, 255, 1) 25%,
-    rgba(66, 1, 119, 0.15)
-  );
+.mariko-banner .mariko-highlight {
+  z-index: 100;
 }
 
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  background: #557;
-  padding: 40px;
-}
-li {
-  cursor: pointer;
-}
-li .mariko-inner {
-  background: #fff;
-  border-radius: 16px;
-  width: 220px;
-  padding: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.mariko-banner-text {
+  position: absolute;
+  color: #fff;
   font-weight: bold;
+  left: 0%;
+  top: 0%;
 }
-li + li {
-  margin-top: 16px;
-}
-li .mariko-shadow {
-  filter: blur(10px);
-}
-li .mariko-highlight {
-  background-image: radial-gradient(
-    circle at 50%,
-    rgba(255, 255, 255, 0.25),
-    rgba(0, 0, 0, 0.3) 50%
-  );
+.mariko-active .mariko-banner-text {
 }
