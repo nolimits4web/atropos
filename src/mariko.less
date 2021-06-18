@@ -3,9 +3,11 @@
   display: block;
   perspective: 1200px;
   transform: translate3d(0, 0, 0);
-  touch-action: none;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  -webkit-touch-callout: none;
+  &-rotate-touch {
+    touch-action: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
+  }
 }
 .mariko-scale,
 .mariko-rotate {
@@ -24,6 +26,8 @@
   height: 100%;
   filter: blur(30px);
   opacity: 0;
+  pointer-events: none;
+  transition-property: transform, opacity;
 }
 .mariko-highlight {
   position: absolute;
@@ -34,6 +38,8 @@
   background-image: radial-gradient(circle at 50%, rgba(255, 255, 255, 0.25), transparent 50%);
   opacity: 0;
   z-index: 0;
+  pointer-events: none;
+  transition-property: transform, opacity;
 }
 .mariko-rotate {
   position: relative;
@@ -51,4 +57,7 @@
   .mariko-shadow {
     opacity: 1;
   }
+}
+[data-mariko-offset] {
+  transition-property: transform;
 }
