@@ -12,6 +12,7 @@
     "watch:prod": "cross-env NODE_ENV=production node scripts/watch",
     "/*============ Playground ============*/": "============",
     "core": "npm run build:dev && concurrently --kill-others \"vite ./playground/core\" \"npm run watch:dev\" ",
+    "react": "npm run build:dev && concurrently --kill-others \"vite ./playground/react\" \"npm run watch:dev\"",
     "/*============ Tooling ============*/": "============",
     "prettier": "prettier \"**/*.+(js|json|scss|css|less|ts|svelte|jsx)\"",
     "format": "npm run prettier -- --write",

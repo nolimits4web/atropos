@@ -15,31 +15,32 @@
   height: 100%;
   transform-style: preserve-3d;
   transition-property: transform;
+  display: block;
+}
+.mariko-shadow,
+.mariko-highlight {
+  position: absolute;
+  pointer-events: none;
+  transition-property: transform, opacity;
+  display: block;
+  opacity: 0;
 }
 .mariko-shadow {
   z-index: -1;
   background: #000;
-  position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   filter: blur(30px);
-  opacity: 0;
-  pointer-events: none;
-  transition-property: transform, opacity;
 }
 .mariko-highlight {
-  position: absolute;
   left: -50%;
   top: -50%;
   width: 200%;
   height: 200%;
   background-image: radial-gradient(circle at 50%, rgba(255, 255, 255, 0.25), transparent 50%);
-  opacity: 0;
   z-index: 0;
-  pointer-events: none;
-  transition-property: transform, opacity;
 }
 .mariko-rotate {
   position: relative;
@@ -51,6 +52,7 @@
   overflow: hidden;
   transform-style: preserve-3d;
   transform: translate3d(0, 0, 0);
+  display: block;
 }
 .mariko-active {
   z-index: 1;

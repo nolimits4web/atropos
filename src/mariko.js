@@ -10,8 +10,15 @@ const $setTransform = (el, transform) => {
 };
 const $on = (el, event, handler, props) => el.addEventListener(event, handler, props);
 const $off = (el, event, handler, props) => el.removeEventListener(event, handler, props);
+const removeUndefinedProps = (obj = {}) => {
+  const result = {};
+  Object.keys(obj).forEach((key) => {
+    if (typeof obj[key] !== 'undefined') result[key] = obj[key];
+  });
+  return result;
+};
 
-function Mariko(params = {}) {
+function Mariko(originalParams = {}) {
   let document;
   if (process.env.BROWSER) {
     // eslint-disable-next-line
@@ -20,30 +27,33 @@ function Mariko(params = {}) {
     document = getDocument();
   }
 
-  const {
-    activeOffset = 50,
-    shadowOffset = 50,
-    shadowScale = 1,
-    durationEnter = 300,
-    durationLeave = 600,
-    rotateLock = true,
-    rotate = true,
-    rotateTouch = true,
-    maxRotateX = 15,
-    maxRotateY = 15,
-    invertRotateX = false,
-    invertRotateY = false,
-    shadow = true,
-    highlight = true,
-  } = params;
-
-  let { el, eventsEl } = params;
+  let { el, eventsEl } = originalParams;
 
   const self = {
-    params,
+    params: {
+      activeOffset: 50,
+      shadowOffset: 50,
+      shadowScale: 1,
+      durationEnter: 300,
+      durationLeave: 600,
+      rotateLock: true,
+      rotate: true,
+      rotateTouch: true,
+      maxRotateX: 15,
+      maxRotateY: 15,
+      invertRotateX: false,
+      invertRotateY: false,
+      shadow: true,
+      highlight: true,
+      onEnter: null,
+      onLeave: null,
+      ...removeUndefinedProps(originalParams || {}),
+    },
     destroyed: false,
     isActive: false,
   };
+
+  const { params } = self;
 
   if (typeof el === 'string') {
     el = $(document, el);
@@ -81,15 +91,18 @@ function Mariko(params = {}) {
   let highlightEl;
 
   const createShadow = () => {
-    shadowEl = $(rotateEl, '.mariko-shadow');
+    shadowEl = $(el, '.mariko-shadow');
     if (shadowEl) return;
     shadowEl = document.createElement('span');
     shadowEl.classList.add('mariko-shadow');
-    $setTransform(shadowEl, `translate3d(0,0,-${shadowOffset}px) scale(${shadowScale})`);
+    $setTransform(
+      shadowEl,
+      `translate3d(0,0,-${params.shadowOffset}px) scale(${params.shadowScale})`,
+    );
     rotateEl.appendChild(shadowEl);
   };
   const createHighlight = () => {
-    highlightEl = $(innerEl, '.mariko-highlight');
+    highlightEl = $(el, '.mariko-highlight');
     if (highlightEl) return;
     highlightEl = document.createElement('span');
     highlightEl.classList.add('mariko-highlight');
@@ -109,18 +122,19 @@ function Mariko(params = {}) {
     enterRotateY = undefined;
     rotateXLock = true;
     rotateYLock = true;
-    $setTransform(scaleEl, `translate3d(0,0, ${activeOffset}px)`);
-    $setDuration(scaleEl, `${durationEnter}ms`);
+    $setTransform(scaleEl, `translate3d(0,0, ${params.activeOffset}px)`);
+    $setDuration(scaleEl, `${params.durationEnter}ms`);
     if (shadowEl) {
-      $setDuration(shadowEl, `${durationEnter}ms`);
+      $setDuration(shadowEl, `${params.durationEnter}ms`);
     }
     self.isActive = true;
+    if (typeof params.onEnter === 'function') params.onEnter();
   };
 
   const onPointerMove = (e) => {
-    if (!rotate) return;
+    if (!params.rotate) return;
     if (e.pointerType !== 'mouse') {
-      if (!rotateTouch) return;
+      if (!params.rotateTouch) return;
       e.preventDefault();
     }
     const { pageX, pageY } = e;
@@ -131,9 +145,9 @@ function Mariko(params = {}) {
     const coordX = pageX - left;
     const coordY = pageY - top;
 
-    let rotateY = ((maxRotateY * (coordX - centerX)) / (width / 2)) * -1;
-    let rotateX = (maxRotateX * (coordY - centerY)) / (height / 2);
-    if (rotateLock) {
+    let rotateY = ((params.maxRotateY * (coordX - centerX)) / (width / 2)) * -1;
+    let rotateX = (params.maxRotateX * (coordY - centerY)) / (height / 2);
+    if (params.rotateLock) {
       if (typeof enterRotateY === 'undefined') {
         enterRotateY = rotateY;
         rotateYLock = true;
@@ -164,14 +178,14 @@ function Mariko(params = {}) {
       }
     }
 
-    rotateX = Math.min(Math.max(-rotateX, -maxRotateX), maxRotateX);
-    if (invertRotateX) rotateX = -rotateX;
-    rotateY = Math.min(Math.max(-rotateY, -maxRotateY), maxRotateY);
-    if (invertRotateY) rotateY = -rotateY;
+    rotateX = Math.min(Math.max(-rotateX, -params.maxRotateX), params.maxRotateX);
+    if (params.invertRotateX) rotateX = -rotateX;
+    rotateY = Math.min(Math.max(-rotateY, -params.maxRotateY), params.maxRotateY);
+    if (params.invertRotateY) rotateY = -rotateY;
     $setTransform(rotateEl, `translate3d(0,0,0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`);
 
-    const rotateXPercentage = (rotateX / maxRotateX) * 100;
-    const rotateYPercentage = (rotateY / maxRotateY) * 100;
+    const rotateXPercentage = (rotateX / params.maxRotateX) * 100;
+    const rotateYPercentage = (rotateY / params.maxRotateY) * 100;
 
     if (highlightEl) {
       $setDuration(highlightEl, '0ms');
@@ -202,22 +216,23 @@ function Mariko(params = {}) {
     if (e && e.type === 'pointerleave' && e.pointerType !== 'mouse') return;
     el.classList.remove('mariko-active');
     $setTransform(scaleEl, `translate3d(0,0, ${0}px)`);
-    $setDuration(scaleEl, `${durationLeave}ms`);
+    $setDuration(scaleEl, `${params.durationLeave}ms`);
     if (shadowEl) {
-      $setDuration(shadowEl, `${durationLeave}ms`);
+      $setDuration(shadowEl, `${params.durationLeave}ms`);
     }
     if (highlightEl) {
-      $setDuration(highlightEl, `${durationLeave}ms`);
+      $setDuration(highlightEl, `${params.durationLeave}ms`);
       $setTransform(highlightEl, `translate3d(0, 0, 0)`);
       highlightEl.style.opacity = 0;
     }
-    $setDuration(rotateEl, `${durationLeave}ms`);
+    $setDuration(rotateEl, `${params.durationLeave}ms`);
     $setTransform(rotateEl, `translate3d(0,0,0) rotateX(0deg) rotateY(0deg)`);
     $$(el, '[data-mariko-offset]').forEach((childEl) => {
       $setTransform(childEl, `translate3d(0,0,0)`);
-      $setDuration(childEl, `${durationLeave}ms`);
+      $setDuration(childEl, `${params.durationLeave}ms`);
     });
     self.isActive = false;
+    if (typeof params.onLeave === 'function') params.onLeave();
   };
 
   const onDocumentClick = (e) => {
@@ -241,13 +256,13 @@ function Mariko(params = {}) {
   };
 
   const init = () => {
-    if (shadow) {
+    if (params.shadow) {
       createShadow();
     }
-    if (highlight) {
+    if (params.highlight) {
       createHighlight();
     }
-    if (rotateTouch) {
+    if (params.rotateTouch) {
       el.classList.add('mariko-rotate-touch');
     }
     $on(document, 'click', onDocumentClick);
