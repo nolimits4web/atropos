@@ -63,6 +63,15 @@ async function buildJs(format, browser) {
 
       fs.writeFileSync(`./${output}/${filename}.min.js`, code);
       fs.writeFileSync(`./${output}/${filename}.min.js.map`, map);
+
+      if (format === 'esm') {
+        // move esm files
+        fs.readdirSync(`./${output}/`)
+          .filter((f) => f.includes('.esm.'))
+          .forEach((f) => {
+            fs.renameSync(`./${output}/${f}`, `./${output}/esm/${f}`);
+          });
+      }
     })
     .catch((err) => {
       console.error(err.toString());

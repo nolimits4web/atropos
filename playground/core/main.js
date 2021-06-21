@@ -1,5 +1,5 @@
 /* eslint-disable */
-import Mariko from '../../build/mariko.esm';
+import Mariko from '../../build/esm/mariko.esm';
 import '../../build/mariko.css';
 
 Mariko({

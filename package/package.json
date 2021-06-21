@@ -4,7 +4,7 @@
   "description": "Mariko",
   "typings": "mariko.d.ts",
   "type": "module",
-  "exports": "./mariko.esm.js",
+  "exports": "./esm/mariko.esm.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/nolimits4web/mariko.git"
