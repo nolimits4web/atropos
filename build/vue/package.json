@@ -1,0 +1,8 @@
+{
+  "name": "mariko/vue",
+  "private": true,
+  "type": "module",
+  "exports": "./mariko-vue.esm.js",
+  "typings": "./mariko-vue.d.ts",
+  "sideEffects": false
+}

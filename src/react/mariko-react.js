@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import MarikoCore from '../esm/mariko.esm.js';
 
 const paramsKeys = [
+  'eventsEl',
   'activeOffset',
   'shadowOffset',
   'shadowScale',
