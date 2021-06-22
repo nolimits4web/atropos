@@ -12,10 +12,10 @@ const paramsKeys = [
   'rotateLock',
   'rotate',
   'rotateTouch',
-  'maxRotateX',
-  'maxRotateY',
-  'invertRotateX',
-  'invertRotateY',
+  'rotateXMax',
+  'rotateYMax',
+  'rotateXInvert',
+  'rotateYInvert',
   'shadow',
   'highlight',
   'onEnter',
@@ -42,6 +42,7 @@ function Mariko(props) {
   const {
     component = 'div',
     children,
+    rootChildren,
     scaleChildren,
     rotateChildren,
     className = '',
@@ -115,6 +116,7 @@ function Mariko(props) {
         </span>
         {scaleChildren}
       </span>
+      {rootChildren}
     </Component>
   );
 }

@@ -18,12 +18,12 @@ const Mariko = {
     rotateLock: { type: Boolean, default: undefined },
     rotate: { type: Boolean, default: undefined },
     rotateTouch: { type: Boolean, default: undefined },
-    maxRotateX: { type: Boolean, default: undefined },
-    maxRotateY: { type: Boolean, default: undefined },
-    invertRotateX: { type: Boolean, default: undefined },
-    invertRotateY: { type: Boolean, default: undefined },
-    shadow: { type: Boolean, default: undefined },
-    highlight: { type: Boolean, default: undefined },
+    rotateXMax: { type: Boolean, default: undefined },
+    rotateYMax: { type: Boolean, default: undefined },
+    rotateXInvert: { type: Boolean, default: undefined },
+    rotateYInvert: { type: Boolean, default: undefined },
+    shadow: { type: Boolean, default: true },
+    highlight: { type: Boolean, default: true },
   },
   emits: ['enter', 'leave'],
   setup(props, ctx) {
@@ -66,20 +66,23 @@ const Mariko = {
       h(
         props.component,
         {
-          class: 'marko',
+          class: 'mariko',
           ref: elRef,
         },
-        h('span', { class: cls('mariko-scale', props.scaleClass) }, [
-          h('span', { class: cls('mariko-rotate', props.rotateClass) }, [
-            h('span', { class: cls('mariko-inner', props.innerClass) }, [
-              slots.default && slots.default(),
-              props.highlight && h('span', { class: 'marko-highlight' }),
+        [
+          h('span', { class: cls('mariko-scale', props.scaleClass) }, [
+            h('span', { class: cls('mariko-rotate', props.rotateClass) }, [
+              h('span', { class: cls('mariko-inner', props.innerClass) }, [
+                slots.default && slots.default(),
+                props.highlight && h('span', { class: 'mariko-highlight' }),
+              ]),
+              slots.rotate && slots.rotate(),
+              props.shadow && h('span', { class: 'mariko-shadow' }),
             ]),
-            slots.rotate && slots.rotate(),
-            props.shadow && h('span', { class: 'marko-shadow' }),
+            slots.scale && slots.scale(),
           ]),
-          slots.scale && slots.scale(),
-        ]),
+          slots.root && slots.root(),
+        ],
       );
   },
 };

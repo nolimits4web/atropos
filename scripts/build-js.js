@@ -1,7 +1,7 @@
 /* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
 /* eslint no-console: "off" */
 
-const fs = require('fs');
+const fs = require('fs-extra');
 const { rollup } = require('rollup');
 const { default: babel } = require('@rollup/plugin-babel');
 const { default: resolve } = require('@rollup/plugin-node-resolve');
@@ -44,6 +44,15 @@ async function buildJs(format, browser) {
       }),
     )
     .then(async (bundle) => {
+      if (format === 'esm') {
+        // move esm files
+        fs.ensureDirSync(`./${output}/esm/`);
+        fs.readdirSync(`./${output}/`)
+          .filter((f) => f.includes('.esm.'))
+          .forEach((f) => {
+            fs.renameSync(`./${output}/${f}`, `./${output}/esm/${f}`);
+          });
+      }
       if (env === 'development' || !browser) {
         return;
       }

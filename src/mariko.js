@@ -8,8 +8,12 @@ const $setDuration = (el, duration) => {
 const $setTransform = (el, transform) => {
   el.style.transform = transform;
 };
+const $setOpacity = (el, opacity) => {
+  el.style.opacity = opacity;
+};
 const $on = (el, event, handler, props) => el.addEventListener(event, handler, props);
 const $off = (el, event, handler, props) => el.removeEventListener(event, handler, props);
+
 const removeUndefinedProps = (obj = {}) => {
   const result = {};
   Object.keys(obj).forEach((key) => {
@@ -20,6 +24,7 @@ const removeUndefinedProps = (obj = {}) => {
 
 function Mariko(originalParams = {}) {
   let document;
+
   if (process.env.BROWSER) {
     // eslint-disable-next-line
     document = window.document;
@@ -39,10 +44,10 @@ function Mariko(originalParams = {}) {
       rotateLock: true,
       rotate: true,
       rotateTouch: true,
-      maxRotateX: 15,
-      maxRotateY: 15,
-      invertRotateX: false,
-      invertRotateY: false,
+      rotateXMax: 15,
+      rotateYMax: 15,
+      rotateXInvert: false,
+      rotateYInvert: false,
       shadow: true,
       highlight: true,
       onEnter: null,
@@ -55,31 +60,9 @@ function Mariko(originalParams = {}) {
 
   const { params } = self;
 
-  if (typeof el === 'string') {
-    el = $(document, el);
-  }
-  if (!el) return;
-  // eslint-disable-next-line
-  if (el.__mariko__) return;
-
-  if (typeof eventsEl !== 'undefined') {
-    if (typeof eventsEl === 'string') {
-      eventsEl = $(document, eventsEl);
-    }
-  } else {
-    eventsEl = el;
-  }
-
-  Object.assign(self, {
-    el,
-  });
-
-  // eslint-disable-next-line
-  el.__mariko__ = self;
-
-  const rotateEl = $(el, '.mariko-rotate');
-  const scaleEl = $(el, '.mariko-scale');
-  const innerEl = $(el, '.mariko-inner');
+  let rotateEl;
+  let scaleEl;
+  let innerEl;
 
   let enterRotateX;
   let enterRotateY;
@@ -110,6 +93,46 @@ function Mariko(originalParams = {}) {
     innerEl.appendChild(highlightEl);
   };
 
+  const setChildrenOffset = ({
+    rotateXPercentage = 0,
+    rotateYPercentage = 0,
+    duration,
+    opacityOnly,
+  }) => {
+    const getOpacity = (element) => {
+      if (element.dataset.marikoOpacity && typeof element.dataset.marikoOpacity === 'string') {
+        return element.dataset.marikoOpacity.split(';').map((v) => parseFloat(v));
+      }
+      return undefined;
+    };
+    $$(el, '[data-mariko-offset], [data-mariko-opacity]').forEach((childEl) => {
+      $setDuration(childEl, duration);
+      const elementOpacity = getOpacity(childEl);
+      if (rotateXPercentage === 0 && rotateYPercentage === 0) {
+        if (!opacityOnly) $setTransform(childEl, `translate3d(0, 0, 0)`);
+        if (elementOpacity) $setOpacity(childEl, elementOpacity[0]);
+      } else {
+        const childElOffset = parseFloat(childEl.dataset.marikoOffset) / 100;
+        if (!Number.isNaN(childElOffset) && !opacityOnly) {
+          $setTransform(
+            childEl,
+            `translate3d(${-rotateYPercentage * -childElOffset}%, ${
+              rotateXPercentage * -childElOffset
+            }%, 0)`,
+          );
+        }
+        if (elementOpacity) {
+          const [min, max] = elementOpacity;
+          const rotatePercentage = Math.max(
+            Math.abs(rotateXPercentage),
+            Math.abs(rotateYPercentage),
+          );
+          $setOpacity(childEl, min + ((max - min) * rotatePercentage) / 100);
+        }
+      }
+    });
+  };
+
   const onPointerEnter = (e) => {
     if (e.type === 'pointerdown' && e.pointerType === 'mouse') return;
     if (e.type === 'pointerenter' && e.pointerType !== 'mouse') return;
@@ -123,10 +146,11 @@ function Mariko(originalParams = {}) {
     rotateXLock = true;
     rotateYLock = true;
     $setTransform(scaleEl, `translate3d(0,0, ${params.activeOffset}px)`);
-    $setDuration(scaleEl, `${params.durationEnter}ms`);
+    $setDuration(scaleEl, `${params.rotateLock ? params.durationEnter : 0}ms`);
     if (shadowEl) {
-      $setDuration(shadowEl, `${params.durationEnter}ms`);
+      $setDuration(shadowEl, `${params.rotateLock ? params.durationEnter : 0}ms`);
     }
+
     self.isActive = true;
     if (typeof params.onEnter === 'function') params.onEnter();
   };
@@ -145,8 +169,8 @@ function Mariko(originalParams = {}) {
     const coordX = pageX - left;
     const coordY = pageY - top;
 
-    let rotateY = ((params.maxRotateY * (coordX - centerX)) / (width / 2)) * -1;
-    let rotateX = (params.maxRotateX * (coordY - centerY)) / (height / 2);
+    let rotateY = ((params.rotateYMax * (coordX - centerX)) / (width / 2)) * -1;
+    let rotateX = (params.rotateXMax * (coordY - centerY)) / (height / 2);
     if (params.rotateLock) {
       if (typeof enterRotateY === 'undefined') {
         enterRotateY = rotateY;
@@ -178,14 +202,14 @@ function Mariko(originalParams = {}) {
       }
     }
 
-    rotateX = Math.min(Math.max(-rotateX, -params.maxRotateX), params.maxRotateX);
-    if (params.invertRotateX) rotateX = -rotateX;
-    rotateY = Math.min(Math.max(-rotateY, -params.maxRotateY), params.maxRotateY);
-    if (params.invertRotateY) rotateY = -rotateY;
+    rotateX = Math.min(Math.max(-rotateX, -params.rotateXMax), params.rotateXMax);
+    if (params.rotateXInvert) rotateX = -rotateX;
+    rotateY = Math.min(Math.max(-rotateY, -params.rotateYMax), params.rotateYMax);
+    if (params.rotateYInvert) rotateY = -rotateY;
     $setTransform(rotateEl, `translate3d(0,0,0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`);
 
-    const rotateXPercentage = (rotateX / params.maxRotateX) * 100;
-    const rotateYPercentage = (rotateY / params.maxRotateY) * 100;
+    const rotateXPercentage = (rotateX / params.rotateXMax) * 100;
+    const rotateYPercentage = (rotateY / params.rotateYMax) * 100;
 
     if (highlightEl) {
       $setDuration(highlightEl, '0ms');
@@ -197,17 +221,7 @@ function Mariko(originalParams = {}) {
         Math.max(Math.abs(rotateXPercentage), Math.abs(rotateYPercentage)) / 100;
     }
 
-    $$(el, '[data-mariko-offset]').forEach((childEl) => {
-      const childElOffset = parseFloat(childEl.dataset.marikoOffset) / 100;
-      if (Number.isNaN(childElOffset)) return;
-      $setDuration(childEl, '0ms');
-      $setTransform(
-        childEl,
-        `translate3d(${-rotateYPercentage * -childElOffset}%, ${
-          rotateXPercentage * -childElOffset
-        }%, 0)`,
-      );
-    });
+    setChildrenOffset({ rotateXPercentage, rotateYPercentage, duration: '0ms' });
   };
 
   const onPointerLeave = (e) => {
@@ -227,10 +241,8 @@ function Mariko(originalParams = {}) {
     }
     $setDuration(rotateEl, `${params.durationLeave}ms`);
     $setTransform(rotateEl, `translate3d(0,0,0) rotateX(0deg) rotateY(0deg)`);
-    $$(el, '[data-mariko-offset]').forEach((childEl) => {
-      $setTransform(childEl, `translate3d(0,0,0)`);
-      $setDuration(childEl, `${params.durationLeave}ms`);
-    });
+
+    setChildrenOffset({ duration: `${params.durationLeave}ms` });
     self.isActive = false;
     if (typeof params.onLeave === 'function') params.onLeave();
   };
@@ -240,6 +252,59 @@ function Mariko(originalParams = {}) {
     if (!el.contains(clickTarget) && clickTarget !== el && self.isActive) {
       onPointerLeave();
     }
+  };
+
+  const initDOM = () => {
+    if (typeof el === 'string') {
+      el = $(document, el);
+    }
+    if (!el) return;
+
+    // eslint-disable-next-line
+    if (el.__mariko__) return;
+
+    if (typeof eventsEl !== 'undefined') {
+      if (typeof eventsEl === 'string') {
+        eventsEl = $(document, eventsEl);
+      }
+    } else {
+      eventsEl = el;
+    }
+
+    Object.assign(self, {
+      el,
+    });
+
+    rotateEl = $(el, '.mariko-rotate');
+    scaleEl = $(el, '.mariko-scale');
+    innerEl = $(el, '.mariko-inner');
+
+    // eslint-disable-next-line
+    el.__mariko__ = self;
+  };
+
+  const init = () => {
+    initDOM();
+    if (!el || !eventsEl) return;
+    if (params.shadow) {
+      createShadow();
+    }
+    if (params.highlight) {
+      createHighlight();
+    }
+    if (params.rotateTouch) {
+      el.classList.add('mariko-rotate-touch');
+    }
+    if ($(el, '[data-mariko-opacity]')) {
+      setChildrenOffset({ opacityOnly: true });
+    }
+    $on(document, 'click', onDocumentClick);
+    $on(eventsEl, 'pointerdown', onPointerEnter);
+    $on(eventsEl, 'pointerenter', onPointerEnter);
+    $on(eventsEl, 'pointermove', onPointerMove);
+    $on(eventsEl, 'pointerleave', onPointerLeave);
+    $on(eventsEl, 'pointerup', onPointerLeave);
+    $on(eventsEl, 'lostpointercapture', onPointerLeave);
   };
 
   const destroy = () => {
@@ -253,25 +318,6 @@ function Mariko(originalParams = {}) {
     $off(eventsEl, 'lostpointercapture', onPointerLeave);
     // eslint-disable-next-line
     delete el.__mariko__;
-  };
-
-  const init = () => {
-    if (params.shadow) {
-      createShadow();
-    }
-    if (params.highlight) {
-      createHighlight();
-    }
-    if (params.rotateTouch) {
-      el.classList.add('mariko-rotate-touch');
-    }
-    $on(document, 'click', onDocumentClick);
-    $on(eventsEl, 'pointerdown', onPointerEnter);
-    $on(eventsEl, 'pointerenter', onPointerEnter);
-    $on(eventsEl, 'pointermove', onPointerMove);
-    $on(eventsEl, 'pointerleave', onPointerLeave);
-    $on(eventsEl, 'pointerup', onPointerLeave);
-    $on(eventsEl, 'lostpointercapture', onPointerLeave);
   };
 
   self.destroy = destroy;

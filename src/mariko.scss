@@ -63,3 +63,9 @@
 [data-mariko-offset] {
   transition-property: transform;
 }
+[data-mariko-opacity] {
+  transition-property: opacity;
+}
+[data-mariko-offset][data-mariko-opacity] {
+  transition-property: transform, opacity;
+}
