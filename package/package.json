@@ -4,7 +4,15 @@
   "description": "Mariko",
   "typings": "mariko.d.ts",
   "type": "module",
-  "exports": "./esm/mariko.esm.js",
+  "exports": {
+    ".": "./esm/mariko.esm.js",
+    "./react": "./react/mariko-react.esm.js",
+    "./vue": "./react/mariko-vue.esm.js",
+    "./mariko.css": "./mariko.css",
+    "./mariko.min.css": "./mariko.min.css",
+    "./mariko.less": "./mariko.less",
+    "./mariko.scss": "./mariko.scss"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/nolimits4web/mariko.git"
