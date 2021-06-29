@@ -161,13 +161,13 @@ function Mariko(originalParams = {}) {
       if (!params.rotateTouch) return;
       e.preventDefault();
     }
-    const { pageX, pageY } = e;
+    const { clientX, clientY } = e;
     const { top, left, width, height } = el.getBoundingClientRect();
     const centerX = width / 2;
     const centerY = height / 2;
 
-    const coordX = pageX - left;
-    const coordY = pageY - top;
+    const coordX = clientX - left;
+    const coordY = clientY - top;
 
     let rotateY = ((params.rotateYMax * (coordX - centerX)) / (width / 2)) * -1;
     let rotateX = (params.rotateXMax * (coordY - centerY)) / (height / 2);
