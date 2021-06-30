@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { MarikoOptions } from './';
+import { MarikoOptions } from '../';
 
 interface Mariko extends MarikoOptions {
   component?: string;

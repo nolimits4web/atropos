@@ -1,0 +1,8 @@
+{
+  "name": "mariko/react",
+  "private": true,
+  "type": "module",
+  "exports": "./mariko-react.esm.js",
+  "types": "./mariko-react.d.ts",
+  "sideEffects": false
+}
