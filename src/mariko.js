@@ -1,5 +1,4 @@
-import { getDocument } from 'ssr-window/ssr-window.esm.js';
-
+/* eslint-disable no-restricted-globals */
 const $ = (el, sel) => el.querySelector(sel);
 const $$ = (el, sel) => el.querySelectorAll(sel);
 const $setDuration = (el, duration) => {
@@ -23,18 +22,10 @@ const removeUndefinedProps = (obj = {}) => {
 };
 
 function Mariko(originalParams = {}) {
-  let document;
-
-  if (process.env.BROWSER) {
-    // eslint-disable-next-line
-    document = window.document;
-  } else {
-    document = getDocument();
-  }
-
   let { el, eventsEl } = originalParams;
 
   const self = {
+    __mariko__: true,
     params: {
       activeOffset: 50,
       shadowOffset: 50,
@@ -52,6 +43,7 @@ function Mariko(originalParams = {}) {
       highlight: true,
       onEnter: null,
       onLeave: null,
+      onRotate: null,
       ...removeUndefinedProps(originalParams || {}),
     },
     destroyed: false,
@@ -66,6 +58,8 @@ function Mariko(originalParams = {}) {
 
   let enterRotateX;
   let enterRotateY;
+
+  let elBoundingClientRect;
 
   let rotateXLock = true;
   let rotateYLock = true;
@@ -156,13 +150,16 @@ function Mariko(originalParams = {}) {
   };
 
   const onPointerMove = (e) => {
-    if (!params.rotate) return;
+    if (!params.rotate || !self.isActive) return;
     if (e.pointerType !== 'mouse') {
       if (!params.rotateTouch) return;
       e.preventDefault();
     }
     const { clientX, clientY } = e;
-    const { top, left, width, height } = el.getBoundingClientRect();
+    if (!elBoundingClientRect) {
+      elBoundingClientRect = el.getBoundingClientRect();
+    }
+    const { top, left, width, height } = elBoundingClientRect;
     const centerX = width / 2;
     const centerY = height / 2;
 
@@ -222,9 +219,12 @@ function Mariko(originalParams = {}) {
     }
 
     setChildrenOffset({ rotateXPercentage, rotateYPercentage, duration: '0ms' });
+
+    if (typeof params.onRotate === 'function') params.onRotate(rotateX, rotateY);
   };
 
   const onPointerLeave = (e) => {
+    elBoundingClientRect = undefined;
     if (!self.isActive) return;
     if (e && e.type === 'pointerup' && e.pointerType === 'mouse') return;
     if (e && e.type === 'pointerleave' && e.pointerType !== 'mouse') return;
@@ -244,6 +244,7 @@ function Mariko(originalParams = {}) {
 
     setChildrenOffset({ duration: `${params.durationLeave}ms` });
     self.isActive = false;
+    if (typeof params.onRotate === 'function') params.onRotate(0, 0);
     if (typeof params.onLeave === 'function') params.onLeave();
   };
 

@@ -3,6 +3,6 @@
   "private": true,
   "type": "module",
   "exports": "./mariko-vue.esm.js",
-  "typings": "./mariko-vue.d.ts",
+  "types": "./mariko-vue.d.ts",
   "sideEffects": false
 }

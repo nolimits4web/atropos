@@ -2,7 +2,7 @@
 import Mariko from '../../build/esm/mariko.esm';
 import '../../build/mariko.css';
 
-Mariko({
+window.mariko = new Mariko({
   el: document.querySelectorAll('.mariko')[0],
   shadowScale: 1.05,
 });

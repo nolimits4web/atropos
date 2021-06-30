@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 // eslint-disable-next-line
-import MarikoCore from '../esm/mariko.esm.js';
+import MarikoCore from '../';
 
 const paramsKeys = [
   'eventsEl',
@@ -20,6 +20,7 @@ const paramsKeys = [
   'highlight',
   'onEnter',
   'onLeave',
+  'onRotate',
 ];
 
 const removeParamsKeys = (obj) => {
@@ -90,11 +91,13 @@ function Mariko(props) {
     if (marikoRef.current) {
       marikoRef.current.params.onEnter = props.onEnter;
       marikoRef.current.params.onLeave = props.onLeave;
+      marikoRef.current.params.onRotate = props.onRotate;
     }
     return () => {
       if (marikoRef.current) {
         marikoRef.current.params.onEnter = null;
         marikoRef.current.params.onLeave = null;
+        marikoRef.current.params.onRotate = null;
       }
     };
   });

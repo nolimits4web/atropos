@@ -3,6 +3,6 @@
   "private": true,
   "type": "module",
   "exports": "./mariko-react.esm.js",
-  "typings": "./mariko-react.d.ts",
+  "types": "./mariko-react.d.ts",
   "sideEffects": false
 }

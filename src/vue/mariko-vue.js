@@ -1,6 +1,6 @@
 import { ref, h, onMounted, onBeforeUnmount } from 'vue';
 // eslint-disable-next-line
-import MarikoCore from '../esm/mariko.esm.js';
+import MarikoCore from '../';
 
 const Mariko = {
   props: {
@@ -10,22 +10,22 @@ const Mariko = {
     rotateClass: String,
 
     eventsEl: { type: [String, Object], default: undefined },
-    activeOffset: { type: Boolean, default: undefined },
-    shadowOffset: { type: Boolean, default: undefined },
-    shadowScale: { type: Boolean, default: undefined },
-    durationEnter: { type: Boolean, default: undefined },
-    durationLeave: { type: Boolean, default: undefined },
+    activeOffset: { type: Number, default: undefined },
+    shadowOffset: { type: Number, default: undefined },
+    shadowScale: { type: Number, default: undefined },
+    durationEnter: { type: Number, default: undefined },
+    durationLeave: { type: Number, default: undefined },
     rotateLock: { type: Boolean, default: undefined },
     rotate: { type: Boolean, default: undefined },
     rotateTouch: { type: Boolean, default: undefined },
-    rotateXMax: { type: Boolean, default: undefined },
-    rotateYMax: { type: Boolean, default: undefined },
+    rotateXMax: { type: Number, default: undefined },
+    rotateYMax: { type: Number, default: undefined },
     rotateXInvert: { type: Boolean, default: undefined },
     rotateYInvert: { type: Boolean, default: undefined },
     shadow: { type: Boolean, default: true },
     highlight: { type: Boolean, default: true },
   },
-  emits: ['enter', 'leave'],
+  emits: ['enter', 'leave', 'rotate'],
   setup(props, ctx) {
     const elRef = ref(null);
     const marikoRef = ref(null);
@@ -40,6 +40,9 @@ const Mariko = {
         },
         onLeave() {
           emit('leave');
+        },
+        onRotate(...args) {
+          emit('rotate', ...args);
         },
       });
     };

@@ -1,7 +1,6 @@
 {
-  "name": "mariko",
-  "version": "0.7.0",
-  "description": "Mariko",
+  "name": "mariko-build",
+  "version": "0.0.0",
   "types": "mariko.d.ts",
   "type": "module",
   "exports": {
@@ -17,24 +16,5 @@
     "./mariko.min.css": "./mariko.min.css",
     "./mariko.less": "./mariko.less",
     "./mariko.scss": "./mariko.scss"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nolimits4web/mariko.git"
-  },
-  "keywords": [
-    "mariko"
-  ],
-  "author": "Vladimir Kharlampidi",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nolimits4web/mariko/issues"
-  },
-  "homepage": "https://marikojs.com",
-  "engines": {
-    "node": ">= 12.0.0"
-  },
-  "dependencies": {
-    "ssr-window": "^3.0.0"
   }
 }
