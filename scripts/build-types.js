@@ -21,6 +21,15 @@ async function build(cb) {
     path.resolve(__dirname, `../${outputDir}/react/mariko-react.d.ts`),
     reactContent,
   );
+
+  // vue
+  const vueContent = fs.readFileSync(
+    path.resolve(__dirname, '../src/vue/mariko-vue.d.ts'),
+    'utf-8',
+  );
+  fs.writeFileSync(path.resolve(__dirname, `../${outputDir}/vue/mariko-vue.d.ts`), vueContent);
+
+  console.log('Types build completed!');
 }
 
 module.exports = build;

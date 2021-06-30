@@ -1,0 +1,43 @@
+import { ComponentOptionsMixin, DefineComponent } from 'vue';
+
+declare const Mariko: DefineComponent<
+  {
+    component: {
+      type: StringConstructor;
+      default: string;
+    };
+    innerClass: { type: StringConstructor; default: undefined };
+    scaleClass: { type: StringConstructor; default: undefined };
+    rotateClass: { type: StringConstructor; default: undefined };
+
+    eventsEl: { type: StringConstructor | HTMLElement; default: undefined };
+    activeOffset: { type: NumberConstructor; default: undefined };
+    shadowOffset: { type: NumberConstructor; default: undefined };
+    shadowScale: { type: NumberConstructor; default: undefined };
+    durationEnter: { type: NumberConstructor; default: undefined };
+    durationLeave: { type: NumberConstructor; default: undefined };
+    rotateLock: { type: BooleanConstructor; default: undefined };
+    rotate: { type: BooleanConstructor; default: undefined };
+    rotateTouch: { type: BooleanConstructor; default: undefined };
+    rotateXMax: { type: NumberConstructor; default: undefined };
+    rotateYMax: { type: NumberConstructor; default: undefined };
+    rotateXInvert: { type: BooleanConstructor; default: undefined };
+    rotateYInvert: { type: BooleanConstructor; default: undefined };
+    shadow: { type: BooleanConstructor; default: true };
+    highlight: { type: BooleanConstructor; default: true };
+  },
+  () => JSX.Element,
+  unknown,
+  {},
+  {},
+  ComponentOptionsMixin,
+  ComponentOptionsMixin,
+  {
+    enter: () => void;
+    leave: () => void;
+    rotate: (x: number, y: number) => void;
+  }
+>;
+
+export { Mariko };
+export default Mariko;
