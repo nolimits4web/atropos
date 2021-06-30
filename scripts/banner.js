@@ -1,13 +1,12 @@
 const pkg = require('../package.json');
 
-const date = {
-  day: new Date().getDate(),
-  month:
-    'January February March April May June July August September October November December'.split(
-      ' ',
-    )[new Date().getMonth()],
-  year: new Date().getFullYear(),
-};
+const date = new Date();
+const formatter = new Intl.DateTimeFormat('en', {
+  day: 'numeric',
+  year: 'numeric',
+  month: 'long',
+});
+const releaseDate = formatter.format(date);
 
 module.exports = (name = null) =>
   `${`
@@ -20,6 +19,6 @@ module.exports = (name = null) =>
  *
  * Released under the ${pkg.license} License
  *
- * Released on: ${date.month} ${date.day}, ${date.year}
+ * Released on: ${releaseDate}
  */
 `.trim()}\n`;

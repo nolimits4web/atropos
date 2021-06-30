@@ -1,8 +1,7 @@
 {
   "name": "mariko-src",
   "version": "0.7.1",
-  "description": "",
-  "main": "index.js",
+  "description": "Touch-friendly 3D parallax hover effects",
   "scripts": {
     "/*============ Build ============*/": "============",
     "build:dev": "cross-env NODE_ENV=development node scripts/build",
@@ -32,7 +31,7 @@
   "bugs": {
     "url": "https://github.com/nolimits4web/mariko/issues"
   },
-  "homepage": "https://github.com/nolimits4web/mariko#readme",
+  "homepage": "https://marikojs.com",
   "devDependencies": {
     "@babel/cli": "^7.14.5",
     "@babel/core": "^7.14.6",
@@ -69,7 +68,5 @@
     "vite": "^2.3.7",
     "vue": "^3.1.1"
   },
-  "dependencies": {
-    "ssr-window": "^3.0.0"
-  }
+  "dependencies": {}
 }
