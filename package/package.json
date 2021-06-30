@@ -1,6 +1,6 @@
 {
   "name": "mariko",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Mariko",
   "types": "mariko.d.ts",
   "type": "module",
