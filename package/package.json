@@ -1,7 +1,7 @@
 {
   "name": "mariko",
   "version": "0.8.1",
-  "description": "Mariko",
+  "description": "Touch-friendly 3D parallax hover effects",
   "types": "mariko.d.ts",
   "type": "module",
   "exports": {
@@ -27,7 +27,17 @@
     "url": "https://github.com/nolimits4web/mariko.git"
   },
   "keywords": [
-    "mariko"
+    "mariko",
+    "effect",
+    "parallax",
+    "hover",
+    "3d",
+    "react",
+    "vue",
+    "javascript",
+    "portfolio",
+    "gallery",
+    "showcase"
   ],
   "author": "Vladimir Kharlampidi",
   "license": "MIT",

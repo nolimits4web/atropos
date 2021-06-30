@@ -15,7 +15,7 @@ module.exports = (name = null) =>
  * ${pkg.description}
  * ${pkg.homepage}
  *
- * Copyright 2021-${date.year} ${pkg.author}
+ * Copyright 2021-${date.getFullYear()} ${pkg.author}
  *
  * Released under the ${pkg.license} License
  *
