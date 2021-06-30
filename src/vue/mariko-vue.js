@@ -1,6 +1,6 @@
 import { ref, h, onMounted, onBeforeUnmount } from 'vue';
 // eslint-disable-next-line
-import MarikoCore from '../';
+import MarikoCore from '../esm/mariko.esm.js';
 
 const Mariko = {
   props: {

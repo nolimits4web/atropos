@@ -7,6 +7,7 @@
   "exports": {
     ".": "./esm/mariko.esm.js",
     "./esm": "./esm/mariko.esm.js",
+    "./esm/mariko.esm.js": "./esm/mariko.esm.js",
     "./esm/browser": "./esm/mariko.esm.browser.js",
     "./esm/browser/min": "./esm/mariko.esm.browser.min.js",
     "./react": "./react/mariko-react.esm.js",

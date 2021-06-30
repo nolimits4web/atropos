@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 // eslint-disable-next-line
-import MarikoCore from '../';
+import MarikoCore from '../esm/mariko.esm.js';
 
 const paramsKeys = [
   'eventsEl',
