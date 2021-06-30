@@ -1,6 +1,6 @@
 {
   "name": "mariko-src",
-  "version": "0.8.5",
+  "version": "0.8.6",
   "description": "Touch-friendly 3D parallax hover effects",
   "scripts": {
     "/*============ Build ============*/": "============",
