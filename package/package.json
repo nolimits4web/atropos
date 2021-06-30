@@ -1,6 +1,6 @@
 {
   "name": "mariko",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "description": "Touch-friendly 3D parallax hover effects",
   "types": "mariko.d.ts",
   "type": "module",
@@ -21,7 +21,8 @@
     "./mariko.css": "./mariko.css",
     "./mariko.min.css": "./mariko.min.css",
     "./mariko.less": "./mariko.less",
-    "./mariko.scss": "./mariko.scss"
+    "./mariko.scss": "./mariko.scss",
+    "./package.json": "./package.json"
   },
   "repository": {
     "type": "git",
