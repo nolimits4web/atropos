@@ -1,8 +1,8 @@
 import { ref, h, onMounted, onBeforeUnmount } from 'vue';
 // eslint-disable-next-line
-import MarikoCore from '../esm/mariko.esm.js';
+import AtroposCore from '../esm/atropos.esm.js';
 
-const Mariko = {
+const Atropos = {
   props: {
     component: { type: String, default: 'div' },
     innerClass: String,
@@ -28,11 +28,11 @@ const Mariko = {
   emits: ['enter', 'leave', 'rotate'],
   setup(props, ctx) {
     const elRef = ref(null);
-    const marikoRef = ref(null);
+    const atroposRef = ref(null);
     const { slots, emit } = ctx;
 
     const init = () => {
-      marikoRef.value = MarikoCore({
+      atroposRef.value = AtroposCore({
         el: elRef.value,
         ...props,
         onEnter() {
@@ -48,9 +48,9 @@ const Mariko = {
     };
 
     const destroy = () => {
-      if (marikoRef.value) {
-        marikoRef.value.destroy();
-        marikoRef.value = null;
+      if (atroposRef.value) {
+        atroposRef.value.destroy();
+        atroposRef.value = null;
       }
     };
 
@@ -69,18 +69,18 @@ const Mariko = {
       h(
         props.component,
         {
-          class: 'mariko',
+          class: 'atropos',
           ref: elRef,
         },
         [
-          h('span', { class: cls('mariko-scale', props.scaleClass) }, [
-            h('span', { class: cls('mariko-rotate', props.rotateClass) }, [
-              h('span', { class: cls('mariko-inner', props.innerClass) }, [
+          h('span', { class: cls('atropos-scale', props.scaleClass) }, [
+            h('span', { class: cls('atropos-rotate', props.rotateClass) }, [
+              h('span', { class: cls('atropos-inner', props.innerClass) }, [
                 slots.default && slots.default(),
-                props.highlight && h('span', { class: 'mariko-highlight' }),
+                props.highlight && h('span', { class: 'atropos-highlight' }),
               ]),
               slots.rotate && slots.rotate(),
-              props.shadow && h('span', { class: 'mariko-shadow' }),
+              props.shadow && h('span', { class: 'atropos-shadow' }),
             ]),
             slots.scale && slots.scale(),
           ]),
@@ -90,5 +90,5 @@ const Mariko = {
   },
 };
 
-export default Mariko;
-export { Mariko };
+export default Atropos;
+export { Atropos };

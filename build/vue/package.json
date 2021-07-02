@@ -1,8 +1,8 @@
 {
-  "name": "mariko/vue",
+  "name": "atropos/vue",
   "private": true,
   "type": "module",
-  "exports": "./mariko-vue.esm.js",
-  "types": "./mariko-vue.d.ts",
+  "exports": "./atropos-vue.esm.js",
+  "types": "./atropos-vue.d.ts",
   "sideEffects": false
 }

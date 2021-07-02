@@ -1,5 +1,5 @@
 name: "\U0001F680 New feature proposal"
-description: Propose a new feature to be added to Mariko
+description: Propose a new feature to be added to Atropos
 labels: ['feature request']
 body:
   - type: markdown
@@ -10,7 +10,7 @@ body:
     id: feature-description
     attributes:
       label: Clear and concise description of the problem
-      description: As a developer using Mariko I want [goal / wish] so that [benefit]
+      description: As a developer using Atropos I want [goal / wish] so that [benefit]
     validations:
       required: true
   - type: textarea
@@ -36,9 +36,9 @@ body:
       label: Validations
       description: Before submitting the issue, please make sure you do the following
       options:
-        - label: Follow our [Code of Conduct](https://github.com/nolimits4web/mariko/blob/master/CODE_OF_CONDUCT.md)
+        - label: Follow our [Code of Conduct](https://github.com/nolimits4web/atropos/blob/master/CODE_OF_CONDUCT.md)
           required: true
-        - label: Read the [docs](https://marikojs.com/docs).
+        - label: Read the [docs](https://atroposjs.com/docs).
           required: true
         - label: Check that there isn't already an issue that request the same feature to avoid creating a duplicate.
           required: true

@@ -1,8 +1,8 @@
 /* eslint-disable */
-import Mariko from '../../build/esm/mariko.esm';
-import '../../build/mariko.css';
+import Atropos from '../../build/esm/atropos.esm';
+import '../../build/atropos.css';
 
-window.mariko = new Mariko({
-  el: document.querySelectorAll('.mariko')[0],
+window.atropos = new Atropos({
+  el: document.querySelectorAll('.atropos')[0],
   shadowScale: 1.05,
 });

@@ -23,13 +23,13 @@ body {
   width: 100%;
   box-sizing: border-box;
 }
-.mariko-banner {
+.atropos-banner {
   width: 100%;
 }
-.mariko-banner .mariko-inner {
+.atropos-banner .atropos-inner {
   border-radius: 10px;
 }
-.mariko-banner img {
+.atropos-banner img {
   position: absolute;
   left: -5%;
   top: -5%;
@@ -41,7 +41,7 @@ body {
   transform-style: preserve-3d;
   pointer-events: none;
 }
-.mariko-banner img.mariko-banner-spacer {
+.atropos-banner img.atropos-banner-spacer {
   position: relative;
   width: 100%;
   height: auto;
@@ -49,20 +49,20 @@ body {
   top: 0;
   visibility: hidden;
 }
-.mariko-banner .mariko-shadow {
+.atropos-banner .atropos-shadow {
   filter: blur(50px);
   opacity: 0.5;
 }
-.mariko-banner .mariko-highlight {
+.atropos-banner .atropos-highlight {
   z-index: 100;
 }
 
-.mariko-banner-text {
+.atropos-banner-text {
   position: absolute;
   color: #fff;
   font-weight: bold;
   left: 0%;
   top: 0%;
 }
-.mariko-active .mariko-banner-text {
+.atropos-active .atropos-banner-text {
 }

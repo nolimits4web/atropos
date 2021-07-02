@@ -9,25 +9,25 @@ async function build(cb) {
   const outputDir = env === 'development' ? 'build' : 'package';
 
   // core
-  const coreContent = fs.readFileSync(path.resolve(__dirname, '../src/mariko.d.ts'), 'utf-8');
-  fs.writeFileSync(path.resolve(__dirname, `../${outputDir}/mariko.d.ts`), coreContent);
+  const coreContent = fs.readFileSync(path.resolve(__dirname, '../src/atropos.d.ts'), 'utf-8');
+  fs.writeFileSync(path.resolve(__dirname, `../${outputDir}/atropos.d.ts`), coreContent);
 
   // react
   const reactContent = fs.readFileSync(
-    path.resolve(__dirname, '../src/react/mariko-react.d.ts'),
+    path.resolve(__dirname, '../src/react/atropos-react.d.ts'),
     'utf-8',
   );
   fs.writeFileSync(
-    path.resolve(__dirname, `../${outputDir}/react/mariko-react.d.ts`),
+    path.resolve(__dirname, `../${outputDir}/react/atropos-react.d.ts`),
     reactContent,
   );
 
   // vue
   const vueContent = fs.readFileSync(
-    path.resolve(__dirname, '../src/vue/mariko-vue.d.ts'),
+    path.resolve(__dirname, '../src/vue/atropos-vue.d.ts'),
     'utf-8',
   );
-  fs.writeFileSync(path.resolve(__dirname, `../${outputDir}/vue/mariko-vue.d.ts`), vueContent);
+  fs.writeFileSync(path.resolve(__dirname, `../${outputDir}/vue/atropos-vue.d.ts`), vueContent);
 
   console.log('Types build completed!');
 }

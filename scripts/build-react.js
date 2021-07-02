@@ -10,13 +10,13 @@ module.exports = async () => {
   const outputDir = env === 'development' ? 'build' : 'package';
 
   await exec(
-    `cross-env MODULES=${format} npx babel --config-file ./babel.config.react.js src/react/mariko-react.js --out-file ${outputDir}/react/mariko-react.${format}.js`,
+    `cross-env MODULES=${format} npx babel --config-file ./babel.config.react.js src/react/atropos-react.js --out-file ${outputDir}/react/atropos-react.${format}.js`,
   );
 
   // Add banner
-  let fileContent = await fs.readFile(`./${outputDir}/react/mariko-react.${format}.js`, 'utf-8');
+  let fileContent = await fs.readFile(`./${outputDir}/react/atropos-react.${format}.js`, 'utf-8');
   fileContent = `${bannerReact}\n${fileContent}`;
-  await fs.writeFile(`./${outputDir}/react/mariko-react.${format}.js`, fileContent);
+  await fs.writeFile(`./${outputDir}/react/atropos-react.${format}.js`, fileContent);
 
   console.log('React build completed!');
 };

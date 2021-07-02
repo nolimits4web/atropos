@@ -1,6 +1,6 @@
 interface CSSSelector extends String {}
 
-export interface MarikoOptions {
+export interface AtroposOptions {
   el?: HTMLElement | CSSSelector;
   eventsEl?: HTMLElement | CSSSelector;
   activeOffset?: number;
@@ -22,15 +22,15 @@ export interface MarikoOptions {
   onRotate?: (x: number, y: number) => void;
 }
 
-export interface MarikoInstance {
+export interface AtroposInstance {
   el: HTMLElement;
   isActive: boolean;
   destroyed: boolean;
-  params: MarikoOptions;
+  params: AtroposOptions;
   destroy: () => void;
 }
 
-declare const Mariko: (options: MarikoOptions) => MarikoInstance;
+declare const Atropos: (options: AtroposOptions) => AtroposInstance;
 
-export default Mariko;
-export { Mariko };
+export default Atropos;
+export { Atropos };

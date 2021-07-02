@@ -11,7 +11,7 @@ const releaseDate = formatter.format(date);
 module.exports = (name = null) =>
   `${`
 /**
- * Mariko ${name ? `${name} ` : ''}${pkg.version}
+ * Atropos ${name ? `${name} ` : ''}${pkg.version}
  * ${pkg.description}
  * ${pkg.homepage}
  *

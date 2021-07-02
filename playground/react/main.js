@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // eslint-disable-next-line
-import '../../build/mariko.css';
+import '../../build/atropos.css';
 
 import App from './App.jsx';
 

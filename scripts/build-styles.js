@@ -9,7 +9,7 @@ const minifyCSS = require('./utils/clean-css');
 const banner = require('./banner')();
 
 const buildCSS = async ({ minified, outputDir }) => {
-  const lessContent = await fs.readFile(path.resolve(__dirname, '../src/mariko.less'), 'utf8');
+  const lessContent = await fs.readFile(path.resolve(__dirname, '../src/atropos.less'), 'utf8');
 
   const cssContent = await autoprefixer(
     await less(lessContent, path.resolve(__dirname, '../src')),
@@ -17,7 +17,7 @@ const buildCSS = async ({ minified, outputDir }) => {
     throw err;
   });
 
-  const fileName = 'mariko';
+  const fileName = 'atropos';
 
   // Write file
   await fs.ensureDir(`./${outputDir}`);
@@ -35,7 +35,7 @@ module.exports = async () => {
   buildCSS({ minified: env !== 'development', outputDir });
 
   // Copy less & scss
-  const files = ['mariko.less', 'mariko.scss'];
+  const files = ['atropos.less', 'atropos.scss'];
   await Promise.all(
     files.map(async (file) => {
       const distFilePath = path.resolve(__dirname, `../${outputDir}`, file);

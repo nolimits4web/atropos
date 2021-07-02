@@ -1,20 +1,20 @@
 {
-  "name": "mariko-build",
+  "name": "atropos-build",
   "version": "0.0.0",
-  "types": "mariko.d.ts",
+  "types": "atropos.d.ts",
   "type": "module",
   "exports": {
-    ".": "./esm/mariko.esm.js",
-    "./esm": "./react/mariko.esm.js",
-    "./esm/browser": "./react/mariko.esm.browser.js",
-    "./esm/browser/min": "./react/mariko.esm.browser.min.js",
-    "./react": "./react/mariko-react.esm.js",
-    "./vue": "./react/mariko-vue.esm.js",
-    "./mariko.js": "./mariko.js",
-    "./mariko.min.js": "./mariko.min.js",
-    "./mariko.css": "./mariko.css",
-    "./mariko.min.css": "./mariko.min.css",
-    "./mariko.less": "./mariko.less",
-    "./mariko.scss": "./mariko.scss"
+    ".": "./esm/atropos.esm.js",
+    "./esm": "./react/atropos.esm.js",
+    "./esm/browser": "./react/atropos.esm.browser.js",
+    "./esm/browser/min": "./react/atropos.esm.browser.min.js",
+    "./react": "./react/atropos-react.esm.js",
+    "./vue": "./react/atropos-vue.esm.js",
+    "./atropos.js": "./atropos.js",
+    "./atropos.min.js": "./atropos.min.js",
+    "./atropos.css": "./atropos.css",
+    "./atropos.min.css": "./atropos.min.css",
+    "./atropos.less": "./atropos.less",
+    "./atropos.scss": "./atropos.scss"
   }
 }

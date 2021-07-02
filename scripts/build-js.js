@@ -12,15 +12,15 @@ const banner = require('./banner')();
 
 async function buildJs(format, browser) {
   const env = process.env.NODE_ENV || 'development';
-  const external = format === 'umd' || browser ? [] : (m) => !m.includes('mariko.js');
-  let filename = 'mariko';
+  const external = format === 'umd' || browser ? [] : (m) => !m.includes('atropos.js');
+  let filename = 'atropos';
   if (format !== 'umd') filename += `.${format}`;
   if (format === 'esm' && browser) filename += '.browser';
   const output = env === 'development' ? 'build' : 'package';
   const needSourceMap = env === 'production' && (format === 'umd' || (format === 'esm' && browser));
 
   return rollup({
-    input: './src/mariko.js',
+    input: './src/atropos.js',
     external,
     plugins: [
       replace({
@@ -35,7 +35,7 @@ async function buildJs(format, browser) {
     .then((bundle) =>
       bundle.write({
         format,
-        name: 'Mariko',
+        name: 'Atropos',
         strict: true,
         sourcemap: needSourceMap,
         sourcemapFile: `./${output}/${filename}.js.map`,

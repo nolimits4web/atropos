@@ -11,13 +11,13 @@ module.exports = async () => {
 
   // Babel
   await exec(
-    `cross-env MODULES=${format} npx babel --config-file ./babel.config.vue.js src/vue/mariko-vue.js --out-file ${outputDir}/vue/mariko-vue.${format}.js`,
+    `cross-env MODULES=${format} npx babel --config-file ./babel.config.vue.js src/vue/atropos-vue.js --out-file ${outputDir}/vue/atropos-vue.${format}.js`,
   );
 
   // Add banner
-  let fileContent = await fs.readFile(`./${outputDir}/vue/mariko-vue.${format}.js`, 'utf-8');
+  let fileContent = await fs.readFile(`./${outputDir}/vue/atropos-vue.${format}.js`, 'utf-8');
   fileContent = `${bannerVue}\n${fileContent}`;
-  await fs.writeFile(`./${outputDir}/vue/mariko-vue.${format}.js`, fileContent);
+  await fs.writeFile(`./${outputDir}/vue/atropos-vue.${format}.js`, fileContent);
 
   console.log('Vue build completed!');
 };

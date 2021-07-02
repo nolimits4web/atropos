@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 
 // eslint-disable-next-line
-import '../../build/mariko.css';
+import '../../build/atropos.css';
 
 import App from './App.vue';
 

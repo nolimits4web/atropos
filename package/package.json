@@ -1,35 +1,35 @@
 {
-  "name": "mariko",
-  "version": "0.8.6",
+  "name": "atropos",
+  "version": "0.9.0",
   "description": "Touch-friendly 3D parallax hover effects",
-  "types": "mariko.d.ts",
+  "types": "atropos.d.ts",
   "type": "module",
   "exports": {
-    ".": "./esm/mariko.esm.js",
-    "./esm": "./esm/mariko.esm.js",
-    "./esm/mariko.esm.js": "./esm/mariko.esm.js",
-    "./esm/browser": "./esm/mariko.esm.browser.js",
-    "./esm/browser/min": "./esm/mariko.esm.browser.min.js",
-    "./react": "./react/mariko-react.esm.js",
-    "./vue": "./vue/mariko-vue.esm.js",
-    "./css": "./mariko.css",
-    "./css/min": "./mariko.min.css",
-    "./less": "./mariko.less",
-    "./scss": "./mariko.scss",
-    "./mariko.js": "./mariko.js",
-    "./mariko.min.js": "./mariko.min.js",
-    "./mariko.css": "./mariko.css",
-    "./mariko.min.css": "./mariko.min.css",
-    "./mariko.less": "./mariko.less",
-    "./mariko.scss": "./mariko.scss",
+    ".": "./esm/atropos.esm.js",
+    "./esm": "./esm/atropos.esm.js",
+    "./esm/atropos.esm.js": "./esm/atropos.esm.js",
+    "./esm/browser": "./esm/atropos.esm.browser.js",
+    "./esm/browser/min": "./esm/atropos.esm.browser.min.js",
+    "./react": "./react/atropos-react.esm.js",
+    "./vue": "./vue/atropos-vue.esm.js",
+    "./css": "./atropos.css",
+    "./css/min": "./atropos.min.css",
+    "./less": "./atropos.less",
+    "./scss": "./atropos.scss",
+    "./atropos.js": "./atropos.js",
+    "./atropos.min.js": "./atropos.min.js",
+    "./atropos.css": "./atropos.css",
+    "./atropos.min.css": "./atropos.min.css",
+    "./atropos.less": "./atropos.less",
+    "./atropos.scss": "./atropos.scss",
     "./package.json": "./package.json"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nolimits4web/mariko.git"
+    "url": "https://github.com/nolimits4web/atropos.git"
   },
   "keywords": [
-    "mariko",
+    "atropos",
     "effect",
     "parallax",
     "hover",
@@ -44,11 +44,11 @@
   "author": "Vladimir Kharlampidi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nolimits4web/mariko/issues"
+    "url": "https://github.com/nolimits4web/atropos/issues"
   },
-  "homepage": "https://marikojs.com",
+  "homepage": "https://atroposjs.com",
   "engines": {
     "node": ">= 12.0.0"
   },
-  "releaseDate": "June 30, 2021"
+  "releaseDate": "July 2, 2021"
 }

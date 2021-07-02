@@ -21,11 +21,11 @@ const removeUndefinedProps = (obj = {}) => {
   return result;
 };
 
-function Mariko(originalParams = {}) {
+function Atropos(originalParams = {}) {
   let { el, eventsEl } = originalParams;
 
   const self = {
-    __mariko__: true,
+    __atropos__: true,
     params: {
       activeOffset: 50,
       shadowOffset: 50,
@@ -68,10 +68,10 @@ function Mariko(originalParams = {}) {
   let highlightEl;
 
   const createShadow = () => {
-    shadowEl = $(el, '.mariko-shadow');
+    shadowEl = $(el, '.atropos-shadow');
     if (shadowEl) return;
     shadowEl = document.createElement('span');
-    shadowEl.classList.add('mariko-shadow');
+    shadowEl.classList.add('atropos-shadow');
     $setTransform(
       shadowEl,
       `translate3d(0,0,-${params.shadowOffset}px) scale(${params.shadowScale})`,
@@ -79,10 +79,10 @@ function Mariko(originalParams = {}) {
     rotateEl.appendChild(shadowEl);
   };
   const createHighlight = () => {
-    highlightEl = $(el, '.mariko-highlight');
+    highlightEl = $(el, '.atropos-highlight');
     if (highlightEl) return;
     highlightEl = document.createElement('span');
-    highlightEl.classList.add('mariko-highlight');
+    highlightEl.classList.add('atropos-highlight');
     $setTransform(highlightEl, `translate3d(0,0,0)`);
     innerEl.appendChild(highlightEl);
   };
@@ -94,19 +94,19 @@ function Mariko(originalParams = {}) {
     opacityOnly,
   }) => {
     const getOpacity = (element) => {
-      if (element.dataset.marikoOpacity && typeof element.dataset.marikoOpacity === 'string') {
-        return element.dataset.marikoOpacity.split(';').map((v) => parseFloat(v));
+      if (element.dataset.atroposOpacity && typeof element.dataset.atroposOpacity === 'string') {
+        return element.dataset.atroposOpacity.split(';').map((v) => parseFloat(v));
       }
       return undefined;
     };
-    $$(el, '[data-mariko-offset], [data-mariko-opacity]').forEach((childEl) => {
+    $$(el, '[data-atropos-offset], [data-atropos-opacity]').forEach((childEl) => {
       $setDuration(childEl, duration);
       const elementOpacity = getOpacity(childEl);
       if (rotateXPercentage === 0 && rotateYPercentage === 0) {
         if (!opacityOnly) $setTransform(childEl, `translate3d(0, 0, 0)`);
         if (elementOpacity) $setOpacity(childEl, elementOpacity[0]);
       } else {
-        const childElOffset = parseFloat(childEl.dataset.marikoOffset) / 100;
+        const childElOffset = parseFloat(childEl.dataset.atroposOffset) / 100;
         if (!Number.isNaN(childElOffset) && !opacityOnly) {
           $setTransform(
             childEl,
@@ -133,7 +133,7 @@ function Mariko(originalParams = {}) {
     if (e.type === 'pointerdown') {
       e.preventDefault();
     }
-    el.classList.add('mariko-active');
+    el.classList.add('atropos-active');
     $setDuration(rotateEl, '0ms');
     enterRotateX = undefined;
     enterRotateY = undefined;
@@ -228,7 +228,7 @@ function Mariko(originalParams = {}) {
     if (!self.isActive) return;
     if (e && e.type === 'pointerup' && e.pointerType === 'mouse') return;
     if (e && e.type === 'pointerleave' && e.pointerType !== 'mouse') return;
-    el.classList.remove('mariko-active');
+    el.classList.remove('atropos-active');
     $setTransform(scaleEl, `translate3d(0,0, ${0}px)`);
     $setDuration(scaleEl, `${params.durationLeave}ms`);
     if (shadowEl) {
@@ -262,7 +262,7 @@ function Mariko(originalParams = {}) {
     if (!el) return;
 
     // eslint-disable-next-line
-    if (el.__mariko__) return;
+    if (el.__atropos__) return;
 
     if (typeof eventsEl !== 'undefined') {
       if (typeof eventsEl === 'string') {
@@ -276,12 +276,12 @@ function Mariko(originalParams = {}) {
       el,
     });
 
-    rotateEl = $(el, '.mariko-rotate');
-    scaleEl = $(el, '.mariko-scale');
-    innerEl = $(el, '.mariko-inner');
+    rotateEl = $(el, '.atropos-rotate');
+    scaleEl = $(el, '.atropos-scale');
+    innerEl = $(el, '.atropos-inner');
 
     // eslint-disable-next-line
-    el.__mariko__ = self;
+    el.__atropos__ = self;
   };
 
   const init = () => {
@@ -294,9 +294,9 @@ function Mariko(originalParams = {}) {
       createHighlight();
     }
     if (params.rotateTouch) {
-      el.classList.add('mariko-rotate-touch');
+      el.classList.add('atropos-rotate-touch');
     }
-    if ($(el, '[data-mariko-opacity]')) {
+    if ($(el, '[data-atropos-opacity]')) {
       setChildrenOffset({ opacityOnly: true });
     }
     $on(document, 'click', onDocumentClick);
@@ -318,7 +318,7 @@ function Mariko(originalParams = {}) {
     $off(eventsEl, 'pointerup', onPointerLeave);
     $off(eventsEl, 'lostpointercapture', onPointerLeave);
     // eslint-disable-next-line
-    delete el.__mariko__;
+    delete el.__atropos__;
   };
 
   self.destroy = destroy;
@@ -328,5 +328,5 @@ function Mariko(originalParams = {}) {
   // eslint-disable-next-line
   return self;
 }
-export { Mariko };
-export default Mariko;
+export { Atropos };
+export default Atropos;

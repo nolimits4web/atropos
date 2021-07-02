@@ -1,4 +1,4 @@
-.mariko {
+.atropos {
   position: relative;
   display: block;
   perspective: 1200px;
@@ -10,23 +10,23 @@
     user-select: none;
   }
 }
-.mariko-scale,
-.mariko-rotate {
+.atropos-scale,
+.atropos-rotate {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
   transition-property: transform;
   display: block;
 }
-.mariko-shadow,
-.mariko-highlight {
+.atropos-shadow,
+.atropos-highlight {
   position: absolute;
   pointer-events: none;
   transition-property: transform, opacity;
   display: block;
   opacity: 0;
 }
-.mariko-shadow {
+.atropos-shadow {
   z-index: -1;
   background: #000;
   left: 0;
@@ -35,7 +35,7 @@
   height: 100%;
   filter: blur(30px);
 }
-.mariko-highlight {
+.atropos-highlight {
   left: -50%;
   top: -50%;
   width: 200%;
@@ -43,10 +43,10 @@
   background-image: radial-gradient(circle at 50%, rgba(255, 255, 255, 0.25), transparent 50%);
   z-index: 0;
 }
-.mariko-rotate {
+.atropos-rotate {
   position: relative;
 }
-.mariko-inner {
+.atropos-inner {
   width: 100%;
   height: 100%;
   position: relative;
@@ -55,18 +55,18 @@
   transform: translate3d(0, 0, 0);
   display: block;
 }
-.mariko-active {
+.atropos-active {
   z-index: 1;
-  .mariko-shadow {
+  .atropos-shadow {
     opacity: 1 !important;
   }
 }
-[data-mariko-offset] {
+[data-atropos-offset] {
   transition-property: transform;
 }
-[data-mariko-opacity] {
+[data-atropos-opacity] {
   transition-property: opacity;
 }
-[data-mariko-offset][data-mariko-opacity] {
+[data-atropos-offset][data-atropos-opacity] {
   transition-property: transform, opacity;
 }

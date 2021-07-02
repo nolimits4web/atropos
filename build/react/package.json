@@ -1,8 +1,8 @@
 {
-  "name": "mariko/react",
+  "name": "atropos/react",
   "private": true,
   "type": "module",
-  "exports": "./mariko-react.esm.js",
-  "types": "./mariko-react.d.ts",
+  "exports": "./atropos-react.esm.js",
+  "types": "./atropos-react.d.ts",
   "sideEffects": false
 }

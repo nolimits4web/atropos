@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { MarikoOptions } from '../';
+import { AtroposOptions } from '../';
 
-interface Mariko extends MarikoOptions {
+interface Atropos extends AtroposOptions {
   component?: string;
   rootChildren?: React.ReactNode;
   scaleChildren?: React.ReactNode;
@@ -12,9 +12,9 @@ interface Mariko extends MarikoOptions {
   innerClassName?: string;
 }
 
-interface Mariko extends React.HTMLAttributes<HTMLElement> {}
+interface Atropos extends React.HTMLAttributes<HTMLElement> {}
 
-declare const Mariko: React.FunctionComponent<Mariko>;
+declare const Atropos: React.FunctionComponent<Atropos>;
 
-export { Mariko };
-export default Mariko;
+export { Atropos };
+export default Atropos;

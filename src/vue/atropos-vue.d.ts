@@ -1,6 +1,6 @@
 import { ComponentOptionsMixin, DefineComponent } from 'vue';
 
-declare const Mariko: DefineComponent<
+declare const Atropos: DefineComponent<
   {
     component: {
       type: StringConstructor;
@@ -39,5 +39,5 @@ declare const Mariko: DefineComponent<
   }
 >;
 
-export { Mariko };
-export default Mariko;
+export { Atropos };
+export default Atropos;

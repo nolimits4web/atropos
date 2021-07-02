@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 // eslint-disable-next-line
-import MarikoCore from '../esm/mariko.esm.js';
+import AtroposCore from '../esm/atropos.esm.js';
 
 const paramsKeys = [
   'eventsEl',
@@ -39,7 +39,7 @@ const extractParamsKeys = (obj) => {
   return result;
 };
 
-function Mariko(props) {
+function Atropos(props) {
   const {
     component = 'div',
     children,
@@ -55,7 +55,7 @@ function Mariko(props) {
   } = props;
 
   const elRef = useRef(null);
-  const marikoRef = useRef(null);
+  const atroposRef = useRef(null);
 
   const Component = component;
 
@@ -64,16 +64,16 @@ function Mariko(props) {
   };
 
   const init = () => {
-    marikoRef.current = MarikoCore({
+    atroposRef.current = AtroposCore({
       el: elRef.current,
       ...extractParamsKeys(props),
     });
   };
 
   const destroy = () => {
-    if (marikoRef.current) {
-      marikoRef.current.destroy();
-      marikoRef.current = null;
+    if (atroposRef.current) {
+      atroposRef.current.destroy();
+      atroposRef.current = null;
     }
   };
 
@@ -88,33 +88,33 @@ function Mariko(props) {
   }, []);
 
   useEffect(() => {
-    if (marikoRef.current) {
-      marikoRef.current.params.onEnter = props.onEnter;
-      marikoRef.current.params.onLeave = props.onLeave;
-      marikoRef.current.params.onRotate = props.onRotate;
+    if (atroposRef.current) {
+      atroposRef.current.params.onEnter = props.onEnter;
+      atroposRef.current.params.onLeave = props.onLeave;
+      atroposRef.current.params.onRotate = props.onRotate;
     }
     return () => {
-      if (marikoRef.current) {
-        marikoRef.current.params.onEnter = null;
-        marikoRef.current.params.onLeave = null;
-        marikoRef.current.params.onRotate = null;
+      if (atroposRef.current) {
+        atroposRef.current.params.onEnter = null;
+        atroposRef.current.params.onLeave = null;
+        atroposRef.current.params.onRotate = null;
       }
     };
   });
 
   return (
-    <Component className={cls('mariko', className)} {...removeParamsKeys(rest)} ref={elRef}>
-      <span className={cls('mariko-scale', scaleClassName)}>
-        <span className={cls('mariko-rotate', rotateClassName)}>
-          <span className={cls('mariko-inner', innerClassName)}>
+    <Component className={cls('atropos', className)} {...removeParamsKeys(rest)} ref={elRef}>
+      <span className={cls('atropos-scale', scaleClassName)}>
+        <span className={cls('atropos-rotate', rotateClassName)}>
+          <span className={cls('atropos-inner', innerClassName)}>
             {children}
             {(props.highlight || typeof props.highlight === 'undefined') && (
-              <span className="mariko-highlight" />
+              <span className="atropos-highlight" />
             )}
           </span>
           {rotateChildren}
           {(props.shadow || typeof props.shadow === 'undefined') && (
-            <span className="mariko-shadow" />
+            <span className="atropos-shadow" />
           )}
         </span>
         {scaleChildren}
@@ -124,5 +124,5 @@ function Mariko(props) {
   );
 }
 
-export default Mariko;
-export { Mariko };
+export default Atropos;
+export { Atropos };

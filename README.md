@@ -1,18 +1,18 @@
 <p align="center">
-  <img src="https://marikojs.com/images/share-banner.png"/>
+  <img src="https://atroposjs.com/images/share-banner.png"/>
 </p>
 
-# Mariko
+# Atropos
 
-Mariko is a lightweight, free and open-source JavaScript library to create stunning touch-friendly 3D parallax hover effects.
+Atropos is a lightweight, free and open-source JavaScript library to create stunning touch-friendly 3D parallax hover effects.
 
 Available for JavaScript, React and Vue.js
 
 ## Community
 
-The Mariko community can be found on [GitHub Discussions](https://github.com/nolimits4web/mariko/discussions), where you can ask questions, voice ideas, and share your projects
+The Atropos community can be found on [GitHub Discussions](https://github.com/nolimits4web/atropos/discussions), where you can ask questions, voice ideas, and share your projects
 
-Our [Code of Conduct](https://github.com/nolimits4web/mariko/blob/master/CODE_OF_CONDUCT.md) applies to all Mariko community channels.
+Our [Code of Conduct](https://github.com/nolimits4web/atropos/blob/master/CODE_OF_CONDUCT.md) applies to all Atropos community channels.
 
 ## Dist / Build
 
@@ -28,7 +28,7 @@ $ npm install
 
 ```
 
-And build development version of Mariko:
+And build development version of Atropos:
 
 ```
 
@@ -59,4 +59,4 @@ Production version will available in `package/` folder.
 
 ## Contributing
 
-All changes should be committed to `src/` files only. Before you open an issue please review the [contributing](https://github.com/nolimits4web/mariko/blob/master/CONTRIBUTING.md) guideline.
+All changes should be committed to `src/` files only. Before you open an issue please review the [contributing](https://github.com/nolimits4web/atropos/blob/master/CONTRIBUTING.md) guideline.
