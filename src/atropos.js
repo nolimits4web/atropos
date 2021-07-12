@@ -68,23 +68,34 @@ function Atropos(originalParams = {}) {
   let highlightEl;
 
   const createShadow = () => {
+    let created;
     shadowEl = $(el, '.atropos-shadow');
-    if (shadowEl) return;
-    shadowEl = document.createElement('span');
-    shadowEl.classList.add('atropos-shadow');
+    if (!shadowEl) {
+      shadowEl = document.createElement('span');
+      shadowEl.classList.add('atropos-shadow');
+      created = true;
+    }
     $setTransform(
       shadowEl,
       `translate3d(0,0,-${params.shadowOffset}px) scale(${params.shadowScale})`,
     );
-    rotateEl.appendChild(shadowEl);
+    if (created) {
+      rotateEl.appendChild(shadowEl);
+    }
   };
   const createHighlight = () => {
+    let created;
     highlightEl = $(el, '.atropos-highlight');
-    if (highlightEl) return;
-    highlightEl = document.createElement('span');
-    highlightEl.classList.add('atropos-highlight');
+    if (!highlightEl) {
+      highlightEl = document.createElement('span');
+      highlightEl.classList.add('atropos-highlight');
+      created = true;
+    }
+
     $setTransform(highlightEl, `translate3d(0,0,0)`);
-    innerEl.appendChild(highlightEl);
+    if (created) {
+      innerEl.appendChild(highlightEl);
+    }
   };
 
   const setChildrenOffset = ({
