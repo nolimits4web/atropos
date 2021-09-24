@@ -24,8 +24,14 @@ async function buildJs(format, browser) {
     external,
     plugins: [
       replace({
+        delimiters: ['', ''],
         'process.env.FORMAT': JSON.stringify(format),
         'process.env.BROWSER': browser,
+        ...(format === 'umd'
+          ? {
+              'export { Atropos };': '',
+            }
+          : {}),
       }),
       resolve({ mainFields: ['module', 'main', 'jsnext'] }),
       babel({ babelHelpers: 'bundled' }),
