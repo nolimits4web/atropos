@@ -20,6 +20,7 @@
     "lint": "eslint --ext .js,.jsx .",
     "validate": "npm-run-all --parallel check-format lint",
     "release": "npm run validate && node ./scripts/release",
+    "changelog": "npx conventional-changelog -p angular -i CHANGELOG.md -u -s",
     "test": "npm run validate && npm run build:prod"
   },
   "repository": {
