@@ -1,5 +1,11 @@
 # Changelog
 
+# [0.9.6](https://github.com/nolimits4web/atropos/compare/v0.9.5...v0.9.6) (2021-09-28)
+
+### Bug Fixes
+
+- add missing styles from SCSS ([8c17306](https://github.com/nolimits4web/atropos/commit/8c173067435085001735ec15028095b9d2b91deb))
+
 # [0.9.5](https://github.com/nolimits4web/atropos/compare/v0.9.4...v0.9.5) (2021-09-28)
 
 ### Features
