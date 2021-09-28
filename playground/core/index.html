@@ -26,7 +26,15 @@
       </div>
     </div>
   </div>
-  <script type="module" src="./main.js"></script>
+  <script type="module">
+    import Atropos from '../../build/esm/atropos.esm';
+    import '../../build/atropos.css';
+
+    window.atropos = new Atropos({
+      el: document.querySelectorAll('.atropos')[0],
+      shadowScale: 1.05,
+    });
+  </script>
 </body>
 
 </html>
