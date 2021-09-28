@@ -53,6 +53,7 @@ function Atropos(originalParams = {}) {
   const { params } = self;
 
   let rotateEl;
+  let rotated;
   let scaleEl;
   let innerEl;
 
@@ -146,6 +147,7 @@ function Atropos(originalParams = {}) {
     }
     el.classList.add('atropos-active');
     $setDuration(rotateEl, '0ms');
+    rotated = false;
     enterRotateX = undefined;
     enterRotateY = undefined;
     rotateXLock = true;
@@ -158,6 +160,12 @@ function Atropos(originalParams = {}) {
 
     self.isActive = true;
     if (typeof params.onEnter === 'function') params.onEnter();
+  };
+
+  const onTouchMove = (e) => {
+    if (rotated && e.cancelable) {
+      e.preventDefault();
+    }
   };
 
   const onPointerMove = (e) => {
@@ -214,6 +222,16 @@ function Atropos(originalParams = {}) {
     if (params.rotateXInvert) rotateX = -rotateX;
     rotateY = Math.min(Math.max(-rotateY, -params.rotateYMax), params.rotateYMax);
     if (params.rotateYInvert) rotateY = -rotateY;
+
+    if (typeof params.rotateTouch === 'string' && (rotateX !== 0 || rotateY !== 0)) {
+      if (!rotated) {
+        rotated = true;
+        el.classList.add('atropos-rotate-touch');
+      }
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+    }
     $setTransform(rotateEl, `translate3d(0,0,0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`);
 
     const rotateXPercentage = (rotateX / params.rotateXMax) * 100;
@@ -239,6 +257,9 @@ function Atropos(originalParams = {}) {
     if (!self.isActive) return;
     if (e && e.type === 'pointerup' && e.pointerType === 'mouse') return;
     if (e && e.type === 'pointerleave' && e.pointerType !== 'mouse') return;
+    if (typeof params.rotateTouch === 'string' && rotated) {
+      el.classList.remove('atropos-rotate-touch');
+    }
     el.classList.remove('atropos-active');
     $setTransform(scaleEl, `translate3d(0,0, ${0}px)`);
     $setDuration(scaleEl, `${params.durationLeave}ms`);
@@ -305,7 +326,11 @@ function Atropos(originalParams = {}) {
       createHighlight();
     }
     if (params.rotateTouch) {
-      el.classList.add('atropos-rotate-touch');
+      if (typeof params.rotateTouch === 'string') {
+        el.classList.add(`atropos-rotate-touch-${params.rotateTouch}`);
+      } else {
+        el.classList.add('atropos-rotate-touch');
+      }
     }
     if ($(el, '[data-atropos-opacity]')) {
       setChildrenOffset({ opacityOnly: true });
@@ -314,6 +339,7 @@ function Atropos(originalParams = {}) {
     $on(eventsEl, 'pointerdown', onPointerEnter);
     $on(eventsEl, 'pointerenter', onPointerEnter);
     $on(eventsEl, 'pointermove', onPointerMove);
+    $on(eventsEl, 'touchmove', onTouchMove);
     $on(eventsEl, 'pointerleave', onPointerLeave);
     $on(eventsEl, 'pointerup', onPointerLeave);
     $on(eventsEl, 'lostpointercapture', onPointerLeave);
@@ -325,6 +351,7 @@ function Atropos(originalParams = {}) {
     $off(eventsEl, 'pointerdown', onPointerEnter);
     $off(eventsEl, 'pointerenter', onPointerEnter);
     $off(eventsEl, 'pointermove', onPointerMove);
+    $off(eventsEl, 'touchmove', onTouchMove);
     $off(eventsEl, 'pointerleave', onPointerLeave);
     $off(eventsEl, 'pointerup', onPointerLeave);
     $off(eventsEl, 'lostpointercapture', onPointerLeave);

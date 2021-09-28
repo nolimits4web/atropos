@@ -3,11 +3,22 @@
   display: block;
   perspective: 1200px;
   transform: translate3d(0, 0, 0);
-  &-rotate-touch {
-    touch-action: none;
+  &-rotate-touch,
+  &-rotate-scroll-x,
+  &-rotate-scroll-y {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-touch-callout: none;
     user-select: none;
+  }
+
+  &-rotate-touch-scroll-y {
+    touch-action: pan-y;
+  }
+  &-rotate-touch-scroll-x {
+    touch-action: pan-x;
+  }
+  &-rotate-touch {
+    touch-action: none;
   }
 }
 .atropos-scale,

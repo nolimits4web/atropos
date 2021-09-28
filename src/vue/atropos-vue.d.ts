@@ -18,7 +18,7 @@ declare const Atropos: DefineComponent<
     durationLeave: { type: NumberConstructor; default: undefined };
     rotateLock: { type: BooleanConstructor; default: undefined };
     rotate: { type: BooleanConstructor; default: undefined };
-    rotateTouch: { type: BooleanConstructor; default: undefined };
+    rotateTouch: { type: BooleanConstructor | StringConstructor; default: undefined };
     rotateXMax: { type: NumberConstructor; default: undefined };
     rotateYMax: { type: NumberConstructor; default: undefined };
     rotateXInvert: { type: BooleanConstructor; default: undefined };

@@ -10,7 +10,7 @@ export interface AtroposOptions {
   durationLeave?: number;
   rotateLock?: boolean;
   rotate?: boolean;
-  rotateTouch?: boolean;
+  rotateTouch?: boolean | 'scroll-x' | 'scroll-y';
   rotateXMax?: number;
   rotateYMax?: number;
   rotateXInvert?: boolean;
