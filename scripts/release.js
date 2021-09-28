@@ -28,10 +28,10 @@ async function release() {
   childPkg.version = options.version;
   childPkg.releaseDate = releaseDate;
 
-  fs.writeFileSync(path.resolve(__dirname, '../package.json'), JSON.stringify(pkg, null, 2));
+  fs.writeFileSync(path.resolve(__dirname, '../package.json'), `${JSON.stringify(pkg, null, 2)}\n`);
   fs.writeFileSync(
     path.resolve(__dirname, '../package/package.json'),
-    JSON.stringify(childPkg, null, 2),
+    `${JSON.stringify(childPkg, null, 2)}\n`,
   );
 
   const cleanPackage = [
