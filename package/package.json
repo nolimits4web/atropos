@@ -12,6 +12,7 @@
     "./esm/browser/min": "./esm/atropos.esm.browser.min.js",
     "./react": "./react/atropos-react.esm.js",
     "./vue": "./vue/atropos-vue.esm.js",
+    "./svelte": "./svelte/atropos-svelte.svelte",
     "./css": "./atropos.css",
     "./css/min": "./atropos.min.css",
     "./less": "./atropos.less",
