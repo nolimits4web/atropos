@@ -109,10 +109,12 @@ build/*.less
 build/*.scss
 build/**/*.js
 build/**/*.ts
+build/**/*.svelte
 build/*.map
 package/*.css
 package/*.less
 package/*.scss
 package/**/*.js
 package/**/*.ts
+package/**/*.svelte
 package/**/*.map
