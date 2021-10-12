@@ -2,7 +2,7 @@
   import { onMount, onDestroy, createEventDispatcher } from 'svelte';
   // eslint-disable-next-line
   import AtroposCore from '../esm/atropos.esm.js';
-  let className;
+  let className = '';
   export { className as class };
   export let scaleClass = '';
   export let rotateClass = '';
