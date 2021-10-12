@@ -1,5 +1,11 @@
 # Changelog
 
+# [0.10.0](https://github.com/nolimits4web/atropos/compare/v0.9.6...v0.10.0) (2021-10-12)
+
+### Features
+
+- Atropos Svelte component ([4efc4b3](https://github.com/nolimits4web/atropos/commit/4efc4b3f3d6848ceb77611f61a75e8a05b9112e8)), closes [#6](https://github.com/nolimits4web/atropos/issues/6)
+
 # [0.9.6](https://github.com/nolimits4web/atropos/compare/v0.9.5...v0.9.6) (2021-09-28)
 
 ### Bug Fixes

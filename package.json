@@ -1,6 +1,6 @@
 {
   "name": "atropos-src",
-  "version": "0.9.6",
+  "version": "0.10.0",
   "description": "Touch-friendly 3D parallax hover effects",
   "scripts": {
     "/*============ Build ============*/": "============",
