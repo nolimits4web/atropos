@@ -1,27 +1,9 @@
-<div class={cls('atropos', className)} {...$$restProps} bind:this={elRef}>
-  <span class={cls('atropos-scale', scaleClass)}>
-    <span class={cls('atropos-rotate', rotateClass)}>
-      <span class={cls('atropos-inner', innerClass)}>
-        <slot />
-        {#if (highlight || typeof highlight === 'undefined')}
-          <span class="atropos-highlight" />
-        {/if}
-      </span>
-      <slot name="rotate" />
-      {#if (shadow || typeof shadow === 'undefined')}
-        <span class="atropos-shadow" />
-      {/if}
-    </span>
-    <slot name="scale" />
-  </span>
-  <slot name="root" />
-</div>
 <script>
   import { onMount, onDestroy, createEventDispatcher } from 'svelte';
   // eslint-disable-next-line
   import AtroposCore from '../esm/atropos.esm.js';
   let className;
-  export {className as class};
+  export { className as class };
   export let scaleClass = '';
   export let rotateClass = '';
   export let innerClass = '';
@@ -88,8 +70,27 @@
 
   onMount(() => {
     init();
-  })
+  });
   onDestroy(() => {
     destroy();
-  })
+  });
 </script>
+
+<div class={cls('atropos', className)} {...$$restProps} bind:this={elRef}>
+  <span class={cls('atropos-scale', scaleClass)}>
+    <span class={cls('atropos-rotate', rotateClass)}>
+      <span class={cls('atropos-inner', innerClass)}>
+        <slot />
+        {#if highlight || typeof highlight === 'undefined'}
+          <span class="atropos-highlight" />
+        {/if}
+      </span>
+      <slot name="rotate" />
+      {#if shadow || typeof shadow === 'undefined'}
+        <span class="atropos-shadow" />
+      {/if}
+    </span>
+    <slot name="scale" />
+  </span>
+  <slot name="root" />
+</div>

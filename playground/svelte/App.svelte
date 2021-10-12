@@ -1,3 +1,7 @@
+<script>
+  import Atropos from '../../build/svelte';
+</script>
+
 <div class="container">
   <Atropos class="atropos-banner" highlight={false} on:enter={() => console.log('enter')}>
     <img class="atropos-banner-spacer" src="./i/atropos-bg.svg" alt="" />
@@ -9,7 +13,3 @@
     <img data-atropos-offset="5" src="./i/atropos-logo-en.svg" alt="" />
   </Atropos>
 </div>
-
-<script>
-import Atropos from '../../build/svelte';
-</script>
