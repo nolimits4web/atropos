@@ -1,5 +1,11 @@
 # Changelog
 
+# [0.10.1](https://github.com/nolimits4web/atropos/compare/v0.10.0...v0.10.1) (2021-10-12)
+
+### Bug Fixes
+
+- **svelte:** add default value for `class` prop ([2d05998](https://github.com/nolimits4web/atropos/commit/2d0599880870c19364752f9454c33ad4bac2c316))
+
 # [0.10.0](https://github.com/nolimits4web/atropos/compare/v0.9.6...v0.10.0) (2021-10-12)
 
 ### Features
