@@ -23,6 +23,8 @@ declare const Atropos: DefineComponent<
     rotateYMax: { type: NumberConstructor; default: undefined };
     rotateXInvert: { type: BooleanConstructor; default: undefined };
     rotateYInvert: { type: BooleanConstructor; default: undefined };
+    stretchX: { type: NumberConstructor; default: undefined };
+    stretchY: { type: NumberConstructor; default: undefined };
     shadow: { type: BooleanConstructor; default: true };
     highlight: { type: BooleanConstructor; default: true };
   },

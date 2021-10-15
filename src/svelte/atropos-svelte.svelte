@@ -21,6 +21,8 @@
   export let rotateYMax = undefined;
   export let rotateXInvert = undefined;
   export let rotateYInvert = undefined;
+  export let stretchX = undefined;
+  export let stretchY = undefined;
   export let shadow = true;
   export let highlight = true;
 
@@ -49,6 +51,8 @@
       rotateYMax,
       rotateXInvert,
       rotateYInvert,
+      stretchX,
+      stretchY,
       onEnter() {
         emit('enter');
       },

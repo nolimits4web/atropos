@@ -39,6 +39,8 @@ function Atropos(originalParams = {}) {
       rotateYMax: 15,
       rotateXInvert: false,
       rotateYInvert: false,
+      stretchX: 0,
+      stretchY: 0,
       shadow: true,
       highlight: true,
       onEnter: null,
@@ -61,6 +63,7 @@ function Atropos(originalParams = {}) {
   let enterRotateY;
 
   let elBoundingClientRect;
+  let eventsElBoundingClientRect;
 
   let rotateXLock = true;
   let rotateYLock = true;
@@ -178,15 +181,41 @@ function Atropos(originalParams = {}) {
     if (!elBoundingClientRect) {
       elBoundingClientRect = el.getBoundingClientRect();
     }
+    if (el !== eventsEl && !eventsElBoundingClientRect) {
+      eventsElBoundingClientRect = eventsEl.getBoundingClientRect();
+    }
+    let rotateX = 0;
+    let rotateY = 0;
     const { top, left, width, height } = elBoundingClientRect;
-    const centerX = width / 2;
-    const centerY = height / 2;
+    if (el === eventsEl) {
+      const centerX = width / 2;
+      const centerY = height / 2;
 
-    const coordX = clientX - left;
-    const coordY = clientY - top;
+      const coordX = clientX - left;
+      const coordY = clientY - top;
 
-    let rotateY = ((params.rotateYMax * (coordX - centerX)) / (width / 2)) * -1;
-    let rotateX = (params.rotateXMax * (coordY - centerY)) / (height / 2);
+      rotateY = ((params.rotateYMax * (coordX - centerX)) / (width / 2)) * -1;
+      rotateX = (params.rotateXMax * (coordY - centerY)) / (height / 2);
+    } else {
+      const {
+        top: parentTop,
+        left: parentLeft,
+        width: parentWidth,
+        height: parentHeight,
+      } = eventsElBoundingClientRect;
+      const offsetLeft = left - parentLeft;
+      const offsetTop = top - parentTop;
+
+      const centerX = width / 2 + offsetLeft;
+      const centerY = height / 2 + offsetTop;
+
+      const coordX = clientX - parentLeft;
+      const coordY = clientY - parentTop;
+
+      rotateY = ((params.rotateYMax * (coordX - centerX)) / (parentWidth - width / 2)) * -1;
+      rotateX = (params.rotateXMax * (coordY - centerY)) / (parentHeight - height / 2);
+    }
+
     if (params.rotateLock) {
       if (typeof enterRotateY === 'undefined') {
         enterRotateY = rotateY;
@@ -232,10 +261,20 @@ function Atropos(originalParams = {}) {
         e.preventDefault();
       }
     }
-    $setTransform(rotateEl, `translate3d(0,0,0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`);
-
     const rotateXPercentage = (rotateX / params.rotateXMax) * 100;
     const rotateYPercentage = (rotateY / params.rotateYMax) * 100;
+
+    const stretchX =
+      (el !== eventsEl ? (rotateYPercentage / 100) * params.stretchX : 0) *
+      (params.rotateYInvert ? -1 : 1);
+    const stretchY =
+      (el !== eventsEl ? (rotateXPercentage / 100) * params.stretchY : 0) *
+      (params.rotateXInvert ? -1 : 1);
+
+    $setTransform(
+      rotateEl,
+      `translate3d(${stretchX}%, ${-stretchY}%, 0px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
+    );
 
     if (highlightEl) {
       $setDuration(highlightEl, '0ms');
@@ -282,7 +321,7 @@ function Atropos(originalParams = {}) {
 
   const onDocumentClick = (e) => {
     const clickTarget = e.target;
-    if (!el.contains(clickTarget) && clickTarget !== el && self.isActive) {
+    if (!eventsEl.contains(clickTarget) && clickTarget !== eventsEl && self.isActive) {
       onPointerLeave();
     }
   };

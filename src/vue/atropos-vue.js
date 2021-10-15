@@ -22,6 +22,8 @@ const Atropos = {
     rotateYMax: { type: Number, default: undefined },
     rotateXInvert: { type: Boolean, default: undefined },
     rotateYInvert: { type: Boolean, default: undefined },
+    stretchX: { type: Number, default: undefined },
+    stretchY: { type: Number, default: undefined },
     shadow: { type: Boolean, default: true },
     highlight: { type: Boolean, default: true },
   },
