@@ -14,9 +14,7 @@ declare const Atropos: DefineComponent<
     activeOffset: { type: NumberConstructor; default: undefined };
     shadowOffset: { type: NumberConstructor; default: undefined };
     shadowScale: { type: NumberConstructor; default: undefined };
-    durationEnter: { type: NumberConstructor; default: undefined };
-    durationLeave: { type: NumberConstructor; default: undefined };
-    rotateLock: { type: BooleanConstructor; default: undefined };
+    duration: { type: NumberConstructor; default: undefined };
     rotate: { type: BooleanConstructor; default: undefined };
     rotateTouch: { type: BooleanConstructor | StringConstructor; default: undefined };
     rotateXMax: { type: NumberConstructor; default: undefined };

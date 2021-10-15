@@ -12,9 +12,7 @@
   export let activeOffset = undefined;
   export let shadowOffset = undefined;
   export let shadowScale = undefined;
-  export let durationEnter = undefined;
-  export let durationLeave = undefined;
-  export let rotateLock = undefined;
+  export let duration = undefined;
   export let rotate = undefined;
   export let rotateTouch = undefined;
   export let rotateXMax = undefined;
@@ -42,9 +40,7 @@
       activeOffset,
       shadowOffset,
       shadowScale,
-      durationEnter,
-      durationLeave,
-      rotateLock,
+      duration,
       rotate,
       rotateTouch,
       rotateXMax,

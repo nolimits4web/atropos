@@ -1,17 +1,6 @@
 /* eslint-disable no-restricted-globals */
 const $ = (el, sel) => el.querySelector(sel);
 const $$ = (el, sel) => el.querySelectorAll(sel);
-const $setDuration = (el, duration) => {
-  el.style.transitionDuration = duration;
-};
-const $setTransform = (el, transform) => {
-  el.style.transform = transform;
-};
-const $setOpacity = (el, opacity) => {
-  el.style.opacity = opacity;
-};
-const $on = (el, event, handler, props) => el.addEventListener(event, handler, props);
-const $off = (el, event, handler, props) => el.removeEventListener(event, handler, props);
 
 const removeUndefinedProps = (obj = {}) => {
   const result = {};
@@ -30,9 +19,7 @@ function Atropos(originalParams = {}) {
       activeOffset: 50,
       shadowOffset: 50,
       shadowScale: 1,
-      durationEnter: 300,
-      durationLeave: 600,
-      rotateLock: true,
+      duration: 300,
       rotate: true,
       rotateTouch: true,
       rotateXMax: 15,
@@ -55,21 +42,52 @@ function Atropos(originalParams = {}) {
   const { params } = self;
 
   let rotateEl;
-  let rotated;
   let scaleEl;
   let innerEl;
-
-  let enterRotateX;
-  let enterRotateY;
 
   let elBoundingClientRect;
   let eventsElBoundingClientRect;
 
-  let rotateXLock = true;
-  let rotateYLock = true;
-
   let shadowEl;
   let highlightEl;
+
+  let isScrolling;
+  let clientXStart;
+  let clientYStart;
+
+  const queue = [];
+  let queueFrameId;
+  const purgeQueue = () => {
+    queueFrameId = requestAnimationFrame(() => {
+      queue.forEach((data) => {
+        if (typeof data === 'function') {
+          data();
+        } else {
+          const { element, prop, value } = data;
+          element.style[prop] = value;
+        }
+      });
+      queue.splice(0, queue.length);
+      purgeQueue();
+    });
+  };
+  purgeQueue();
+
+  const $setDuration = (element, value) => {
+    queue.push({ element, prop: 'transitionDuration', value });
+  };
+  const $setEasing = (element, value) => {
+    queue.push({ element, prop: 'transitionTimingFunction', value });
+  };
+  const $setTransform = (element, value) => {
+    queue.push({ element, prop: 'transform', value });
+  };
+  const $setOpacity = (element, value) => {
+    queue.push({ element, prop: 'opacity', value });
+  };
+  const $on = (element, event, handler, props) => element.addEventListener(event, handler, props);
+  const $off = (element, event, handler, props) =>
+    element.removeEventListener(event, handler, props);
 
   const createShadow = () => {
     let created;
@@ -107,6 +125,7 @@ function Atropos(originalParams = {}) {
     rotateYPercentage = 0,
     duration,
     opacityOnly,
+    easeOut,
   }) => {
     const getOpacity = (element) => {
       if (element.dataset.atroposOpacity && typeof element.dataset.atroposOpacity === 'string') {
@@ -116,6 +135,7 @@ function Atropos(originalParams = {}) {
     };
     $$(el, '[data-atropos-offset], [data-atropos-opacity]').forEach((childEl) => {
       $setDuration(childEl, duration);
+      $setEasing(childEl, easeOut ? 'ease-out' : '');
       const elementOpacity = getOpacity(childEl);
       if (rotateXPercentage === 0 && rotateYPercentage === 0) {
         if (!opacityOnly) $setTransform(childEl, `translate3d(0, 0, 0)`);
@@ -143,22 +163,23 @@ function Atropos(originalParams = {}) {
   };
 
   const onPointerEnter = (e) => {
+    isScrolling = undefined;
     if (e.type === 'pointerdown' && e.pointerType === 'mouse') return;
     if (e.type === 'pointerenter' && e.pointerType !== 'mouse') return;
     if (e.type === 'pointerdown') {
       e.preventDefault();
     }
-    el.classList.add('atropos-active');
-    $setDuration(rotateEl, '0ms');
-    rotated = false;
-    enterRotateX = undefined;
-    enterRotateY = undefined;
-    rotateXLock = true;
-    rotateYLock = true;
+    clientXStart = e.clientX;
+    clientYStart = e.clientY;
+    queue.push(() => el.classList.add('atropos-active'));
+    $setDuration(rotateEl, `${params.duration}ms`);
+    $setEasing(rotateEl, 'ease-out');
     $setTransform(scaleEl, `translate3d(0,0, ${params.activeOffset}px)`);
-    $setDuration(scaleEl, `${params.rotateLock ? params.durationEnter : 0}ms`);
+    $setDuration(scaleEl, `${params.duration}ms`);
+    $setEasing(scaleEl, 'ease-out');
     if (shadowEl) {
-      $setDuration(shadowEl, `${params.rotateLock ? params.durationEnter : 0}ms`);
+      $setDuration(shadowEl, `${params.duration}ms`);
+      $setEasing(shadowEl, 'ease-out');
     }
 
     self.isActive = true;
@@ -166,7 +187,7 @@ function Atropos(originalParams = {}) {
   };
 
   const onTouchMove = (e) => {
-    if (rotated && e.cancelable) {
+    if (isScrolling === false && e.cancelable) {
       e.preventDefault();
     }
   };
@@ -216,50 +237,31 @@ function Atropos(originalParams = {}) {
       rotateX = (params.rotateXMax * (coordY - centerY)) / (parentHeight - height / 2);
     }
 
-    if (params.rotateLock) {
-      if (typeof enterRotateY === 'undefined') {
-        enterRotateY = rotateY;
-        rotateYLock = true;
-      }
-      if (typeof enterRotateX === 'undefined') {
-        enterRotateX = rotateX;
-        rotateXLock = true;
-      }
-      if (rotateYLock) {
-        if (enterRotateY < 0) {
-          if (rotateY < 0) rotateY = 0;
-          if (rotateY > 0) rotateYLock = false;
-        }
-        if (enterRotateY > 0) {
-          if (rotateY > 0) rotateY = 0;
-          if (rotateY < 0) rotateYLock = false;
-        }
-      }
-      if (rotateXLock) {
-        if (enterRotateX < 0) {
-          if (rotateX < 0) rotateX = 0;
-          if (rotateX > 0) rotateXLock = false;
-        }
-        if (enterRotateX > 0) {
-          if (rotateX > 0) rotateX = 0;
-          if (rotateX < 0) rotateXLock = false;
-        }
-      }
-    }
-
     rotateX = Math.min(Math.max(-rotateX, -params.rotateXMax), params.rotateXMax);
     if (params.rotateXInvert) rotateX = -rotateX;
     rotateY = Math.min(Math.max(-rotateY, -params.rotateYMax), params.rotateYMax);
     if (params.rotateYInvert) rotateY = -rotateY;
 
-    if (typeof params.rotateTouch === 'string' && (rotateX !== 0 || rotateY !== 0)) {
-      if (!rotated) {
-        rotated = true;
+    if (
+      typeof params.rotateTouch === 'string' &&
+      (rotateX !== 0 || rotateY !== 0) &&
+      typeof isScrolling === 'undefined'
+    ) {
+      const diffX = clientX - clientXStart;
+      const diffY = clientY - clientYStart;
+      if (diffX * diffX + diffY * diffY >= 25) {
+        const touchAngle = (Math.atan2(Math.abs(diffY), Math.abs(diffX)) * 180) / Math.PI;
+        isScrolling = params.rotateTouch === 'scroll-y' ? touchAngle > 45 : 90 - touchAngle > 45;
+      }
+      if (isScrolling === false) {
         el.classList.add('atropos-rotate-touch');
+        if (e.cancelable) {
+          e.preventDefault();
+        }
       }
-      if (e.cancelable) {
-        e.preventDefault();
-      }
+    }
+    if (e.pointerType !== 'mouse' && isScrolling) {
+      return;
     }
     const rotateXPercentage = (rotateX / params.rotateXMax) * 100;
     const rotateYPercentage = (rotateY / params.rotateYMax) * 100;
@@ -277,16 +279,24 @@ function Atropos(originalParams = {}) {
     );
 
     if (highlightEl) {
-      $setDuration(highlightEl, '0ms');
+      $setDuration(highlightEl, `${params.duration}ms`);
+      $setEasing(highlightEl, 'ease-out');
       $setTransform(
         highlightEl,
         `translate3d(${-rotateYPercentage * 0.25}%, ${rotateXPercentage * 0.25}%, 0)`,
       );
-      highlightEl.style.opacity =
-        Math.max(Math.abs(rotateXPercentage), Math.abs(rotateYPercentage)) / 100;
+      $setOpacity(
+        highlightEl,
+        Math.max(Math.abs(rotateXPercentage), Math.abs(rotateYPercentage)) / 100,
+      );
     }
 
-    setChildrenOffset({ rotateXPercentage, rotateYPercentage, duration: '0ms' });
+    setChildrenOffset({
+      rotateXPercentage,
+      rotateYPercentage,
+      duration: `${params.duration}ms`,
+      easeOut: true,
+    });
 
     if (typeof params.onRotate === 'function') params.onRotate(rotateX, rotateY);
   };
@@ -297,24 +307,29 @@ function Atropos(originalParams = {}) {
     if (!self.isActive) return;
     if (e && e.type === 'pointerup' && e.pointerType === 'mouse') return;
     if (e && e.type === 'pointerleave' && e.pointerType !== 'mouse') return;
-    if (typeof params.rotateTouch === 'string' && rotated) {
+    if (typeof params.rotateTouch === 'string' && isScrolling) {
       el.classList.remove('atropos-rotate-touch');
     }
-    el.classList.remove('atropos-active');
+    queue.push(() => el.classList.remove('atropos-active'));
+    $setDuration(scaleEl, `${params.duration}ms`);
+    $setEasing(scaleEl, '');
     $setTransform(scaleEl, `translate3d(0,0, ${0}px)`);
-    $setDuration(scaleEl, `${params.durationLeave}ms`);
     if (shadowEl) {
-      $setDuration(shadowEl, `${params.durationLeave}ms`);
+      $setDuration(shadowEl, `${params.duration}ms`);
+      $setEasing(shadowEl, '');
     }
     if (highlightEl) {
-      $setDuration(highlightEl, `${params.durationLeave}ms`);
+      $setDuration(highlightEl, `${params.duration}ms`);
+      $setEasing(highlightEl, '');
       $setTransform(highlightEl, `translate3d(0, 0, 0)`);
-      highlightEl.style.opacity = 0;
+      $setOpacity(highlightEl, 0);
     }
-    $setDuration(rotateEl, `${params.durationLeave}ms`);
+    $setDuration(rotateEl, `${params.duration}ms`);
+    $setEasing(rotateEl, '');
     $setTransform(rotateEl, `translate3d(0,0,0) rotateX(0deg) rotateY(0deg)`);
 
-    setChildrenOffset({ duration: `${params.durationLeave}ms` });
+    setChildrenOffset({ duration: `${params.duration}ms` });
+
     self.isActive = false;
     if (typeof params.onRotate === 'function') params.onRotate(0, 0);
     if (typeof params.onLeave === 'function') params.onLeave();
@@ -387,6 +402,7 @@ function Atropos(originalParams = {}) {
 
   const destroy = () => {
     self.destroyed = true;
+    cancelAnimationFrame(queueFrameId);
     $off(document, 'click', onDocumentClick);
     $off(eventsEl, 'pointerdown', onPointerEnter);
     $off(eventsEl, 'pointerenter', onPointerEnter);

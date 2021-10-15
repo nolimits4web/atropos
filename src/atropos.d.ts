@@ -6,9 +6,7 @@ export interface AtroposOptions {
   activeOffset?: number;
   shadowOffset?: number;
   shadowScale?: number;
-  durationEnter?: number;
-  durationLeave?: number;
-  rotateLock?: boolean;
+  duration?: number;
   rotate?: boolean;
   rotateTouch?: boolean | 'scroll-x' | 'scroll-y';
   rotateXMax?: number;
