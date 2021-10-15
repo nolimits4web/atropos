@@ -16,7 +16,7 @@ function Atropos(originalParams = {}) {
   const self = {
     __atropos__: true,
     params: {
-      alwaysActive: true,
+      alwaysActive: false,
       activeOffset: 50,
       shadowOffset: 50,
       shadowScale: 1,

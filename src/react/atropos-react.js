@@ -4,6 +4,7 @@ import AtroposCore from '../esm/atropos.esm.js';
 
 const paramsKeys = [
   'eventsEl',
+  'alwaysActive',
   'activeOffset',
   'shadowOffset',
   'shadowScale',
