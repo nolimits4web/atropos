@@ -293,6 +293,7 @@ function Atropos(originalParams = {}) {
 
   const onPointerLeave = (e) => {
     elBoundingClientRect = undefined;
+    eventsElBoundingClientRect = undefined;
     if (!self.isActive) return;
     if (e && e.type === 'pointerup' && e.pointerType === 'mouse') return;
     if (e && e.type === 'pointerleave' && e.pointerType !== 'mouse') return;
