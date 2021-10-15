@@ -1,5 +1,15 @@
 # Changelog
 
+# [1.0.0-beta.1](https://github.com/nolimits4web/atropos/compare/v0.11.2...v1.0.0-beta.1) (2021-10-15)
+
+### Features
+
+- remove rotateLock functionality in favor of new smooth rotation ([0ba0d06](https://github.com/nolimits4web/atropos/commit/0ba0d06abb8672a4b785b8bd5e743c2b1f7dff4a))
+  - removed `durationEnter` parameter
+  - removed `durationLeave` parameter
+  - removed `rotateLock` parameter
+  - added single `duration` parameter (defaults to `300`)
+
 # [0.11.2](https://github.com/nolimits4web/atropos/compare/v0.11.1...v0.11.2) (2021-10-15)
 
 ### Bug Fixes

@@ -22,6 +22,54 @@ async function release() {
       message: 'Version:',
       default: pkg.version,
     },
+    {
+      type: 'list',
+      name: 'alpha',
+      message: 'Alpha?',
+      when: (opts) => opts.version.indexOf('alpha') >= 0,
+      choices: [
+        {
+          name: 'YES',
+          value: true,
+        },
+        {
+          name: 'NO',
+          value: false,
+        },
+      ],
+    },
+    {
+      type: 'list',
+      name: 'beta',
+      message: 'Beta?',
+      when: (opts) => opts.version.indexOf('beta') >= 0,
+      choices: [
+        {
+          name: 'YES',
+          value: true,
+        },
+        {
+          name: 'NO',
+          value: false,
+        },
+      ],
+    },
+    {
+      type: 'list',
+      name: 'next',
+      message: 'Next?',
+      when: (opts) => opts.version.indexOf('next') >= 0,
+      choices: [
+        {
+          name: 'YES',
+          value: true,
+        },
+        {
+          name: 'NO',
+          value: false,
+        },
+      ],
+    },
   ]);
   // Set version
   pkg.version = options.version;
@@ -59,7 +107,13 @@ async function release() {
   await exec.promise('git push');
   await exec.promise(`git tag v${pkg.version}`);
   await exec.promise('git push origin --tags');
-  await exec.promise('cd ./package && npm publish');
+  if (options.beta) {
+    await exec.promise('cd ./package && npm publish --tag beta');
+  } else if (options.alpha || options.next) {
+    await exec.promise('cd ./package && npm publish --tag next');
+  } else {
+    await exec.promise('cd ./package && npm publish');
+  }
 }
 
 release();
