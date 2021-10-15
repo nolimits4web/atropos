@@ -1,6 +1,12 @@
 # Changelog
 
-# [0.11.0](https://github.com/nolimits4web/atropos/compare/v0.10.1...0.11.0) (2021-10-15)
+# [0.11.1](https://github.com/nolimits4web/atropos/compare/v0.11.0...v0.11.1) (2021-10-15)
+
+### Bug Fixes
+
+- **react:** add `stretchX` and `stretchY` props ([5d06bd9](https://github.com/nolimits4web/atropos/commit/5d06bd93eb1ced5d0dd6a92e2097920166f939ac))
+
+# [0.11.0](https://github.com/nolimits4web/atropos/compare/v0.10.1...v0.11.0) (2021-10-15)
 
 ### Features
 
