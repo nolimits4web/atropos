@@ -8,8 +8,7 @@ body {
   min-height: 100vh;
 }
 body {
-  /* background-image: linear-gradient(to bottom, #ad3ef5, #5814a2); */
-  background: #444;
+  background-image: linear-gradient(to bottom, #ad3ef5, #5814a2);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,37 +68,4 @@ body {
   top: 0%;
 }
 .atropos-active .atropos-banner-text {
-}
-
-.atropos-multiple {
-  --cell-width: 320px;
-  --cell-height: 200px;
-  --cell-gap: 16px;
-  width: calc(var(--cell-width) * 3 + var(--cell-gap) * 6);
-  box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  perspective: 1200px;
-}
-
-.atropos {
-  width: var(--cell-width);
-  height: var(--cell-height);
-  margin: var(--cell-gap);
-  perspective: none !important;
-  transform-style: preserve-3d !important;
-}
-.atropos-multiple-bg {
-  display: flex;
-  width: 120%;
-  height: 120%;
-  background-image: url(/i/justice-league.jpg);
-  background-size: 283% 333%;
-
-  position: absolute;
-  left: -10%;
-  top: -10%;
 }
