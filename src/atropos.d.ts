@@ -16,6 +16,7 @@ export interface AtroposOptions {
   rotateYInvert?: boolean;
   stretchX?: number;
   stretchY?: number;
+  stretchZ?: number;
   shadow?: boolean;
   highlight?: boolean;
   onEnter?: () => void;
