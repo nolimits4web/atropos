@@ -16,6 +16,8 @@ const paramsKeys = [
   'rotateYMax',
   'rotateXInvert',
   'rotateYInvert',
+  'stretchX',
+  'stretchY',
   'shadow',
   'highlight',
   'onEnter',
