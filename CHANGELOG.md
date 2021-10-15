@@ -1,5 +1,14 @@
 # Changelog
 
+# [1.0.0-beta.2](https://github.com/nolimits4web/atropos/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2021-10-15)
+
+### Features
+
+- "always active" functionality, `stretchZ` and `commonOrigin` ([78c177c](https://github.com/nolimits4web/atropos/commit/78c177c054504b122116d317c4d7306ab7ce57ad))
+  - new `alwaysActive` parameter to keep Atropos "activated"/"entered" all the time
+  - new `stretchZ` parameter to set `translateZ` offset for multiple Atropos elements in same container (with same `eventsEl`)
+  - new `commonOrigin` parameter for multiple Atropos elements in same container (with same `eventsEl`)
+
 # [1.0.0-beta.1](https://github.com/nolimits4web/atropos/compare/v0.11.2...v1.0.0-beta.1) (2021-10-15)
 
 ### Features
