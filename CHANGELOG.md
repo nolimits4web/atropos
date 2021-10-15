@@ -1,5 +1,11 @@
 # Changelog
 
+# [0.11.2](https://github.com/nolimits4web/atropos/compare/v0.11.1...v0.11.2) (2021-10-15)
+
+### Bug Fixes
+
+- reset eventsEl bounding rect on pointer leave ([ce09fdb](https://github.com/nolimits4web/atropos/commit/ce09fdbce45f6b0c39ee2817f4997df17675e98d))
+
 # [0.11.1](https://github.com/nolimits4web/atropos/compare/v0.11.0...v0.11.1) (2021-10-15)
 
 ### Bug Fixes
