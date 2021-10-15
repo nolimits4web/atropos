@@ -17,6 +17,7 @@ export interface AtroposOptions {
   stretchX?: number;
   stretchY?: number;
   stretchZ?: number;
+  commonOrigin?: boolean;
   shadow?: boolean;
   highlight?: boolean;
   onEnter?: () => void;
