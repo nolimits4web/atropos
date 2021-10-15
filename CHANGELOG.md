@@ -1,5 +1,11 @@
 # Changelog
 
+# [0.11.0](https://github.com/nolimits4web/atropos/compare/v0.10.1...0.11.0) (2021-10-15)
+
+### Features
+
+- transform based on eventsEl (if specified) + stretchX/Y parameters ([b5c59c7](https://github.com/nolimits4web/atropos/commit/b5c59c786cf0a91b8518c4260e394ab9ee20c9e0))
+
 # [0.10.1](https://github.com/nolimits4web/atropos/compare/v0.10.0...v0.10.1) (2021-10-12)
 
 ### Bug Fixes
