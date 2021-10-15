@@ -10,6 +10,7 @@ const Atropos = {
     rotateClass: String,
 
     eventsEl: { type: [String, Object], default: undefined },
+    alwaysActive: { type: Boolean, default: false },
     activeOffset: { type: Number, default: undefined },
     shadowOffset: { type: Number, default: undefined },
     shadowScale: { type: Number, default: undefined },
@@ -22,6 +23,8 @@ const Atropos = {
     rotateYInvert: { type: Boolean, default: undefined },
     stretchX: { type: Number, default: undefined },
     stretchY: { type: Number, default: undefined },
+    stretchZ: { type: Number, default: undefined },
+    commonOrigin: { type: Boolean, default: true },
     shadow: { type: Boolean, default: true },
     highlight: { type: Boolean, default: true },
   },

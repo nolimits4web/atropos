@@ -9,6 +9,7 @@
   export let innerClass = '';
 
   export let eventsEl = undefined;
+  export let alwaysActive = undefined;
   export let activeOffset = undefined;
   export let shadowOffset = undefined;
   export let shadowScale = undefined;
@@ -21,6 +22,8 @@
   export let rotateYInvert = undefined;
   export let stretchX = undefined;
   export let stretchY = undefined;
+  export let stretchZ = undefined;
+  export let commonOrigin = true;
   export let shadow = true;
   export let highlight = true;
 
@@ -37,6 +40,7 @@
     atroposRef = AtroposCore({
       el: elRef,
       eventsEl,
+      alwaysActive,
       activeOffset,
       shadowOffset,
       shadowScale,
@@ -49,6 +53,8 @@
       rotateYInvert,
       stretchX,
       stretchY,
+      stretchZ,
+      commonOrigin,
       onEnter() {
         emit('enter');
       },

@@ -3,6 +3,7 @@ interface CSSSelector extends String {}
 export interface AtroposOptions {
   el?: HTMLElement | CSSSelector;
   eventsEl?: HTMLElement | CSSSelector;
+  alwaysActive?: boolean;
   activeOffset?: number;
   shadowOffset?: number;
   shadowScale?: number;
