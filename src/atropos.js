@@ -289,7 +289,11 @@ function Atropos(originalParams = {}) {
     clientXStart = e.clientX;
     clientYStart = e.clientY;
 
-    if (params.alwaysActive) return;
+    if (params.alwaysActive) {
+      elBoundingClientRect = undefined;
+      eventsElBoundingClientRect = undefined;
+      return;
+    }
     activate();
     if (typeof params.onEnter === 'function') params.onEnter();
   };
