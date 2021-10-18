@@ -1,6 +1,6 @@
 {
   "name": "atropos",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Touch-friendly 3D parallax hover effects",
   "types": "atropos.d.ts",
   "type": "module",

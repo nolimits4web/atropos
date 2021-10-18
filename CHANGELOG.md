@@ -1,6 +1,6 @@
 # Changelog
 
-# [1.0.0](https://github.com/nolimits4web/atropos/compare/v1.0.0-beta.1...v1.0.0) (2021-10-18)
+# [1.0.1](https://github.com/nolimits4web/atropos/compare/v1.0.0-beta.1...v1.0.1) (2021-10-18)
 
 - new `alwaysActive` parameter to keep Atropos "activated"/"entered" all the time
 - new `stretchZ` parameter to set `translateZ` offset for multiple Atropos elements in same container (with same `eventsEl`)
