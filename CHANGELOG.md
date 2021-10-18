@@ -1,5 +1,16 @@
 # Changelog
 
+# [1.0.0](https://github.com/nolimits4web/atropos/compare/v1.0.0-beta.1...v1.0.0) (2021-10-18)
+
+- new `alwaysActive` parameter to keep Atropos "activated"/"entered" all the time
+- new `stretchZ` parameter to set `translateZ` offset for multiple Atropos elements in same container (with same `eventsEl`)
+- new `commonOrigin` parameter for multiple Atropos elements in same container (with same `eventsEl`)
+- remove rotateLock functionality in favor of new smooth rotation ([0ba0d06](https://github.com/nolimits4web/atropos/commit/0ba0d06abb8672a4b785b8bd5e743c2b1f7dff4a))
+  - removed `durationEnter` parameter
+  - removed `durationLeave` parameter
+  - removed `rotateLock` parameter
+  - added single `duration` parameter (defaults to `300`)
+
 # [1.0.0-beta.2](https://github.com/nolimits4web/atropos/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2021-10-15)
 
 ### Features
