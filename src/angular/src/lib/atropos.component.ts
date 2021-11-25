@@ -88,5 +88,14 @@ export class AtroposComponent implements OnInit {
 
   initAtropos() {
     this.ref = AtroposCore({ el: this.elementRef.nativeElement, ...this.getConfig() });
+    this.ref.params.onEnter = () => this.onEnter.emit();
+    this.ref.params.onLeave = () => this.onLeave.emit();
+    this.ref.params.onRotate = (x, y) => this.onRotate.emit([x, y]);
+  }
+
+  ngOnDestroy() {
+    this.ref.params.onEnter = null;
+    this.ref.params.onLeave = null;
+    this.ref.params.onRotate = null;
   }
 }
