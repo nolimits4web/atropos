@@ -1,0 +1,193 @@
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].rules[0].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].rules[0].oneOf[1].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[4].rules[1].use[0]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].rules[1].use[1]!./playground/angular/src/styles.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/**
+ * Atropos 1.0.1
+ * Touch-friendly 3D parallax hover effects
+ * https://atroposjs.com
+ *
+ * Copyright 2021-2021 
+ *
+ * Released under the MIT License
+ *
+ * Released on: November 25, 2021
+ */
+
+.atropos {
+  position: relative;
+  display: block;
+  perspective: 1200px;
+  transform: translate3d(0, 0, 0);
+}
+
+.atropos-rotate-touch,
+.atropos-rotate-scroll-x,
+.atropos-rotate-scroll-y {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+          user-select: none;
+}
+
+.atropos-rotate-touch-scroll-y {
+  touch-action: pan-y;
+}
+
+.atropos-rotate-touch-scroll-x {
+  touch-action: pan-x;
+}
+
+.atropos-rotate-touch {
+  touch-action: none;
+}
+
+.atropos-scale,
+.atropos-rotate {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition-property: transform;
+  display: block;
+}
+
+.atropos-shadow,
+.atropos-highlight {
+  position: absolute;
+  pointer-events: none;
+  transition-property: transform, opacity;
+  display: block;
+  opacity: 0;
+}
+
+.atropos-shadow {
+  z-index: -1;
+  background: #000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  filter: blur(30px);
+}
+
+.atropos-highlight {
+  left: -50%;
+  top: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: radial-gradient(circle at 50%, rgba(255, 255, 255, 0.25), transparent 50%);
+  z-index: 0;
+}
+
+.atropos-rotate {
+  position: relative;
+}
+
+.atropos-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform: translate3d(0, 0, 0);
+  display: block;
+}
+
+.atropos-active {
+  z-index: 1;
+}
+
+.atropos-active .atropos-shadow {
+  opacity: 1 !important;
+}
+
+[data-atropos-offset] {
+  transition-property: transform;
+}
+
+[data-atropos-opacity] {
+  transition-property: opacity;
+}
+
+[data-atropos-offset][data-atropos-opacity] {
+  transition-property: transform, opacity;
+}
+
+html,
+body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  min-height: 100vh;
+}
+
+body {
+  background-image: linear-gradient(to bottom, #ad3ef5, #5814a2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#app {
+  display: contents;
+}
+
+.container {
+  padding: 0px 40px;
+  max-width: 960px;
+  margin: 32px auto;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.atropos-banner {
+  width: 100%;
+}
+
+.atropos-banner .atropos-inner {
+  border-radius: 10px;
+}
+
+.atropos-banner img {
+  position: absolute;
+  left: -5%;
+  top: -5%;
+  width: 110%;
+  height: 110%;
+  object-fit: contain;
+  display: block;
+  z-index: 1;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.atropos-banner img.atropos-banner-spacer {
+  position: relative;
+  width: 100%;
+  height: auto;
+  left: 0;
+  top: 0;
+  visibility: hidden;
+}
+
+.atropos-banner .atropos-shadow {
+  filter: blur(50px);
+  opacity: 0.5;
+}
+
+.atropos-banner .atropos-highlight {
+  z-index: 100;
+}
+
+.atropos-banner-text {
+  position: absolute;
+  color: #fff;
+  font-weight: bold;
+  left: 0%;
+  top: 0%;
+}
+
+/*# sourceMappingURL=styles.css.map*/
