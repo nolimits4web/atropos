@@ -47,6 +47,7 @@ export class AtroposComponent implements OnInit {
   @Input() scaleClassName: string = '';
   @Input() rotateClassName: string = '';
   @Input() innerClassName: string = '';
+  @Input() config: AtroposOptions;
   @Output() onEnter = new EventEmitter<Parameters<AtroposOptions['onEnter']>>();
   @Output() onLeave = new EventEmitter<Parameters<AtroposOptions['onLeave']>>();
   @Output() onRotate = new EventEmitter<Parameters<AtroposOptions['onRotate']>>();
@@ -59,8 +60,9 @@ export class AtroposComponent implements OnInit {
     this.initAtropos();
   }
 
-  getConfig() {
-    return {
+  updateConfig() {
+    this.config = {
+      ...(this.config || {}),
       eventsEl: this.eventsEl,
       alwaysActive: this.alwaysActive,
       activeOffset: this.activeOffset,
@@ -83,11 +85,16 @@ export class AtroposComponent implements OnInit {
   }
 
   ngOnChanges(changedParams: SimpleChanges) {
-    this.ref.params = this.getConfig();
+    this.updateConfig();
+    if (this.ref) {
+      console.log(this.config);
+      this.ref.params = this.config;
+    }
   }
 
   initAtropos() {
-    this.ref = AtroposCore({ el: this.elementRef.nativeElement, ...this.getConfig() });
+    console.log(this.config);
+    this.ref = AtroposCore({ el: this.elementRef.nativeElement, ...this.config });
     this.ref.params.onEnter = () => this.onEnter.emit();
     this.ref.params.onLeave = () => this.onLeave.emit();
     this.ref.params.onRotate = (x, y) => this.onRotate.emit([x, y]);
