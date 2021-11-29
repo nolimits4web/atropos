@@ -7,6 +7,7 @@ import { AtroposOptions } from 'atropos/atropos';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  rotate: boolean = false;
   onEnter(event: Parameters<AtroposOptions['onEnter']>) {
     console.log(event);
   }

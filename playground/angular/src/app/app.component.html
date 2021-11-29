@@ -1,5 +1,11 @@
 <div class="container">
-  <atropos class="atropos-banner" [highlight]="false" (onEnter)="onEnter($event)">
+  <atropos
+    class="atropos-banner"
+    [highlight]="false"
+    [rotate]="rotate"
+    [rotateXMax]="30"
+    (onEnter)="onEnter($event)"
+  >
     <img class="atropos-banner-spacer" src="assets/atropos-bg.svg" alt="" />
     <img data-atropos-offset="-4.5" src="assets/atropos-bg.svg" alt="" />
     <img data-atropos-offset="-2.5" src="assets/atropos-mountains.svg" alt="" />
@@ -9,3 +15,5 @@
     <img data-atropos-offset="5" src="assets/atropos-logo-en.svg" alt="" />
   </atropos>
 </div>
+
+<button (click)="rotate = !rotate">Rotate turn {{ rotate ? 'off' : 'on' }}</button>
