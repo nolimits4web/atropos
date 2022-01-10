@@ -39,8 +39,11 @@ const watchFunction = async (fileName) => {
   console.log('something wrong...');
 };
 
+const recursive = !(
+  process.platform === 'linux' && parseInt(process.versions.node.split('.')[0], 10) >= 14
+);
 let watchTimeout;
-fs.watch(path.resolve(__dirname, '../src'), { recursive: true }, (eventType, fileName) => {
+fs.watch(path.resolve(__dirname, '../src'), { recursive }, (eventType, fileName) => {
   clearTimeout(watchTimeout);
   watchTimeout = setTimeout(() => {
     watchFunction(fileName);
