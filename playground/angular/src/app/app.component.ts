@@ -11,4 +11,7 @@ export class AppComponent {
   onEnter(event: Parameters<AtroposOptions['onEnter']>) {
     console.log(event);
   }
+  onRotate([x, y]: Parameters<AtroposOptions['onRotate']>) {
+    console.log('Rotate', x, y);
+  }
 }

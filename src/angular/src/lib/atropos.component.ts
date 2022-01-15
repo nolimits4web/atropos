@@ -87,7 +87,6 @@ export class AtroposComponent implements OnInit {
   ngOnChanges(changedParams: SimpleChanges) {
     this.updateConfig();
     if (this.ref) {
-      console.log(this.config);
       this.ref.params = this.config;
     }
   }
@@ -97,7 +96,7 @@ export class AtroposComponent implements OnInit {
     this.ref = AtroposCore({ el: this.elementRef.nativeElement, ...this.config });
     this.ref.params.onEnter = () => this.onEnter.emit();
     this.ref.params.onLeave = () => this.onLeave.emit();
-    this.ref.params.onRotate = (x, y) => this.onRotate.emit([x, y]);
+    this.ref.params.onRotate = (x: number, y: number) => this.onRotate.emit([x, y]);
   }
 
   ngOnDestroy() {
