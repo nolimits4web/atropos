@@ -92,7 +92,6 @@ export class AtroposComponent implements OnInit {
   }
 
   initAtropos() {
-    console.log(this.config);
     this.ref = AtroposCore({ el: this.elementRef.nativeElement, ...this.config });
     this.ref.params.onEnter = () => this.onEnter.emit();
     this.ref.params.onLeave = () => this.onLeave.emit();
