@@ -4,6 +4,7 @@
   "description": "Touch-friendly 3D parallax hover effects",
   "types": "atropos.d.ts",
   "type": "module",
+  "svelte": "./esm/atropos.esm.js",
   "exports": {
     ".": "./esm/atropos.esm.js",
     "./esm": "./esm/atropos.esm.js",
