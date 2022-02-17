@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.0.2](https://github.com/nolimits4web/atropos/compare/v1.0.1...v1.0.2) (2022-02-17)
+
+### Bug Fixes
+
+- **svelte:** unknown file extension ".svelte" ([dae9ad3](https://github.com/nolimits4web/atropos/commit/dae9ad307b92dcd28091626e25ed63b8ede2ce36))
+- add variable for linux ([f0f9c38](https://github.com/nolimits4web/atropos/commit/f0f9c384d475c87d997aafebd92f35f178e4fca7))
+
 # [1.0.1](https://github.com/nolimits4web/atropos/compare/v1.0.0-beta.1...v1.0.1) (2021-10-18)
 
 - new `alwaysActive` parameter to keep Atropos "activated"/"entered" all the time

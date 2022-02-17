@@ -1,6 +1,6 @@
 {
   "name": "atropos",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Touch-friendly 3D parallax hover effects",
   "types": "atropos.d.ts",
   "type": "module",
@@ -52,5 +52,5 @@
   "engines": {
     "node": ">= 12.0.0"
   },
-  "releaseDate": "October 18, 2021"
+  "releaseDate": "February 17, 2022"
 }
