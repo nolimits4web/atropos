@@ -40,7 +40,7 @@ The result is available in `build/` folder.
 
 ### Running demos:
 
-All demos located in `./playground` folder. There you will fine Core (HTML, JS), React, Vue, Svelte and Angular versions.
+All demos located in `./playground` folder. There you will find Core (HTML, JS), React, Vue, Svelte and Angular versions.
 To open demo, run:
 
 - **Core**: `npm run core`
