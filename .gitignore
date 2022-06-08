@@ -103,6 +103,7 @@ dist
 
 # TernJS port file
 .tern-port
+.angular
 
 build/*.css
 build/*.less
@@ -115,6 +116,7 @@ package/*.css
 package/*.less
 package/*.scss
 package/**/*.js
+package/**/*.mjs
 package/**/*.ts
 package/**/*.svelte
 package/**/*.map

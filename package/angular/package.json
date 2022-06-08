@@ -1,0 +1,32 @@
+{
+  "name": "atropos_angular",
+  "version": "0.0.1",
+  "private": "true",
+  "peerDependencies": {
+    "@angular/common": "^13.0.0",
+    "@angular/core": "^13.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "module": "fesm2015/atropos_angular.mjs",
+  "es2020": "fesm2020/atropos_angular.mjs",
+  "esm2020": "esm2020/atropos_angular.mjs",
+  "fesm2020": "fesm2020/atropos_angular.mjs",
+  "fesm2015": "fesm2015/atropos_angular.mjs",
+  "typings": "atropos_angular.d.ts",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./atropos_angular.d.ts",
+      "esm2020": "./esm2020/atropos_angular.mjs",
+      "es2020": "./fesm2020/atropos_angular.mjs",
+      "es2015": "./fesm2015/atropos_angular.mjs",
+      "node": "./fesm2015/atropos_angular.mjs",
+      "default": "./fesm2020/atropos_angular.mjs"
+    }
+  },
+  "sideEffects": false
+}

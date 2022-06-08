@@ -4,6 +4,7 @@ const buildTypes = require('./build-types');
 const buildReact = require('./build-react');
 const buildVue = require('./build-vue');
 const buildSvelte = require('./build-svelte');
+const buildAngular = require('./build-angular');
 
 const build = () => {
   buildJs();
@@ -12,5 +13,6 @@ const build = () => {
   buildReact();
   buildVue();
   buildSvelte();
+  buildAngular();
 };
 build();
