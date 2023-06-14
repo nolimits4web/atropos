@@ -1,0 +1,68 @@
+html,
+body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+    'Open Sans', 'Helvetica Neue', sans-serif;
+  min-height: 100vh;
+}
+body {
+  background-image: linear-gradient(to bottom, #ad3ef5, #5814a2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.container {
+  padding: 0px 40px;
+  max-width: 960px;
+  margin: 32px auto;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+}
+.atropos-banner {
+  width: 100%;
+}
+.atropos-banner .atropos-inner {
+  border-radius: 10px;
+}
+.atropos-banner img {
+  position: absolute;
+  left: -5%;
+  top: -5%;
+  width: 110%;
+  height: 110%;
+  object-fit: contain;
+  display: block;
+  z-index: 1;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+.atropos-banner img.atropos-banner-spacer {
+  position: relative;
+  width: 100%;
+  height: auto;
+  left: 0;
+  top: 0;
+  visibility: hidden;
+}
+.atropos-banner .atropos-shadow {
+  filter: blur(50px);
+  opacity: 0.5;
+}
+.atropos-banner .atropos-highlight {
+  z-index: 100;
+}
+
+.atropos-banner-text {
+  position: absolute;
+  color: #fff;
+  font-weight: bold;
+  left: 0%;
+  top: 0%;
+}
+.atropos-active .atropos-banner-text {
+}
