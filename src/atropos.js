@@ -139,6 +139,41 @@ function Atropos(originalParams = {}) {
       }
       return undefined;
     };
+
+    const atroposComponent = document.querySelector('atropos-component');
+    const shadow = atroposComponent.shadowRoot;
+    const slots = shadow.querySelectorAll('slot');
+    slots.forEach((slot) => {
+      const assignedElements = slot.assignedElements();
+      Array.from(assignedElements).forEach((childEl) => {
+        $setDuration(childEl, duration);
+        $setEasing(childEl, easeOut ? 'ease-out' : '');
+        const elementOpacity = getOpacity(childEl);
+        if (rotateXPercentage === 0 && rotateYPercentage === 0) {
+          if (!opacityOnly) $setTransform(childEl, `translate3d(0, 0, 0)`);
+          if (elementOpacity) $setOpacity(childEl, elementOpacity[0]);
+        } else {
+          const childElOffset = parseFloat(childEl.dataset.atroposOffset) / 100;
+          if (!Number.isNaN(childElOffset) && !opacityOnly) {
+            $setTransform(
+              childEl,
+              `translate3d(${-rotateYPercentage * -childElOffset}%, ${
+                rotateXPercentage * -childElOffset
+              }%, 0)`,
+            );
+          }
+          if (elementOpacity) {
+            const [min, max] = elementOpacity;
+            const rotatePercentage = Math.max(
+              Math.abs(rotateXPercentage),
+              Math.abs(rotateYPercentage),
+            );
+            $setOpacity(childEl, min + ((max - min) * rotatePercentage) / 100);
+          }
+        }
+      });
+    });
+
     $$(el, '[data-atropos-offset], [data-atropos-opacity]').forEach((childEl) => {
       $setDuration(childEl, duration);
       $setEasing(childEl, easeOut ? 'ease-out' : '');

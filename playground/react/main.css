@@ -32,7 +32,7 @@ body {
 .atropos-banner .atropos-inner {
   border-radius: 10px;
 }
-.atropos-banner img {
+.atropos-banner img{
   position: absolute;
   left: -5%;
   top: -5%;
@@ -44,7 +44,7 @@ body {
   transform-style: preserve-3d;
   pointer-events: none;
 }
-.atropos-banner img.atropos-banner-spacer {
+.atropos-banner .atropos-banner-spacer {
   position: relative;
   width: 100%;
   height: auto;

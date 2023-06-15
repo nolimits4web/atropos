@@ -26,10 +26,13 @@ body {
 .atropos-banner {
   width: 100%;
 }
-.atropos-banner .atropos-inner {
+/* .atropos-banner .atropos-inner {
+  border-radius: 10px;
+} */
+.atropos-banner atropos-component::part(inner) {
   border-radius: 10px;
 }
-.atropos-banner img {
+.atropos-banner img{
   position: absolute;
   left: -5%;
   top: -5%;
