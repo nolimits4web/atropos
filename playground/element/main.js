@@ -124,28 +124,25 @@ class Atropos extends HTMLElement {
 
     const props = {};
 
-    // eslint-disable-next-line no-restricted-syntax
-    for (const key in defaultProps) {
-      if (this.hasAttribute(key)) {
-        const attributeValue = this.getAttribute(key);
+    Object.keys(defaultProps).forEach((key) => {
+      const attributeName = key.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
+      const attributeValue = this.getAttribute(attributeName);
+
+      if (attributeValue === null) {
+        props[key] = defaultProps[key];
+      } else {
         switch (typeof defaultProps[key]) {
           case 'boolean':
             props[key] = attributeValue !== 'false';
             break;
           case 'number':
-            // eslint-disable-next-line no-case-declarations
-            const parsedValue = parseFloat(attributeValue);
-            props[key] = isNaN(parsedValue) ? defaultProps[key] : parsedValue;
+            props[key] = parseFloat(attributeValue, 10) || defaultProps[key];
             break;
           default:
             props[key] = attributeValue;
-            break;
         }
-      } else {
-        props[key] = defaultProps[key];
       }
-    }
-
+    });
     const innerClass = this.cls('atropos-inner', props.innerClass);
 
     // eslint-disable-next-line no-restricted-globals
