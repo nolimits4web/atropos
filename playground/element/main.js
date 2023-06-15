@@ -81,6 +81,9 @@ const styles = `
     ::slotted(img) {
       transition-property: transform, opacity;
     }
+    [data-atropos-opacity] {
+      transition-property: transform, opacity;
+    }
     `;
 
 class Atropos extends HTMLElement {
@@ -99,25 +102,49 @@ class Atropos extends HTMLElement {
   }
 
   init() {
-    const props = {
-      alwaysActive: this.getAttributeValidation('always-active', 'boolean', false),
-      activeOffset: this.getAttributeValidation('active-offset', 'integer', 50),
-      shadowOffset: this.getAttributeValidation('shadow-offset', 'integer', 50),
-      shadowScale: this.getAttributeValidation('shadow-scale', 'integer', 1),
-      duration: this.getAttributeValidation('duration', 'integer', 300),
-      rotate: this.getAttributeValidation('rotate', 'boolean', true),
-      rotateTouch: this.getAttributeValidation('rotate-touch', 'boolean', true),
-      rotateXMax: this.getAttributeValidation('rotate-x-max', 'integer', 15),
-      rotateYMax: this.getAttributeValidation('rotate-y-max', 'integer', 15),
-      rotateXInvert: this.getAttributeValidation('rotate-x-invert', 'boolean', false),
-      rotateYInvert: this.getAttributeValidation('rotate-y-invert', 'boolean', false),
-      stretchX: this.getAttributeValidation('stretch-x', 'integer', 0),
-      stretchY: this.getAttributeValidation('stretch-y', 'integer', 0),
-      stretchZ: this.getAttributeValidation('stretch-z', 'integer', 0),
-      commonOrigin: this.getAttributeValidation('common-origin', 'boolean', true),
-      shadow: this.getAttributeValidation('shadow', 'boolean', true),
-      highlight: this.getAttributeValidation('highlight', 'boolean', true),
+    const defaultProps = {
+      alwaysActive: false,
+      activeOffset: 50,
+      shadowOffset: 50,
+      shadowScale: 1,
+      duration: 300,
+      rotate: true,
+      rotateTouch: true,
+      rotateXMax: 15,
+      rotateYMax: 15,
+      rotateXInvert: false,
+      rotateYInvert: false,
+      stretchX: 0,
+      stretchY: 0,
+      stretchZ: 0,
+      commonOrigin: true,
+      shadow: true,
+      highlight: true,
     };
+
+    const props = {};
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const key in defaultProps) {
+      if (this.hasAttribute(key)) {
+        const attributeValue = this.getAttribute(key);
+        switch (typeof defaultProps[key]) {
+          case 'boolean':
+            props[key] = attributeValue !== 'false';
+            break;
+          case 'number':
+            // eslint-disable-next-line no-case-declarations
+            const parsedValue = parseFloat(attributeValue);
+            props[key] = isNaN(parsedValue) ? defaultProps[key] : parsedValue;
+            break;
+          default:
+            props[key] = attributeValue;
+            break;
+        }
+      } else {
+        props[key] = defaultProps[key];
+      }
+    }
 
     const innerClass = this.cls('atropos-inner', props.innerClass);
 
@@ -137,10 +164,11 @@ class Atropos extends HTMLElement {
     this.shadow.innerHTML = '';
 
     // eslint-disable-next-line no-restricted-globals
-    const styleEl = document.createElement('style');
-    styleEl.textContent = styles;
+    const styleSheet = new CSSStyleSheet();
+    styleSheet.replaceSync(styles);
+    this.shadow.adoptedStyleSheets = [styleSheet];
+
     this.shadow.appendChild(el);
-    this.shadow.appendChild(styleEl);
 
     this.atroposRef = AtroposCore({
       el,
@@ -169,25 +197,6 @@ class Atropos extends HTMLElement {
   // eslint-disable-next-line class-methods-use-this
   cls(...args) {
     return args.filter((c) => !!c).join(' ');
-  }
-
-  getAttributeValidation(attributeName, valueType, defaultValue) {
-    const attributeValue = this.getAttribute(attributeName);
-
-    if (attributeValue === null) {
-      return defaultValue;
-    }
-
-    switch (valueType) {
-      case 'boolean':
-        return attributeValue !== 'false';
-      case 'number':
-        // eslint-disable-next-line no-case-declarations
-        const parsedValue = parseFloat(attributeValue, 10);
-        return isNaN(parsedValue) ? defaultValue : parsedValue;
-      default:
-        return attributeValue;
-    }
   }
 }
 customElements.define('atropos-component', Atropos);
