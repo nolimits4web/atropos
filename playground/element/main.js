@@ -142,8 +142,9 @@ class Atropos extends HTMLElement {
     this.shadow.appendChild(el);
     this.shadow.appendChild(styleEl);
 
-    this.atroposRef = new AtroposCore({
+    this.atroposRef = AtroposCore({
       el,
+      isComponent: true,
       ...props,
       onEnter: () => {
         this.dispatchEvent(new CustomEvent('enter'));
