@@ -6,6 +6,7 @@ const buildJs = require('./build-js');
 const buildStyles = require('./build-styles');
 const buildReact = require('./build-react');
 const buildVue = require('./build-vue');
+const buildElement = require('./build-element');
 
 console.log(chalk.cyan('Watching file changes ...'));
 
@@ -36,6 +37,12 @@ const watchFunction = async (fileName) => {
     await buildJs();
     return;
   }
+  if (fileName.includes('element')) {
+    console.log('Building Element');
+    buildElement();
+    return;
+  }
+
   console.log('something wrong...');
 };
 

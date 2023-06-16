@@ -72,12 +72,15 @@
     opacity: 1 !important;
   }
 }
-[data-atropos-offset] {
+::slotted(img) {
+  transition-property: transform, opacity;
+}
+::slotted(img) {
   transition-property: transform;
 }
 [data-atropos-opacity] {
   transition-property: opacity;
 }
-[data-atropos-offset][data-atropos-opacity] {
+[data-atropos-opacity] {
   transition-property: transform, opacity;
 }
