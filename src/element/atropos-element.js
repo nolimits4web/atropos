@@ -1,8 +1,9 @@
 /* eslint-disable no-restricted-globals */
-import AtroposCore from '../../build/esm/atropos.esm.js';
+// eslint-disable-next-line import/no-unresolved
+import Atropos from '../esm/atropos.esm.js';
 import styles from '../atropos.less';
 
-class Atropos extends HTMLElement {
+class AtroposComponent extends HTMLElement {
   // eslint-disable-next-line no-useless-constructor
   constructor() {
     super();
@@ -83,7 +84,7 @@ class Atropos extends HTMLElement {
 
     this.shadow.appendChild(el);
 
-    this.atroposRef = AtroposCore({
+    this.atroposRef = Atropos({
       el,
       isComponent: true,
       ...props,
@@ -112,4 +113,4 @@ class Atropos extends HTMLElement {
     return args.filter((c) => !!c).join(' ');
   }
 }
-customElements.define('atropos-component', Atropos);
+customElements.define('atropos-component', AtroposComponent);

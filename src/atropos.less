@@ -72,15 +72,12 @@
     opacity: 1 !important;
   }
 }
-::slotted(img) {
-  transition-property: transform, opacity;
-}
-::slotted(img) {
+[data-atropos-offset], ::slotted([data-atropos-offset]) {
   transition-property: transform;
 }
 [data-atropos-opacity] {
   transition-property: opacity;
 }
-[data-atropos-opacity] {
+[data-atropos-offset][data-atropos-opacity], ::slotted([data-atropos-offset][data-atropos-opacity]) {
   transition-property: transform, opacity;
 }

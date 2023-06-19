@@ -1,90 +1,97 @@
 /* eslint-disable no-restricted-globals */
 import AtroposCore from '../../build/esm/atropos.esm.js';
 
-const styles = `
-    .atropos {
-      position: relative;
-      display: block;
-      perspective: 1200px;
-      transform: translate3d(0, 0, 0);
-    }
-    .atropos-rotate-touch,
-    .atropos-rotate-scroll-x,
-    .atropos-rotate-scroll-y {
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-         -moz-user-select: none;
-          -ms-user-select: none;
-              user-select: none;
-    }
-    .atropos-rotate-touch-scroll-y {
-      touch-action: pan-y;
-    }
-    .atropos-rotate-touch-scroll-x {
-      touch-action: pan-x;
-    }
-    .atropos-rotate-touch {
-      touch-action: none;
-    }
-    .atropos-scale,
-    .atropos-rotate {
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-      transition-property: transform;
-      display: block;
-    }
-    .atropos-shadow,
-    .atropos-highlight {
-      position: absolute;
-      pointer-events: none;
-      transition-property: transform, opacity;
-      display: block;
-      opacity: 0;
-    }
-    .atropos-shadow {
-      z-index: -1;
-      background: #000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      filter: blur(30px);
-    }
-    .atropos-highlight {
-      left: -50%;
-      top: -50%;
-      width: 200%;
-      height: 200%;
-      background-image: radial-gradient(circle at 50%, rgba(255, 255, 255, 0.25), transparent 50%);
-      z-index: 0;
-    }
-    .atropos-rotate {
-      position: relative;
-    }
-    .atropos-inner {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      overflow: hidden;
-      transform-style: preserve-3d;
-      transform: translate3d(0, 0, 0);
-      display: block;
-    }
-    .atropos-active {
-      z-index: 1;
-    }
-    .atropos-active .atropos-shadow {
-      opacity: 1 !important;
-    }
-    ::slotted(img) {
-      transition-property: transform, opacity;
-    }
-    [data-atropos-opacity] {
-      transition-property: transform, opacity;
-    }
-    `;
+// eslint-disable-next-line
+import styles from '../../build/atropos.css';
+
+// const styles = `
+//     .atropos {
+//       position: relative;
+//       display: block;
+//       perspective: 1200px;
+//       transform: translate3d(0, 0, 0);
+//     }
+//     .atropos-rotate-touch,
+//     .atropos-rotate-scroll-x,
+//     .atropos-rotate-scroll-y {
+//       -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+//       -webkit-touch-callout: none;
+//       -webkit-user-select: none;
+//          -moz-user-select: none;
+//           -ms-user-select: none;
+//               user-select: none;
+//     }
+//     .atropos-rotate-touch-scroll-y {
+//       touch-action: pan-y;
+//     }
+//     .atropos-rotate-touch-scroll-x {
+//       touch-action: pan-x;
+//     }
+//     .atropos-rotate-touch {
+//       touch-action: none;
+//     }
+//     .atropos-scale,
+//     .atropos-rotate {
+//       width: 100%;
+//       height: 100%;
+//       transform-style: preserve-3d;
+//       transition-property: transform;
+//       display: block;
+//     }
+//     .atropos-shadow,
+//     .atropos-highlight {
+//       position: absolute;
+//       pointer-events: none;
+//       transition-property: transform, opacity;
+//       display: block;
+//       opacity: 0;
+//     }
+//     .atropos-shadow {
+//       z-index: -1;
+//       background: #000;
+//       left: 0;
+//       top: 0;
+//       width: 100%;
+//       height: 100%;
+//       filter: blur(30px);
+//     }
+//     .atropos-highlight {
+//       left: -50%;
+//       top: -50%;
+//       width: 200%;
+//       height: 200%;
+//       background-image: radial-gradient(circle at 50%, rgba(255, 255, 255, 0.25), transparent 50%);
+//       z-index: 0;
+//     }
+//     .atropos-rotate {
+//       position: relative;
+//     }
+//     .atropos-inner {
+//       width: 100%;
+//       height: 100%;
+//       position: relative;
+//       overflow: hidden;
+//       transform-style: preserve-3d;
+//       transform: translate3d(0, 0, 0);
+//       display: block;
+//     }
+//     .atropos-active {
+//       z-index: 1;
+//     }
+//     .atropos-active .atropos-shadow {
+//       opacity: 1 !important;
+//     }
+//     [data-atropos-offset], ::slotted [data-atropos-offset]  {
+//       transition-property: transform;
+//     }
+//     [data-atropos-opacity] {
+//       transition-property: opacity;
+//     }
+//     [data-atropos-opacity], [data-atropos-offset],  ::slotted [data-atropos-offset]  {
+//       transition-property: transform, opacity;
+//     }
+
+//     `;
 
 class Atropos extends HTMLElement {
   // eslint-disable-next-line no-useless-constructor
