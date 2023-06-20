@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
-// eslint-disable-next-line import/no-unresolved
-import Atropos from '../esm/atropos.esm.js';
+// eslint-disable-next-line import/no-named-as-default
+import Atropos from '../atropos.js';
 import styles from '../atropos.less';
 
 class AtroposComponent extends HTMLElement {
