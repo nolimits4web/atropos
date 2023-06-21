@@ -1,0 +1,7 @@
+{
+  "name": "atropos/element",
+  "private": true,
+  "type": "module",
+  "exports": "./atropos-element.esm.js",
+  "sideEffects": false
+}

@@ -9,12 +9,13 @@
     "./esm/browser": "./react/atropos.esm.browser.js",
     "./esm/browser/min": "./react/atropos.esm.browser.min.js",
     "./react": "./react/atropos-react.esm.js",
-    "./vue": "./react/atropos-vue.esm.js",
+    "./vue": "./vue/atropos-vue.esm.js",
     "./atropos.js": "./atropos.js",
     "./atropos.min.js": "./atropos.min.js",
     "./atropos.css": "./atropos.css",
     "./atropos.min.css": "./atropos.min.css",
     "./atropos.less": "./atropos.less",
-    "./atropos.scss": "./atropos.scss"
+    "./atropos.scss": "./atropos.scss",
+    "./element": "./element/atropos-element.esm.js"
   }
 }

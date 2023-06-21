@@ -43,7 +43,7 @@ async function buildElement(format, browser) {
       return;
     }
 
-    rollup({
+    const bundle = await rollup({
       input: './src/element/atropos-element-updated.js',
       external,
       plugins: [
@@ -59,52 +59,37 @@ async function buildElement(format, browser) {
             : {}),
         }),
       ],
-    })
-      .then(async (bundle) => {
-        fs.ensureDirSync(`./${outputDir}/element/`);
-        const outputFile = path.join(`./${outputDir}/element/`, `${filename}.js`);
+    });
+    fs.ensureDirSync(`./${outputDir}/element/`);
+    const outputFile = path.join(`./${outputDir}/element/`, `${filename}.js`);
 
-        return bundle
-          .write({
-            file: outputFile,
-            format,
-            name: 'Atropos Component',
-            banner,
-          })
-          .then(() => {
-            const code = fs.readFileSync(outputFile, 'utf-8');
-            const updateFile = 'src/element/atropos-element-updated.js';
-            fs.removeSync(updateFile);
+    await bundle.write({
+      file: outputFile,
+      format,
+      name: 'Atropos Component',
+      banner,
+    });
+    const code = fs.readFileSync(outputFile, 'utf-8');
+    const updateFile = 'src/element/atropos-element-updated.js';
+    fs.removeSync(updateFile);
 
-            if (env === 'development' || !browser) {
-              return;
-            }
-            // Minify with Terser
-            // eslint-disable-next-line consistent-return
-            return Terser.minify(code, {
-              output: {
-                preamble: banner,
-              },
-            })
-              .catch((err) => {
-                console.error(`Terser failed: ${err.toString()}`);
-                return Promise.reject(err);
-              })
-              .then((minifiedCode) => {
-                const minifiedOutputFile = path.join(
-                  `./${outputDir}/element/`,
-                  `${filename}.min.js`,
-                );
-                fs.writeFileSync(minifiedOutputFile, minifiedCode.code);
-              });
-          })
-          .catch((error) => {
-            console.error('Error during Rollup build:', error);
-          });
-      })
-      .catch((error) => {
-        console.error('Error during Rollup build:', error);
+    if (env === 'development' || !browser) {
+      return;
+    }
+    // Minify with Terser
+    // eslint-disable-next-line consistent-return
+    try {
+      const minifiedCode = await Terser.minify(code, {
+        output: {
+          preamble: banner,
+        },
       });
+      const minifiedOutputFile = path.join(`./${outputDir}/element/`, `${filename}.min.js`);
+      fs.writeFileSync(minifiedOutputFile, minifiedCode.code);
+    } catch (err) {
+      console.error(`Terser failed: ${err.toString()}`);
+      return;
+    }
   } catch (err) {
     console.error('Error:', err);
   }
