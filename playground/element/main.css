@@ -32,7 +32,7 @@ body {
 .atropos-banner atropos-component::part(inner) {
   border-radius: 10px;
 }
-.atropos-banner img{
+.atropos-banner img {
   position: absolute;
   left: -5%;
   top: -5%;

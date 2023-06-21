@@ -8,13 +8,15 @@ const Terser = require('terser');
 const path = require('path');
 const replace = require('@rollup/plugin-replace');
 
+const banner = require('./banner')();
+
 async function buildElement(format, browser) {
   const env = process.env.NODE_ENV || 'development';
   const outputDir = env === 'development' ? 'build' : 'package';
   const external = format === 'umd' || browser ? [] : (m) => !m.includes('atropos-element.js');
   let filename = 'atropos-element';
   if (format !== 'umd') filename += `.${format}`;
-  if (format === 'esm' && browser) filename += '.browser';
+  if (format === 'esm' && browser) filename = 'atropos-element.esm';
   try {
     const data = fs.readFileSync('src/atropos.less', 'utf-8');
     let minifiedCss;
@@ -67,12 +69,23 @@ async function buildElement(format, browser) {
             file: outputFile,
             format,
             name: 'Atropos Component',
+            banner,
           })
           .then(() => {
             const code = fs.readFileSync(outputFile, 'utf-8');
+            const updateFile = 'src/element/atropos-element-updated.js';
+            fs.removeSync(updateFile);
 
+            if (env === 'development' || !browser) {
+              return;
+            }
             // Minify with Terser
-            return Terser.minify(code)
+            // eslint-disable-next-line consistent-return
+            return Terser.minify(code, {
+              output: {
+                preamble: banner,
+              },
+            })
               .catch((err) => {
                 console.error(`Terser failed: ${err.toString()}`);
                 return Promise.reject(err);
@@ -80,15 +93,9 @@ async function buildElement(format, browser) {
               .then((minifiedCode) => {
                 const minifiedOutputFile = path.join(
                   `./${outputDir}/element/`,
-                  'atropos-element.min.js',
+                  `${filename}.min.js`,
                 );
                 fs.writeFileSync(minifiedOutputFile, minifiedCode.code);
-
-                const updateFile = 'src/element/atropos-element-updated.js';
-                fs.removeSync(updateFile);
-
-                console.log(`Minified code written to ${minifiedOutputFile}`);
-                console.log('Element build completed!');
               });
           })
           .catch((error) => {
@@ -109,7 +116,7 @@ async function build() {
     buildElement('esm', true),
     buildElement('umd', true),
   ]);
-  console.log('Scripts build completed!');
+  console.log('Element build completed!');
 }
 
 module.exports = build;
