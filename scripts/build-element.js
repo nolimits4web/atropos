@@ -37,14 +37,14 @@ async function buildElement(format, browser) {
     );
 
     try {
-      fs.writeFileSync('src/element/atropos-element-updated.js', updateContent, 'utf-8');
+      fs.writeFileSync('src/element/atropos-element-tmp.js', updateContent, 'utf-8');
     } catch (err) {
       console.error('Error writing file:', err);
       return;
     }
 
     const bundle = await rollup({
-      input: './src/element/atropos-element-updated.js',
+      input: './src/element/atropos-element-tmp.js',
       external,
       plugins: [
         replace({
@@ -70,7 +70,7 @@ async function buildElement(format, browser) {
       banner,
     });
     const code = fs.readFileSync(outputFile, 'utf-8');
-    const updateFile = 'src/element/atropos-element-updated.js';
+    const updateFile = 'src/element/atropos-element-tmp.js';
     fs.removeSync(updateFile);
 
     if (env === 'development' || !browser) {
