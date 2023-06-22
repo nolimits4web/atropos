@@ -53,7 +53,9 @@ class AtroposComponent extends HTMLElement {
             props[key] = attributeValue !== 'false';
             break;
           case 'number':
-            props[key] = parseFloat(attributeValue, 10) || defaultProps[key];
+            props[key] = isNaN(parseFloat(attributeValue, 10))
+              ? defaultProps[key]
+              : parseFloat(attributeValue, 10);
             break;
           default:
             props[key] = attributeValue;
