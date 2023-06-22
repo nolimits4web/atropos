@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./element": "./element/atropos-element.esm.js",
-    "./element/browser": "./element/atropos-element.esm.min.js"
+    "./element": "./atropos-element.esm.js",
+    "./element/browser": "./atropos-element.esm.min.js"
   },
   "sideEffects": false
 }
