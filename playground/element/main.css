@@ -14,9 +14,6 @@ body {
   align-items: center;
   justify-content: center;
 }
-#app {
-  display: contents;
-}
 .container {
   padding: 0px 40px;
   max-width: 960px;
@@ -29,7 +26,10 @@ body {
 .atropos-banner {
   width: 100%;
 }
-.atropos-banner .atropos-inner {
+/* .atropos-banner .atropos-inner {
+  border-radius: 10px;
+} */
+.atropos-banner atropos-component::part(inner) {
   border-radius: 10px;
 }
 .atropos-banner img {
@@ -44,7 +44,7 @@ body {
   transform-style: preserve-3d;
   pointer-events: none;
 }
-.atropos-banner .atropos-banner-spacer {
+.atropos-banner img.atropos-banner-spacer {
   position: relative;
   width: 100%;
   height: auto;

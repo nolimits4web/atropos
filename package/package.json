@@ -24,7 +24,9 @@
     "./atropos.min.css": "./atropos.min.css",
     "./atropos.less": "./atropos.less",
     "./atropos.scss": "./atropos.scss",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./element":"./element/atropos-element.esm.js",
+    "./element/browser": "./element/atropos-element.esm.min.js"
   },
   "repository": {
     "type": "git",

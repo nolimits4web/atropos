@@ -9,30 +9,33 @@ const removeUndefinedProps = (obj = {}) => {
   });
   return result;
 };
-
+export const defaults = {
+  alwaysActive: false,
+  activeOffset: 50,
+  shadowOffset: 50,
+  shadowScale: 1,
+  duration: 300,
+  rotate: true,
+  rotateTouch: true,
+  rotateXMax: 15,
+  rotateYMax: 15,
+  rotateXInvert: false,
+  rotateYInvert: false,
+  stretchX: 0,
+  stretchY: 0,
+  stretchZ: 0,
+  commonOrigin: true,
+  shadow: true,
+  highlight: true,
+};
 function Atropos(originalParams = {}) {
   let { el, eventsEl } = originalParams;
-
+  const { isComponent } = originalParams;
+  let childrenRootEl;
   const self = {
     __atropos__: true,
     params: {
-      alwaysActive: false,
-      activeOffset: 50,
-      shadowOffset: 50,
-      shadowScale: 1,
-      duration: 300,
-      rotate: true,
-      rotateTouch: true,
-      rotateXMax: 15,
-      rotateYMax: 15,
-      rotateXInvert: false,
-      rotateYInvert: false,
-      stretchX: 0,
-      stretchY: 0,
-      stretchZ: 0,
-      commonOrigin: true,
-      shadow: true,
-      highlight: true,
+      ...defaults,
       onEnter: null,
       onLeave: null,
       onRotate: null,
@@ -139,7 +142,8 @@ function Atropos(originalParams = {}) {
       }
       return undefined;
     };
-    $$(el, '[data-atropos-offset], [data-atropos-opacity]').forEach((childEl) => {
+
+    $$(childrenRootEl, '[data-atropos-offset], [data-atropos-opacity]').forEach((childEl) => {
       $setDuration(childEl, duration);
       $setEasing(childEl, easeOut ? 'ease-out' : '');
       const elementOpacity = getOpacity(childEl);
@@ -401,6 +405,7 @@ function Atropos(originalParams = {}) {
     } else {
       eventsEl = el;
     }
+    childrenRootEl = isComponent ? el.parentNode.host : el;
 
     Object.assign(self, {
       el,
@@ -430,7 +435,7 @@ function Atropos(originalParams = {}) {
         el.classList.add('atropos-rotate-touch');
       }
     }
-    if ($(el, '[data-atropos-opacity]')) {
+    if ($(childrenRootEl, '[data-atropos-opacity]')) {
       setChildrenOffset({ opacityOnly: true });
     }
     $on(document, 'click', onDocumentClick);

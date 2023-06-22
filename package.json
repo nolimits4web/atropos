@@ -14,6 +14,7 @@
     "react": "npm run build:dev && concurrently --kill-others \"vite ./playground/react\" \"npm run watch:dev\"",
     "vue": "npm run build:dev && concurrently --kill-others \"vite ./playground/vue\" \"npm run watch:dev\"",
     "svelte": "npm run build:dev && concurrently --kill-others \"vite ./playground/svelte\" \"npm run watch:dev\"",
+    "element": "npm run build:dev && concurrently --kill-others \"vite ./playground/element\" \"npm run watch:dev\"",
     "/*============ Tooling ============*/": "============",
     "prettier": "prettier \"**/*.+(js|json|scss|css|less|ts|svelte|jsx)\"",
     "format": "npm run prettier -- --write",
@@ -57,7 +58,7 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "exec-sh": "^0.4.0",
-    "fs-extra": "^10.0.0",
+    "fs-extra": "^10.1.0",
     "inquirer": "^8.1.1",
     "less": "^4.1.1",
     "npm-run-all": "^4.1.5",
@@ -69,7 +70,7 @@
     "rollup": "^2.52.1",
     "serve": "^11.3.2",
     "svelte": "^3.43.1",
-    "terser": "^5.7.0",
+    "terser": "^5.18.1",
     "vite": "^2.3.7",
     "vue": "^3.1.1"
   }

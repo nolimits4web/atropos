@@ -1,0 +1,10 @@
+{
+  "name": "atropos/element",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./element": "./atropos-element.esm.js",
+    "./element/browser": "./atropos-element.esm.min.js"
+  },
+  "sideEffects": false
+}
