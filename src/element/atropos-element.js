@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 // eslint-disable-next-line import/no-named-as-default
-import Atropos from '../atropos.js';
+import Atropos, { defaults } from '../atropos.js';
 import styles from '../atropos.less';
 
 class AtroposComponent extends HTMLElement {
@@ -20,23 +20,7 @@ class AtroposComponent extends HTMLElement {
 
   init() {
     const defaultProps = {
-      alwaysActive: false,
-      activeOffset: 50,
-      shadowOffset: 50,
-      shadowScale: 1,
-      duration: 300,
-      rotate: true,
-      rotateTouch: true,
-      rotateXMax: 15,
-      rotateYMax: 15,
-      rotateXInvert: false,
-      rotateYInvert: false,
-      stretchX: 0,
-      stretchY: 0,
-      stretchZ: 0,
-      commonOrigin: true,
-      shadow: true,
-      highlight: true,
+      ...defaults,
     };
 
     const props = {};
