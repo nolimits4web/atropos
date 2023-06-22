@@ -9,7 +9,25 @@ const removeUndefinedProps = (obj = {}) => {
   });
   return result;
 };
-
+export const defaults = {
+  alwaysActive: false,
+  activeOffset: 50,
+  shadowOffset: 50,
+  shadowScale: 1,
+  duration: 300,
+  rotate: true,
+  rotateTouch: true,
+  rotateXMax: 15,
+  rotateYMax: 15,
+  rotateXInvert: false,
+  rotateYInvert: false,
+  stretchX: 0,
+  stretchY: 0,
+  stretchZ: 0,
+  commonOrigin: true,
+  shadow: true,
+  highlight: true,
+};
 function Atropos(originalParams = {}) {
   let { el, eventsEl } = originalParams;
   const { isComponent } = originalParams;
@@ -17,23 +35,7 @@ function Atropos(originalParams = {}) {
   const self = {
     __atropos__: true,
     params: {
-      alwaysActive: false,
-      activeOffset: 50,
-      shadowOffset: 50,
-      shadowScale: 1,
-      duration: 300,
-      rotate: true,
-      rotateTouch: true,
-      rotateXMax: 15,
-      rotateYMax: 15,
-      rotateXInvert: false,
-      rotateYInvert: false,
-      stretchX: 0,
-      stretchY: 0,
-      stretchZ: 0,
-      commonOrigin: true,
-      shadow: true,
-      highlight: true,
+      ...defaults,
       onEnter: null,
       onLeave: null,
       onRotate: null,

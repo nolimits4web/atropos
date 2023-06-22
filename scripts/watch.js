@@ -21,7 +21,9 @@ const watchFunction = async (fileName) => {
   //   await buildTypes();
   //   return;
   // }
-
+  if (fileName.includes('tmp') || fileName === 'element') {
+    return;
+  }
   if (fileName.includes('react')) {
     console.log('Building React');
     buildReact();
@@ -32,14 +34,15 @@ const watchFunction = async (fileName) => {
     buildVue();
     return;
   }
+  if (fileName.includes('element')) {
+    console.log({ fileName });
+    console.log('Building Element');
+    buildElement();
+    return;
+  }
   if (fileName.includes('.js')) {
     console.log('Building scripts');
     await buildJs();
-    return;
-  }
-  if (fileName.includes('element')) {
-    console.log('Building Element');
-    buildElement();
     return;
   }
 
