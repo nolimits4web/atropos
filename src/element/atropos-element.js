@@ -58,8 +58,11 @@ class AtroposComponent extends HTMLElement {
             <div class="${innerClass}" part="inner">
               <slot></slot>
             </div>
+            <slot name="rotate"></slot>
           </div>
+          <slot name="scale"></slot>
         </div>
+        <slot name="root"></slot>
    `;
     this.shadow.innerHTML = '';
 
