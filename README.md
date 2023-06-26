@@ -6,7 +6,7 @@
 
 Atropos is a lightweight, free and open-source JavaScript library to create stunning touch-friendly 3D parallax hover effects.
 
-Available for JavaScript and React
+Available for JavaScript, React and as a Web Component
 
 ## Community
 

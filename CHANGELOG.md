@@ -4,6 +4,8 @@
 
 ### Bug Fixes
 
+- **svelte:** unknown file extension ".svelte" ([dae9ad3](https://github.com/nolimits4web/atropos/commit/dae9ad307b92dcd28091626e25ed63b8ede2ce36))
+- add variable for linux ([f0f9c38](https://github.com/nolimits4web/atropos/commit/f0f9c384d475c87d997aafebd92f35f178e4fca7))
 
 # [1.0.1](https://github.com/nolimits4web/atropos/compare/v1.0.0-beta.1...v1.0.1) (2021-10-18)
 
@@ -57,9 +59,13 @@
 
 ### Bug Fixes
 
+- **svelte:** add default value for `class` prop ([2d05998](https://github.com/nolimits4web/atropos/commit/2d0599880870c19364752f9454c33ad4bac2c316))
+
 # [0.10.0](https://github.com/nolimits4web/atropos/compare/v0.9.6...v0.10.0) (2021-10-12)
 
 ### Features
+
+- Atropos Svelte component ([4efc4b3](https://github.com/nolimits4web/atropos/commit/4efc4b3f3d6848ceb77611f61a75e8a05b9112e8)), closes [#6](https://github.com/nolimits4web/atropos/issues/6)
 
 # [0.9.6](https://github.com/nolimits4web/atropos/compare/v0.9.5...v0.9.6) (2021-09-28)
 
