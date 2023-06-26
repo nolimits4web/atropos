@@ -6,7 +6,7 @@
 
 Atropos is a lightweight, free and open-source JavaScript library to create stunning touch-friendly 3D parallax hover effects.
 
-Available for JavaScript, React and Vue.js
+Available for JavaScript, React and as a Web Component
 
 ## Community
 
@@ -40,12 +40,11 @@ The result is available in `build/` folder.
 
 ### Running demos:
 
-All demos located in `./playground` folder. There you will find Core (HTML, JS), React, Vue, Svelte and Angular versions.
+All demos located in `./playground` folder. There you will find Core (HTML, JS), React and Angular versions.
 To open demo, run:
 
 - **Core**: `npm run core`
 - **React**: `npm run react`
-- **Vue**: `npm run vue`
 
 ### Production Build
 

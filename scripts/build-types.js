@@ -22,23 +22,6 @@ async function build(cb) {
     reactContent,
   );
 
-  // vue
-  const vueContent = fs.readFileSync(
-    path.resolve(__dirname, '../src/vue/atropos-vue.d.ts'),
-    'utf-8',
-  );
-  fs.writeFileSync(path.resolve(__dirname, `../${outputDir}/vue/atropos-vue.d.ts`), vueContent);
-
-  // svelte
-  const svelteContent = fs.readFileSync(
-    path.resolve(__dirname, '../src/svelte/atropos-svelte.d.ts'),
-    'utf-8',
-  );
-  fs.writeFileSync(
-    path.resolve(__dirname, `../${outputDir}/svelte/atropos-svelte.d.ts`),
-    svelteContent,
-  );
-
   console.log('Types build completed!');
 }
 

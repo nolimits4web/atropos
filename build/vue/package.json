@@ -1,8 +1,0 @@
-{
-  "name": "atropos/vue",
-  "private": true,
-  "type": "module",
-  "exports": "./atropos-vue.esm.js",
-  "types": "./atropos-vue.d.ts",
-  "sideEffects": false
-}

@@ -5,7 +5,6 @@ const buildJs = require('./build-js');
 // const buildTypes = require('./build-types');
 const buildStyles = require('./build-styles');
 const buildReact = require('./build-react');
-const buildVue = require('./build-vue');
 const buildElement = require('./build-element');
 
 console.log(chalk.cyan('Watching file changes ...'));
@@ -27,11 +26,6 @@ const watchFunction = async (fileName) => {
   if (fileName.includes('react')) {
     console.log('Building React');
     buildReact();
-    return;
-  }
-  if (fileName.includes('vue')) {
-    console.log('Building Vue');
-    buildVue();
     return;
   }
   if (fileName.includes('element')) {
