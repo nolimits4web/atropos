@@ -1,8 +1,0 @@
-{
-  "name": "atropos/svelte",
-  "private": true,
-  "type": "module",
-  "exports": "./atropos-svelte.svelte",
-  "types": "./atropos-svelte.d.ts",
-  "sideEffects": false
-}

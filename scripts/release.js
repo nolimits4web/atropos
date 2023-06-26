@@ -94,8 +94,6 @@ async function release() {
     'rm -rf *.less',
     'rm -rf **/*.scss',
     'rm -rf *.scss',
-    'rm -rf **/*.vue',
-    'rm -rf *.vue',
   ];
 
   // await exec.promise('git pull');

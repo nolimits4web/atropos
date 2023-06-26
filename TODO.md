@@ -1,3 +1,3 @@
 - core typings
 - react typings
-- vue typings?
+
