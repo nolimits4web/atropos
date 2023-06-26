@@ -53,8 +53,8 @@ class AtroposComponent extends HTMLElement {
     el.classList.add('atropos');
 
     el.innerHTML = `
-        <div class="atropos-scale">
-          <div class="atropos-rotate">
+        <div class="atropos-scale" part="scale">
+          <div class="atropos-rotate" part="rotate">
             <div class="${innerClass}" part="inner">
               <slot></slot>
             </div>
