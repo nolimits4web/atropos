@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 // eslint-disable-next-line
-import AtroposCore from '../esm/atropos.esm.js';
+import AtroposCore from './atropos.mjs';
 
 const paramsKeys = [
   'eventsEl',
