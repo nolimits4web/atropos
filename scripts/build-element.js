@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
 const fs = require('fs-extra');
 const less = require('less');
 const CleanCSS = require('clean-css');
@@ -10,13 +8,11 @@ const replace = require('@rollup/plugin-replace');
 
 const banner = require('./banner')();
 
-async function buildElement(format, browser) {
+async function buildElement(format) {
   const env = process.env.NODE_ENV || 'development';
   const outputDir = env === 'development' ? 'build' : 'package';
-  const external = format === 'umd' || browser ? [] : (m) => !m.includes('atropos-element.js');
-  let filename = 'atropos-element';
-  if (format !== 'umd') filename += `.${format}`;
-  if (format === 'esm' && browser) filename = 'atropos-element.esm';
+  const filename = 'atropos-element';
+  const ext = format === 'esm' ? 'mjs' : 'js';
   try {
     const data = fs.readFileSync('src/atropos.less', 'utf-8');
     let minifiedCss;
@@ -45,12 +41,10 @@ async function buildElement(format, browser) {
 
     const bundle = await rollup({
       input: './src/element/atropos-element-tmp.js',
-      external,
       plugins: [
         replace({
           delimiters: ['', ''],
           'process.env.FORMAT': JSON.stringify(format),
-          'process.env.BROWSER': browser,
           ...(format === 'esm'
             ? {
                 "customElements.define('atropos-component', AtroposComponent);":
@@ -60,8 +54,7 @@ async function buildElement(format, browser) {
         }),
       ],
     });
-    fs.ensureDirSync(`./${outputDir}/element/`);
-    const outputFile = path.join(`./${outputDir}/element/`, `${filename}.js`);
+    const outputFile = path.join(`./${outputDir}/`, `${filename}.${ext}`);
 
     await bundle.write({
       file: outputFile,
@@ -73,7 +66,7 @@ async function buildElement(format, browser) {
     const updateFile = 'src/element/atropos-element-tmp.js';
     fs.removeSync(updateFile);
 
-    if (env === 'development' || !browser) {
+    if (env === 'development') {
       return;
     }
     // Minify with Terser
@@ -84,11 +77,10 @@ async function buildElement(format, browser) {
           preamble: banner,
         },
       });
-      const minifiedOutputFile = path.join(`./${outputDir}/element/`, `${filename}.min.js`);
+      const minifiedOutputFile = path.join(`./${outputDir}/`, `${filename}.min.${ext}`);
       fs.writeFileSync(minifiedOutputFile, minifiedCode.code);
     } catch (err) {
       console.error(`Terser failed: ${err.toString()}`);
-      return;
     }
   } catch (err) {
     console.error('Error:', err);
@@ -96,11 +88,7 @@ async function buildElement(format, browser) {
 }
 
 async function build() {
-  await Promise.all([
-    buildElement('esm', false),
-    buildElement('esm', true),
-    buildElement('umd', true),
-  ]);
+  await Promise.all([buildElement('esm'), buildElement('umd')]);
   console.log('Element build completed!');
 }
 

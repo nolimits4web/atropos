@@ -17,10 +17,14 @@ async function build(cb) {
     path.resolve(__dirname, '../src/react/atropos-react.d.ts'),
     'utf-8',
   );
-  fs.writeFileSync(
-    path.resolve(__dirname, `../${outputDir}/react/atropos-react.d.ts`),
-    reactContent,
+  fs.writeFileSync(path.resolve(__dirname, `../${outputDir}/atropos-react.d.ts`), reactContent);
+
+  // element
+  const elementContent = fs.readFileSync(
+    path.resolve(__dirname, '../src/element/atropos-element.d.ts'),
+    'utf-8',
   );
+  fs.writeFileSync(path.resolve(__dirname, `../${outputDir}/atropos-element.d.ts`), elementContent);
 
   console.log('Types build completed!');
 }

@@ -5,25 +5,35 @@
   "types": "atropos.d.ts",
   "type": "module",
   "exports": {
-    ".": "./esm/atropos.esm.js",
-    "./esm": "./esm/atropos.esm.js",
-    "./esm/atropos.esm.js": "./esm/atropos.esm.js",
-    "./esm/browser": "./esm/atropos.esm.browser.js",
-    "./esm/browser/min": "./esm/atropos.esm.browser.min.js",
-    "./react": "./react/atropos-react.esm.js",
+    ".": {
+      "types": "./atropos.d.ts",
+      "default": "./atropos.mjs"
+    },
+    "./react": {
+      "types": "./atropos-react.d.ts",
+      "default": "./atropos-react.esm.mjs"
+    },
+    "./element": {
+      "types": "./atropos-element.d.ts",
+      "default": "./atropos-element.mjs"
+    },
+    "./atropos.js": {
+      "types": "./atropos.d.ts",
+      "default": "./atropos.js"
+    },
+    "./atropos.min.js": {
+      "types": "./atropos.d.ts",
+      "default": "./atropos.min.js"
+    },
     "./css": "./atropos.css",
     "./css/min": "./atropos.min.css",
     "./less": "./atropos.less",
     "./scss": "./atropos.scss",
-    "./atropos.js": "./atropos.js",
-    "./atropos.min.js": "./atropos.min.js",
     "./atropos.css": "./atropos.css",
     "./atropos.min.css": "./atropos.min.css",
     "./atropos.less": "./atropos.less",
     "./atropos.scss": "./atropos.scss",
-    "./package.json": "./package.json",
-    "./element":"./element/atropos-element.esm.js",
-    "./element/browser": "./element/atropos-element.esm.min.js"
+    "./package.json": "./package.json"
   },
   "repository": {
     "type": "git",

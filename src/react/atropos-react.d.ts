@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { AtroposOptions } from '../';
+// prettier-ignore
+import type { AtroposOptions } from './atropos.d.ts';
 
 interface Atropos extends AtroposOptions {
   component?: string;

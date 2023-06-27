@@ -5,18 +5,17 @@ const fs = require('fs-extra');
 const bannerReact = require('./banner')('React');
 
 module.exports = async () => {
-  const format = 'esm';
   const env = process.env.NODE_ENV || 'development';
   const outputDir = env === 'development' ? 'build' : 'package';
 
   await exec(
-    `cross-env MODULES=${format} npx babel --config-file ./babel.config.react.js src/react/atropos-react.js --out-file ${outputDir}/react/atropos-react.${format}.js`,
+    `cross-env MODULES=esm npx babel --config-file ./babel.config.react.js src/react/atropos-react.js --out-file ${outputDir}/atropos-react.mjs`,
   );
 
   // Add banner
-  let fileContent = await fs.readFile(`./${outputDir}/react/atropos-react.${format}.js`, 'utf-8');
+  let fileContent = await fs.readFile(`./${outputDir}/atropos-react.mjs`, 'utf-8');
   fileContent = `${bannerReact}\n${fileContent}`;
-  await fs.writeFile(`./${outputDir}/react/atropos-react.${format}.js`, fileContent);
+  await fs.writeFile(`./${outputDir}/atropos-react.mjs`, fileContent);
 
   console.log('React build completed!');
 };

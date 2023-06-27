@@ -1,8 +1,0 @@
-{
-  "name": "atropos/react",
-  "private": true,
-  "type": "module",
-  "exports": "./atropos-react.esm.js",
-  "types": "./atropos-react.d.ts",
-  "sideEffects": false
-}
