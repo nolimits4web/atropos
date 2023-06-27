@@ -1,6 +1,6 @@
 {
   "name": "atropos",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Touch-friendly 3D parallax hover effects",
   "types": "atropos.d.ts",
   "type": "module",
@@ -11,7 +11,7 @@
     },
     "./react": {
       "types": "./atropos-react.d.ts",
-      "default": "./atropos-react.esm.mjs"
+      "default": "./atropos-react.mjs"
     },
     "./element": {
       "types": "./atropos-element.d.ts",
