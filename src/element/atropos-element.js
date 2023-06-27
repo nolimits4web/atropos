@@ -87,7 +87,6 @@ class AtroposComponent extends HTMLElement {
         this.dispatchEvent(new CustomEvent('rotate', { detail: args }));
       },
     });
-    console.log('AtroposCore instance:', this.atroposRef);
   }
 
   destroy() {
