@@ -1,5 +1,5 @@
 import React from 'react';
-import Atropos from '../../build/react';
+import Atropos from '../../build/atropos-react.mjs';
 
 const App = () => {
   return (

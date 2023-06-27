@@ -106,6 +106,7 @@ build/*.css
 build/*.less
 build/*.scss
 build/**/*.js
+build/**/*.mjs
 build/**/*.ts
 build/*.map
 package/*.css
