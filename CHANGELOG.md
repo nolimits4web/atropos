@@ -1,5 +1,13 @@
 # Changelog
 
+# [2.0.0](https://github.com/nolimits4web/atropos/compare/v1.0.2...v2.0.0) (2023-06-27)
+
+### Features
+
+- add Atropos web component ([cef009b](https://github.com/nolimits4web/atropos/commit/cef009b8816012efbaa9ba08de3267fa5da1ee6d))
+- add element types + refactor package structure ([57108fa](https://github.com/nolimits4web/atropos/commit/57108faf8a2fe5febc247244a4857a40ef076322))
+- remove Vue and Svelte components ([#40](https://github.com/nolimits4web/atropos/issues/40)) ([9850bf7](https://github.com/nolimits4web/atropos/commit/9850bf7ee3b99f4b25be6fbefe55554d12342bd9))
+
 # [1.0.2](https://github.com/nolimits4web/atropos/compare/v1.0.1...v1.0.2) (2022-02-17)
 
 ### Bug Fixes

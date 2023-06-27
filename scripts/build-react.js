@@ -7,7 +7,6 @@ const bannerReact = require('./banner')('React');
 module.exports = async () => {
   const env = process.env.NODE_ENV || 'development';
   const outputDir = env === 'development' ? 'build' : 'package';
-
   await exec(
     `cross-env MODULES=esm npx babel --config-file ./babel.config.react.js src/react/atropos-react.js --out-file ${outputDir}/atropos-react.mjs`,
   );

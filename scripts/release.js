@@ -1,12 +1,13 @@
-/* eslint-disable no-await-in-loop */
+/* eslint-disable */
 const exec = require('exec-sh');
-const inquirer = require('inquirer');
 const fs = require('fs');
 const path = require('path');
 const pkg = require('../package.json');
 const childPkg = require('../package/package.json');
 
 async function release() {
+  // eslint-disable-next-line
+  const { default: inquirer } = await import('inquirer');
   const date = new Date();
   const formatter = new Intl.DateTimeFormat('en', {
     day: 'numeric',
