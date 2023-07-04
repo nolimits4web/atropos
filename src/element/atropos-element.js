@@ -66,10 +66,17 @@ class AtroposComponent extends HTMLElement {
    `;
     this.shadow.innerHTML = '';
 
-    // eslint-disable-next-line no-restricted-globals
-    const styleSheet = new CSSStyleSheet();
-    styleSheet.replaceSync(styles);
-    this.shadow.adoptedStyleSheets = [styleSheet];
+    if (typeof CSSStyleSheet !== 'undefined' && this.shadow.adoptedStyleSheets) {
+      // eslint-disable-next-line no-restricted-globals
+      const styleSheet = new CSSStyleSheet();
+      styleSheet.replaceSync(styles);
+      this.shadow.adoptedStyleSheets = [styleSheet];
+    } else {
+      const styleEl = document.createElement('style');
+      styleEl.rel = 'stylesheet';
+      styleEl.textContent = styles;
+      this.shadow.appendChild(styleEl);
+    }
 
     this.shadow.appendChild(el);
 
