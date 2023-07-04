@@ -35,6 +35,16 @@
     "./atropos.scss": "./atropos.scss",
     "./package.json": "./package.json"
   },
+  "typesVersions": {
+    "*": {
+      "react": [
+        "./atropos-react.d.ts"
+      ],
+      ".": [
+        "./atropos.d.ts"
+      ]
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/nolimits4web/atropos.git"
