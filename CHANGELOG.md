@@ -1,5 +1,17 @@
 # Changelog
 
+# [2.0.2](https://github.com/nolimits4web/atropos/compare/v2.0.1...v2.0.2) (2023-07-04)
+
+### Bug Fixes
+
+- **types:** add compatibility with old resolver ([e1d24e9](https://github.com/nolimits4web/atropos/commit/e1d24e9df172bce6271e919f470ea16e4a7889dd)), closes [#41](https://github.com/nolimits4web/atropos/issues/41)
+
+
+### Features
+
+- **element:** fallback where adoptedStyleSheets is not supported ([f5a472e](https://github.com/nolimits4web/atropos/commit/f5a472e2efb16c801116efe3dc7b3c786cfbcaeb))
+
+
 # [2.0.1](https://github.com/nolimits4web/atropos/compare/v1.0.2...v2.0.0) (2023-06-27)
 
 ### Features
