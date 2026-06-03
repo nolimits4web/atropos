@@ -60,6 +60,14 @@ function Atropos(originalParams = {}) {
   let isScrolling;
   let clientXStart;
   let clientYStart;
+  let lastClientX;
+  let lastClientY;
+  const onWindowPointerMove = (e) => {
+    if (e.pointerType === 'mouse') {
+      lastClientX = e.clientX;
+      lastClientY = e.clientY;
+    }
+  };
 
   const queue = [];
   let queueFrameId;
@@ -389,6 +397,35 @@ function Atropos(originalParams = {}) {
     }
   };
 
+  const handleScroll = () => {
+    if (typeof lastClientX === 'undefined' || typeof lastClientY === 'undefined') return;
+    const rect = eventsEl.getBoundingClientRect();
+    const { top, left, width, height } = rect;
+    const inX = lastClientX >= left && lastClientX <= left + width;
+    const inY = lastClientY >= top && lastClientY <= top + height;
+
+    if (inX && inY) {
+      if (!self.isActive) {
+        onPointerEnter({
+          type: 'pointerenter',
+          pointerType: 'mouse',
+          clientX: lastClientX,
+          clientY: lastClientY,
+        });
+      }
+      elBoundingClientRect = undefined;
+      eventsElBoundingClientRect = undefined;
+      setElements(lastClientX, lastClientY);
+    } else if (self.isActive) {
+      onPointerLeave({
+        type: 'pointerleave',
+        pointerType: 'mouse',
+        clientX: lastClientX,
+        clientY: lastClientY,
+      });
+    }
+  };
+
   const initDOM = () => {
     if (typeof el === 'string') {
       el = $(document, el);
@@ -446,6 +483,8 @@ function Atropos(originalParams = {}) {
     $on(eventsEl, 'pointerleave', onPointerLeave);
     $on(eventsEl, 'pointerup', onPointerLeave);
     $on(eventsEl, 'lostpointercapture', onPointerLeave);
+    $on(window, 'scroll', handleScroll);
+    $on(window, 'pointermove', onWindowPointerMove);
 
     if (params.alwaysActive) {
       activate();
@@ -464,6 +503,8 @@ function Atropos(originalParams = {}) {
     $off(eventsEl, 'pointerleave', onPointerLeave);
     $off(eventsEl, 'pointerup', onPointerLeave);
     $off(eventsEl, 'lostpointercapture', onPointerLeave);
+    $off(window, 'scroll', handleScroll);
+    $off(window, 'pointermove', onWindowPointerMove);
     // eslint-disable-next-line
     delete el.__atropos__;
   };
