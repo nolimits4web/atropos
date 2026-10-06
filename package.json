@@ -21,7 +21,8 @@
     "validate": "npm-run-all --parallel check-format lint",
     "release": "npm run validate && node ./scripts/release",
     "changelog": "npx conventional-changelog -p angular -i CHANGELOG.md -u -s",
-    "test": "npm run validate && npm run build:prod"
+    "test": "npm run validate && npm run build:prod",
+    "build-sponsors": "node scripts/build-sponsors.mjs"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,16 @@
     "url": "https://github.com/nolimits4web/atropos/issues"
   },
   "homepage": "https://atroposjs.com",
+  "funding": [
+    {
+      "type": "custom",
+      "url": "https://sponsors.nolimits4web.com/#atropos"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/nolimits4web"
+    }
+  ],
   "devDependencies": {
     "@babel/cli": "^7.22.5",
     "@babel/core": "^7.22.5",

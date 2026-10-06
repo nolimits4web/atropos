@@ -59,3 +59,10 @@ Production version will available in `package/` folder.
 ## Contributing
 
 All changes should be committed to `src/` files only. Before you open an issue please review the [contributing](https://github.com/nolimits4web/atropos/blob/master/CONTRIBUTING.md) guideline.
+
+## Sponsors
+
+Support Atropos development by [Becoming a Sponsor](https://sponsors.nolimits4web.com/#atropos) or via [GitHub Sponsors](https://github.com/sponsors/nolimits4web). Your logo will be featured here, in [BACKERS.md](https://github.com/nolimits4web/atropos/blob/master/BACKERS.md) and on the [Atropos website](https://atroposjs.com/sponsors).
+
+<!-- SPONSORS_TABLE_WRAP -->
+<!-- SPONSORS_TABLE_WRAP -->
